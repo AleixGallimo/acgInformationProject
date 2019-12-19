@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.acgInformation.mapper.IArticleMapper">
+    <resultMap id="ArticleMap" type="Article">
+        <id property="aId" column="a_id"/>
+        <result property="aType" column="a_type"/>
+        <result property="title" column="a_title"/>
+        <result property="aText" column="a_text"/>
+        <result property="aPic" column="a_pic"/>
+        <result property="aAuthor" column="a_author"/>
+        <result property="aLike" column="a_like"/>
+        <result property="aRead" column="a_read"/>
+        <result property="aDate" column="a_date"/>
+        <result property="aState" column="a_state"/>
+    </resultMap>
+    <select id="getArticleByKeyWords" resultMap="ArticleMap">
+      select * from article where a_title like concat('%',#{keyWords},'%');
+    </select>
+</mapper>
