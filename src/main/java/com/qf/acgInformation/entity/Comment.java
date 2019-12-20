@@ -2,7 +2,6 @@ package com.qf.acgInformation.entity;
 
 import lombok.Data;
 
-import java.util.List;
 
 /**
  * 评论实体类
