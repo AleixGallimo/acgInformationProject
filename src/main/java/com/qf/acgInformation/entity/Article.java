@@ -30,4 +30,21 @@ public class Article {
     private String aDate;
     //文章核审状态(1默认核审状态，2通过核审，0不通过)
     private Integer aState;
+
+    public Article() {
+    }
+
+    public Article(String aType, String title, String aText, String aPic, Integer aAuthor, String aDate) {
+        this.aType = aType;
+        this.title = title;
+        this.aText = aText;
+        this.aPic = aPic;
+        this.aAuthor = aAuthor;
+        this.aDate = aDate;
+    }
+
+    public Article(Integer aId , Integer aState) {
+        this.aId = aId;
+        this.aState = aState;
+    }
 }
