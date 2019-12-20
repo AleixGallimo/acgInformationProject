@@ -23,7 +23,36 @@ public class CommentServiceImpl implements ICommentService {
      * @return              评论集合
      */
     @Override
-    public List<Comment> getCommentByArticleId(Integer articleId) {
-        return commentMapper.getCommentByArticleId(articleId);
+    public List<Comment> getCommentByArticleId(Integer articleId, Integer offset, Integer pageSize) {
+        return commentMapper.getCommentByArticleId(articleId, offset, pageSize).isEmpty() ? null : commentMapper.getCommentByArticleId(articleId, offset, pageSize);
+    }
+
+    /**
+     * 根据评论id删除当条评论
+     * @param commentId
+     * @return
+     */
+    @Override
+    public Integer deleteCommentByCommentId(Integer commentId) {
+        return null;
+    }
+
+    /**
+     * 添加评论
+     * @param comment   评论对象
+     * @return          影响行数
+     */
+    @Override
+    public Integer addComment(Comment comment) {
+        return commentMapper.addComment(comment);
+    }
+
+    /**
+     * 管理员专用 -- 获取所有文章评论
+     * @return
+     */
+    @Override
+    public List<Comment> getAllComment() {
+        return commentMapper.getAllComment().isEmpty() ? null : commentMapper.getAllComment();
     }
 }

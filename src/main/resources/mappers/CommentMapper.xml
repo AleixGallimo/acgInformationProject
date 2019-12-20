@@ -13,10 +13,23 @@
                 property="user"
                 ofType="User"
                 column="c_uid"
-                select="com.qf.acgInformation.mapper.IChenTestUserMapper.getUserByUserId"
+                select="com.qf.acgInformation.mapper.IUserMapper.findUserById"
         />
     </resultMap>
+
     <select id="getCommentByArticleId" resultMap="commentMap">
-        select * from comment where c_aid = #{articleId} and is_delete = 1;
+        select * from comment where c_aid = #{articleId} and is_delete = 1 limit #{offset},#{pageSize};
     </select>
+
+    <select id="getAllComment" resultMap="commentMap">
+        select * from comment where is_delete = 1;
+    </select>
+
+    <update id="deleteCommentByCommentId">
+        update comment set is_delete = 0 where c_id = #{commentId};
+    </update>
+
+    <insert id="addComment" parameterType="Comment">
+        insert into comment(c_text, c_uid, c_aid) values(#{comment.cText}, #{comment.cUid}, #{comment.cAid});
+    </insert>
 </mapper>
