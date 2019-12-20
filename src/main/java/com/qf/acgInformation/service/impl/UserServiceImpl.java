@@ -6,7 +6,6 @@ import com.qf.acgInformation.service.IUserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -14,7 +13,18 @@ public class UserServiceImpl implements IUserService {
     @Resource
     private IUserMapper userMapper;
     @Override
-    public List<User> findUserById(Integer uid) {
+    public User findUserById(Integer uid) {
         return userMapper.findUserById(uid);
+    }
+
+    @Override
+    public void updateUser(User user) {
+       userMapper.updateUser(user);
+    }
+
+    @Override
+    public User findNameAndPic(Integer uid) {
+       return userMapper.findNameAndPic(uid);
+
     }
 }

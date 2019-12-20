@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.qf.acgInformation.mapper.IUserMapper">
+<mapper namespace="com.qf.acgInformation.mapper.IUserRightMapper">
     <resultMap id="userMap" type="User">
         <id property="uId" column="u_id"/>
         <result property="uAccount" column="u_account"/>
@@ -16,16 +16,15 @@
         <result property="uAuthority" column="u_authority"/>
     </resultMap>
 
-    <select id="findUserById" resultMap="userMap">
-        select * from user where u_id = #{uId};
+    <select id="isVIP" resultMap="userMap">
+        select u_authority from user where u_id = #{uId};
     </select>
 
-    <update id="updateUser" parameterType="user">
-        update user set u_account=#{uAccount},u_password=#{uPassword},u_name=#{uName},u_pic=#{uPic},
-        u_email=#{uEmail},u_birth=#{uBirth},u_sex=#{uSex},u_brief=#{uBrief},u_money=#{uMoney};
+    <update id="BuyVIP" parameterType="int">
+        update user set u_money = u_money - 100 where u_id = #{uId};
     </update>
 
-    <select id="findNameAndPic" resultMap="userMap">
-        select u_name,u_pic from user where u_id = #{uId};
-    </select>
+    <update id="updateUserRight" parameterType="int">
+        update user set u_authority = 2 where u_id = #{uId};
+    </update>
 </mapper>

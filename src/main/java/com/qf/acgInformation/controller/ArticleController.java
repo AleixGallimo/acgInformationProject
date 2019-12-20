@@ -1,4 +1,4 @@
-package com.qf.acgInformation.Controller;
+package com.qf.acgInformation.controller;
 
 import com.qf.acgInformation.entity.Article;
 import com.qf.acgInformation.service.IArticleService;

@@ -1,0 +1,508 @@
+<html xmlns="http://www.w3.org/1999/xhtml" class="wp-toolbar" lang="zh-CN"><!--<![endif]--><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>个人资料 ‹ 漫资讯 — WordPress</title>
+    <script src="https://www.dongmanzx.com/wp-includes/js/zxcvbn.min.js" type="text/javascript" async=""></script><script type="text/javascript">
+    addLoadEvent = function(func){if(typeof jQuery!="undefined")jQuery(document).ready(func);else if(typeof wpOnload!='function'){wpOnload=func;}else{var oldonload=wpOnload;wpOnload=function(){oldonload();func();}}};
+    var ajaxurl = '/wp-admin/admin-ajax.php',
+        pagenow = 'profile',
+        typenow = '',
+        adminpage = 'profile-php',
+        thousandsSeparator = ',',
+        decimalPoint = '.',
+        isRtl = 0;
+</script>
+<!--    <meta name="viewport" content="width=device-width,initial-scale=1.0">-->
+<!--    <link rel="stylesheet" href="https://www.dongmanzx.com/wp-admin/load-styles.php?c=0&amp;dir=ltr&amp;load%5B%5D=dashicons,admin-bar,common,forms,admin-menu,dashboard,list-tables,edit,revisions,media,themes,about,nav-menus,wp-pointer,widgets&amp;load%5B%5D=,site-icon,l10n,buttons,wp-auth-check&amp;ver=4.9.13" type="text/css" media="all">-->
+<!--    <link rel="stylesheet" id="thickbox-css" href="https://www.dongmanzx.com/wp-includes/js/thickbox/thickbox.css?ver=4.9.13" type="text/css" media="all">-->
+<!--    <link rel="stylesheet" id="colors-css" href="https://www.dongmanzx.com/wp-admin/css/colors/ocean/colors.min.css?ver=4.9.13" type="text/css" media="all">-->
+<!--    &lt;!&ndash;[if lte IE 7]>-->
+<!--    <link rel='stylesheet' id='ie-css'  href='https://www.dongmanzx.com/wp-admin/css/ie.min.css?ver=4.9.13' type='text/css' media='all' />-->
+<!--    <![endif]&ndash;&gt;-->
+<!--    <link rel="stylesheet" id="metabox_fields_css-css" href="https://www.dongmanzx.com/wp-content/themes/Grace8.0/includes/meta/metabox_fields.css?ver=4.9.13" type="text/css" media="all">-->
+<!--    <link rel="stylesheet" id="wp-user-avatar-css" href="https://www.dongmanzx.com/wp-content/plugins/wp-user-avatar/css/wp-user-avatar.css?ver=2.1.1" type="text/css" media="all">-->
+<!--    <link rel="stylesheet" id="tiny-compress-images_admin-css" href="https://www.dongmanzx.com/wp-content/plugins/tiny-compress-images/src/css/admin.css?ver=3.0.1" type="text/css" media="all">-->
+<!--    <link rel="stylesheet" id="tiny-compress-images_chart-css" href="https://www.dongmanzx.com/wp-content/plugins/tiny-compress-images/src/css/chart.css?ver=3.0.1" type="text/css" media="all">-->
+<!--    <script>if (document.location.protocol != "https:") {document.location = document.URL.replace(/^http:/i, "https:");}</script>-->
+<!--    <script type="text/javascript">-->
+<!--        /* <![CDATA[ */-->
+<!--        var userSettings = {"url":"\/","uid":"200","time":"1576812795","secure":"1"};var _zxcvbnSettings = {"src":"https:\/\/www.dongmanzx.com\/wp-includes\/js\/zxcvbn.min.js"};/* ]]> */-->
+<!--    </script>-->
+<!--    <script type="text/javascript" src="https://www.dongmanzx.com/wp-admin/load-scripts.php?c=0&amp;load%5B%5D=jquery-core,jquery-migrate,utils,zxcvbn-async&amp;ver=4.9.13"></script>-->
+<!--    <script type="text/javascript" src="https://www.dongmanzx.com/wp-content/themes/Grace8.0/includes/meta/metabox_fields.js?ver=4.9.13"></script>-->
+<!--    <link id="wp-admin-canonical" rel="canonical" href="https://www.dongmanzx.com/wp-admin/profile.php">-->
+<!--    <script>-->
+<!--        if ( window.history.replaceState ) {-->
+<!--            window.history.replaceState( null, null, document.getElementById( 'wp-admin-canonical' ).href + window.location.hash );-->
+<!--        }-->
+<!--    </script>-->
+<!--    <script type="text/javascript">var _wpColorScheme = {"icons":{"base":"#f2fcff","focus":"#fff","current":"#fff"}};</script>-->
+<!--    <style type="text/css" media="print">#wpadminbar { display:none; }</style>-->
+<!--</head>-->
+<!--<body class="wp-admin wp-core-ui js  profile-php auto-fold admin-bar branch-4-9 version-4-9-13 admin-color-ocean locale-zh-cn no-customize-support sticky-menu svg">-->
+<!--<script type="text/javascript">-->
+<!--    document.body.className = document.body.className.replace('no-js','js');-->
+<!--</script>-->
+
+
+
+
+<div id="wpwrap">
+
+    <div id="adminmenumain" role="navigation" aria-label="主页">
+        <a href="#wpbody-content" class="screen-reader-shortcut">跳至主内容</a>
+        <a href="#wp-toolbar" class="screen-reader-shortcut">跳至工具栏</a>
+        <div id="adminmenuback"></div>
+        <div id="adminmenuwrap">
+            <ul id="adminmenu">
+
+
+                <li class="wp-first-item wp-not-current-submenu menu-top menu-top-first menu-icon-dashboard menu-top-last" id="menu-dashboard">
+                    <a href="index.php" class="wp-first-item wp-not-current-submenu menu-top menu-top-first menu-icon-dashboard menu-top-last"><div class="wp-menu-arrow"><div></div></div><div class="wp-menu-image dashicons-before dashicons-dashboard"><br></div><div class="wp-menu-name">仪表盘</div></a></li>
+                <li class="wp-not-current-submenu wp-menu-separator" aria-hidden="true"><div class="separator"></div></li>
+                <li class="current menu-top menu-icon-users menu-top-first menu-top-last" id="menu-users">
+                    <a href="profile.php" class="current menu-top menu-icon-users menu-top-first menu-top-last" aria-current="page"><div class="wp-menu-arrow"><div></div></div><div class="wp-menu-image dashicons-before dashicons-admin-users"><br></div><div class="wp-menu-name">个人资料</div></a></li><li id="collapse-menu" class="hide-if-no-js"><button type="button" id="collapse-button" aria-label="折叠主菜单" aria-expanded="true"><span class="collapse-button-icon" aria-hidden="true"></span><span class="collapse-button-label">收起菜单</span></button></li></ul>
+        </div>
+    </div>
+    <div id="wpcontent">
+
+        <div id="wpadminbar" class="">
+            <div class="quicklinks" id="wp-toolbar" role="navigation" aria-label="工具栏" tabindex="0">
+                <ul id="wp-admin-bar-root-default" class="ab-top-menu">
+                    <li id="wp-admin-bar-menu-toggle"><a class="ab-item" href="#" aria-expanded="false"><span class="ab-icon"></span><span class="screen-reader-text">菜单</span></a>		</li>
+                    <li id="wp-admin-bar-wp-logo" class="menupop"><a class="ab-item" aria-haspopup="true" href="https://www.dongmanzx.com/wp-admin/about.php"><span class="ab-icon"></span><span class="screen-reader-text">关于WordPress</span></a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-wp-logo-default" class="ab-submenu">
+                        <li id="wp-admin-bar-about"><a class="ab-item" href="https://www.dongmanzx.com/wp-admin/about.php">关于WordPress</a>		</li></ul><ul id="wp-admin-bar-wp-logo-external" class="ab-sub-secondary ab-submenu">
+                        <li id="wp-admin-bar-wporg"><a class="ab-item" href="https://cn.wordpress.org/">WordPress.org</a>		</li>
+                        <li id="wp-admin-bar-documentation"><a class="ab-item" href="https://codex.wordpress.org/">文档</a>		</li>
+                        <li id="wp-admin-bar-support-forums"><a class="ab-item" href="http://zh-cn.forums.wordpress.org/">支持论坛</a>		</li>
+                        <li id="wp-admin-bar-feedback"><a class="ab-item" href="http://zh-cn.forums.wordpress.org/forum/suggestions">反馈</a>		</li></ul></div>		</li>
+                    <li id="wp-admin-bar-site-name" class="menupop"><a class="ab-item" aria-haspopup="true" href="https://www.dongmanzx.com/">漫资讯</a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-site-name-default" class="ab-submenu">
+                        <li id="wp-admin-bar-view-site"><a class="ab-item" href="https://www.dongmanzx.com/">查看站点</a>		</li></ul></div>		</li></ul><ul id="wp-admin-bar-top-secondary" class="ab-top-secondary ab-top-menu">
+                <li id="wp-admin-bar-my-account" class="menupop with-avatar"><a class="ab-item" aria-haspopup="true" href="https://www.dongmanzx.com/wp-admin/profile.php">嗨，<span class="display-name">abc</span><img src="https://www.dongmanzx.com/wp-content/plugins/wp-user-avatar/images/wpua.png" width="26" height="26" alt="" class="avatar avatar-26 wp-user-avatar wp-user-avatar-26 photo avatar-default"></a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-user-actions" class="ab-submenu">
+                    <li id="wp-admin-bar-user-info"><a class="ab-item" tabindex="-1" href="https://www.dongmanzx.com/wp-admin/profile.php"><img src="https://www.dongmanzx.com/wp-content/plugins/wp-user-avatar/images/wpua.png" width="64" height="64" alt="" class="avatar avatar-64 wp-user-avatar wp-user-avatar-64 photo avatar-default"><span class="display-name">abc</span></a>		</li>
+                    <li id="wp-admin-bar-edit-profile"><a class="ab-item" href="https://www.dongmanzx.com/wp-admin/profile.php">编辑我的个人资料</a>		</li>
+                    <li id="wp-admin-bar-logout"><a class="ab-item" href="https://www.dongmanzx.com/wp-login.php?action=logout&amp;_wpnonce=1b69f70ebc">登出</a>		</li></ul></div>		</li></ul>			</div>
+            <a class="screen-reader-shortcut" href="https://www.dongmanzx.com/wp-login.php?action=logout&amp;_wpnonce=1b69f70ebc">登出</a>
+        </div>
+
+
+        <div id="wpbody" role="main">
+
+            <div id="wpbody-content" aria-label="主内容" tabindex="0">
+                <div id="screen-meta" class="metabox-prefs">
+
+                    <div id="contextual-help-wrap" class="hidden" tabindex="-1" aria-label="“上下文帮助”选项卡">
+                        <div id="contextual-help-back"></div>
+                        <div id="contextual-help-columns">
+                            <div class="contextual-help-tabs">
+                                <ul>
+
+                                    <li id="tab-link-overview" class="active">
+                                        <a href="#tab-panel-overview" aria-controls="tab-panel-overview">
+                                            概述								</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="contextual-help-sidebar">
+                                <p><strong>更多信息：</strong></p><p><a href="https://codex.wordpress.org/Users_Your_Profile_Screen">用户资料文档</a></p><p><a href="https://wordpress.org/support/">支持论坛</a></p>					</div>
+
+                            <div class="contextual-help-tabs-wrap">
+
+                                <div id="tab-panel-overview" class="help-tab-content active">
+                                    <p>您的个人资料包含您的个人信息和账户信息，以及使用WordPress的偏好设置。</p><p>您可以修改密码、启用键盘快捷键、更换WordPress管理页面配色、关闭所见即所得编辑器等。您也可以在站点前台隐藏工具栏（曾用名：管理工具栏），但是由于它在管理页面是必须的，因此不能在管理页面隐藏。</p><p>您可以选择WordPress管理界面的语言，这不会影响到站点访客所看到的语言。</p><p>您的用户名不能更改，但是您可以在其它栏中输入真实姓名或昵称，即可决定在文章中显示哪个名字。</p><p>您可以通过点击“登出其他设备”按钮来在您的其他设备上登出，如您的手机或公共电脑。</p><p>必填项目有特殊标记，其余是选填项目。个人资料信息仅在主题需要时才可能被显示在站点前台。</p><p>在完成后不要忘记点击“更新资料”。</p>							</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="screen-meta-links">
+                    <div id="contextual-help-link-wrap" class="hide-if-no-js screen-meta-toggle">
+                        <button type="button" id="contextual-help-link" class="button show-settings" aria-controls="contextual-help-wrap" aria-expanded="false">帮助</button>
+                    </div>
+                </div>
+                <div class="update-nag"><a href="https://codex.wordpress.org/Version_5.3.2">WordPress 5.3.2</a>现已可用！请通知站点管理员。</div>
+
+                <div class="wrap" id="profile-page">
+                    <h1 class="wp-heading-inline">个人资料</h1>
+
+
+                    <hr class="wp-header-end">
+
+                    <form id="your-profile" action="https://www.dongmanzx.com/wp-admin/profile.php" method="post" novalidate="novalidate" enctype="multipart/form-data">
+                        <input type="hidden" id="_wpnonce" name="_wpnonce" value="76670146df"><input type="hidden" name="_wp_http_referer" value="/wp-admin/profile.php"><p>
+                        <input type="hidden" name="from" value="profile">
+                        <input type="hidden" name="checkuser_id" value="200">
+                    </p>
+
+                        <h2>个人设置</h2>
+
+                        <table class="form-table">
+                            <tbody><tr class="user-rich-editing-wrap">
+                                <th scope="row">可视化编辑器</th>
+                                <td><label for="rich_editing"><input name="rich_editing" type="checkbox" id="rich_editing" value="false"> 撰写文章时不使用可视化编辑器</label></td>
+                            </tr>
+                            <tr class="user-admin-color-wrap">
+                                <th scope="row">管理界面配色方案</th>
+                                <td>	<fieldset id="color-picker" class="scheme-list">
+                                    <legend class="screen-reader-text"><span>管理界面配色方案</span></legend>
+                                    <input type="hidden" id="color-nonce" name="color-nonce" value="c4093fbc1d">			<div class="color-option ">
+                                    <input name="admin_color" id="admin_color_fresh" type="radio" value="fresh" class="tog">
+                                    <input type="hidden" class="css_url" value="">
+                                    <input type="hidden" class="icon_colors" value="{&quot;icons&quot;:{&quot;base&quot;:&quot;#82878c&quot;,&quot;focus&quot;:&quot;#00a0d2&quot;,&quot;current&quot;:&quot;#fff&quot;}}">
+                                    <label for="admin_color_fresh">默认</label>
+                                    <table class="color-palette">
+                                        <tbody><tr>
+                                            <td style="background-color: #222">&nbsp;</td>
+                                            <td style="background-color: #333">&nbsp;</td>
+                                            <td style="background-color: #0073aa">&nbsp;</td>
+                                            <td style="background-color: #00a0d2">&nbsp;</td>
+                                        </tr>
+                                        </tbody></table>
+                                </div>
+                                    <div class="color-option ">
+                                        <input name="admin_color" id="admin_color_light" type="radio" value="light" class="tog">
+                                        <input type="hidden" class="css_url" value="https://www.dongmanzx.com/wp-admin/css/colors/light/colors.min.css">
+                                        <input type="hidden" class="icon_colors" value="{&quot;icons&quot;:{&quot;base&quot;:&quot;#999&quot;,&quot;focus&quot;:&quot;#ccc&quot;,&quot;current&quot;:&quot;#ccc&quot;}}">
+                                        <label for="admin_color_light">明亮</label>
+                                        <table class="color-palette">
+                                            <tbody><tr>
+                                                <td style="background-color: #e5e5e5">&nbsp;</td>
+                                                <td style="background-color: #999">&nbsp;</td>
+                                                <td style="background-color: #d64e07">&nbsp;</td>
+                                                <td style="background-color: #04a4cc">&nbsp;</td>
+                                            </tr>
+                                            </tbody></table>
+                                    </div>
+                                    <div class="color-option ">
+                                        <input name="admin_color" id="admin_color_blue" type="radio" value="blue" class="tog">
+                                        <input type="hidden" class="css_url" value="https://www.dongmanzx.com/wp-admin/css/colors/blue/colors.min.css">
+                                        <input type="hidden" class="icon_colors" value="{&quot;icons&quot;:{&quot;base&quot;:&quot;#e5f8ff&quot;,&quot;focus&quot;:&quot;#fff&quot;,&quot;current&quot;:&quot;#fff&quot;}}">
+                                        <label for="admin_color_blue">蓝色</label>
+                                        <table class="color-palette">
+                                            <tbody><tr>
+                                                <td style="background-color: #096484">&nbsp;</td>
+                                                <td style="background-color: #4796b3">&nbsp;</td>
+                                                <td style="background-color: #52accc">&nbsp;</td>
+                                                <td style="background-color: #74B6CE">&nbsp;</td>
+                                            </tr>
+                                            </tbody></table>
+                                    </div>
+                                    <div class="color-option ">
+                                        <input name="admin_color" id="admin_color_coffee" type="radio" value="coffee" class="tog">
+                                        <input type="hidden" class="css_url" value="https://www.dongmanzx.com/wp-admin/css/colors/coffee/colors.min.css">
+                                        <input type="hidden" class="icon_colors" value="{&quot;icons&quot;:{&quot;base&quot;:&quot;#f3f2f1&quot;,&quot;focus&quot;:&quot;#fff&quot;,&quot;current&quot;:&quot;#fff&quot;}}">
+                                        <label for="admin_color_coffee">咖啡</label>
+                                        <table class="color-palette">
+                                            <tbody><tr>
+                                                <td style="background-color: #46403c">&nbsp;</td>
+                                                <td style="background-color: #59524c">&nbsp;</td>
+                                                <td style="background-color: #c7a589">&nbsp;</td>
+                                                <td style="background-color: #9ea476">&nbsp;</td>
+                                            </tr>
+                                            </tbody></table>
+                                    </div>
+                                    <div class="color-option ">
+                                        <input name="admin_color" id="admin_color_ectoplasm" type="radio" value="ectoplasm" class="tog">
+                                        <input type="hidden" class="css_url" value="https://www.dongmanzx.com/wp-admin/css/colors/ectoplasm/colors.min.css">
+                                        <input type="hidden" class="icon_colors" value="{&quot;icons&quot;:{&quot;base&quot;:&quot;#ece6f6&quot;,&quot;focus&quot;:&quot;#fff&quot;,&quot;current&quot;:&quot;#fff&quot;}}">
+                                        <label for="admin_color_ectoplasm">星质</label>
+                                        <table class="color-palette">
+                                            <tbody><tr>
+                                                <td style="background-color: #413256">&nbsp;</td>
+                                                <td style="background-color: #523f6d">&nbsp;</td>
+                                                <td style="background-color: #a3b745">&nbsp;</td>
+                                                <td style="background-color: #d46f15">&nbsp;</td>
+                                            </tr>
+                                            </tbody></table>
+                                    </div>
+                                    <div class="color-option ">
+                                        <input name="admin_color" id="admin_color_midnight" type="radio" value="midnight" class="tog">
+                                        <input type="hidden" class="css_url" value="https://www.dongmanzx.com/wp-admin/css/colors/midnight/colors.min.css">
+                                        <input type="hidden" class="icon_colors" value="{&quot;icons&quot;:{&quot;base&quot;:&quot;#f1f2f3&quot;,&quot;focus&quot;:&quot;#fff&quot;,&quot;current&quot;:&quot;#fff&quot;}}">
+                                        <label for="admin_color_midnight">午夜</label>
+                                        <table class="color-palette">
+                                            <tbody><tr>
+                                                <td style="background-color: #25282b">&nbsp;</td>
+                                                <td style="background-color: #363b3f">&nbsp;</td>
+                                                <td style="background-color: #69a8bb">&nbsp;</td>
+                                                <td style="background-color: #e14d43">&nbsp;</td>
+                                            </tr>
+                                            </tbody></table>
+                                    </div>
+                                    <div class="color-option selected">
+                                        <input name="admin_color" id="admin_color_ocean" type="radio" value="ocean" class="tog" checked="checked">
+                                        <input type="hidden" class="css_url" value="https://www.dongmanzx.com/wp-admin/css/colors/ocean/colors.min.css">
+                                        <input type="hidden" class="icon_colors" value="{&quot;icons&quot;:{&quot;base&quot;:&quot;#f2fcff&quot;,&quot;focus&quot;:&quot;#fff&quot;,&quot;current&quot;:&quot;#fff&quot;}}">
+                                        <label for="admin_color_ocean">海洋</label>
+                                        <table class="color-palette">
+                                            <tbody><tr>
+                                                <td style="background-color: #627c83">&nbsp;</td>
+                                                <td style="background-color: #738e96">&nbsp;</td>
+                                                <td style="background-color: #9ebaa0">&nbsp;</td>
+                                                <td style="background-color: #aa9d88">&nbsp;</td>
+                                            </tr>
+                                            </tbody></table>
+                                    </div>
+                                    <div class="color-option ">
+                                        <input name="admin_color" id="admin_color_sunrise" type="radio" value="sunrise" class="tog">
+                                        <input type="hidden" class="css_url" value="https://www.dongmanzx.com/wp-admin/css/colors/sunrise/colors.min.css">
+                                        <input type="hidden" class="icon_colors" value="{&quot;icons&quot;:{&quot;base&quot;:&quot;#f3f1f1&quot;,&quot;focus&quot;:&quot;#fff&quot;,&quot;current&quot;:&quot;#fff&quot;}}">
+                                        <label for="admin_color_sunrise">日出</label>
+                                        <table class="color-palette">
+                                            <tbody><tr>
+                                                <td style="background-color: #b43c38">&nbsp;</td>
+                                                <td style="background-color: #cf4944">&nbsp;</td>
+                                                <td style="background-color: #dd823b">&nbsp;</td>
+                                                <td style="background-color: #ccaf0b">&nbsp;</td>
+                                            </tr>
+                                            </tbody></table>
+                                    </div>
+                                </fieldset>
+                                </td>
+                            </tr>
+                            <tr class="user-comment-shortcuts-wrap">
+                                <th scope="row">键盘快捷键</th>
+                                <td><label for="comment_shortcuts"><input type="checkbox" name="comment_shortcuts" id="comment_shortcuts" value="true"> 管理评论时启用键盘快捷键。</label> <a href="https://codex.wordpress.org/Keyboard_Shortcuts" target="_blank">更多信息</a></td>
+                            </tr>
+                            <tr class="show-admin-bar user-admin-bar-front-wrap">
+                                <th scope="row">工具栏</th>
+                                <td><fieldset><legend class="screen-reader-text"><span>工具栏</span></legend>
+                                    <label for="admin_bar_front">
+                                        <input name="admin_bar_front" type="checkbox" id="admin_bar_front" value="1" checked="checked">
+                                        在浏览站点时显示工具栏</label><br>
+                                </fieldset>
+                                </td>
+                            </tr>
+
+                            <tr class="user-language-wrap">
+                                <th scope="row">
+                                    <label for="locale">语言</label>
+                                </th>
+                                <td>
+                                    <select name="locale" id="locale"><option value="site-default" data-installed="1" selected="selected">站点默认</option>
+                                        <option value="" lang="en" data-installed="1">English (United States)</option>
+                                        <option value="zh_CN" lang="zh" data-installed="1">简体中文</option></select>	</td>
+                            </tr>
+
+
+                            </tbody></table>
+
+                        <h2>姓名</h2>
+
+                        <table class="form-table">
+                            <tbody><tr class="user-user-login-wrap">
+                                <th><label for="user_login">用户名</label></th>
+                                <td><input type="text" name="user_login" id="user_login" value="abc" disabled="disabled" class="regular-text"> <span class="description">用户名不可更改。</span></td>
+                            </tr>
+
+
+                            <tr class="user-first-name-wrap">
+                                <th><label for="first_name">名字</label></th>
+                                <td><input type="text" name="first_name" id="first_name" value="" class="regular-text"></td>
+                            </tr>
+
+                            <tr class="user-last-name-wrap">
+                                <th><label for="last_name">姓氏</label></th>
+                                <td><input type="text" name="last_name" id="last_name" value="" class="regular-text"></td>
+                            </tr>
+
+                            <tr class="user-nickname-wrap">
+                                <th><label for="nickname">昵称 <span class="description">（必填）</span></label></th>
+                                <td><input type="text" name="nickname" id="nickname" value="abc" class="regular-text"></td>
+                            </tr>
+
+                            <tr class="user-display-name-wrap">
+                                <th><label for="display_name">公开显示为</label></th>
+                                <td>
+                                    <select name="display_name" id="display_name">
+                                        <option selected="selected">abc</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody></table>
+
+                        <h2>联系信息</h2>
+
+                        <table class="form-table">
+                            <tbody><tr class="user-email-wrap">
+                                <th><label for="email">电子邮件 <span class="description">（必填）</span></label></th>
+                                <td><input type="email" name="email" id="email" value="635931334@qq.com" class="regular-text ltr">
+                                </td>
+                            </tr>
+
+                            <tr class="user-url-wrap">
+                                <th><label for="url">站点</label></th>
+                                <td><input type="url" name="url" id="url" value="" class="regular-text code"></td>
+                            </tr>
+
+                            <tr class="user-alipay-wrap">
+                                <th><label for="alipay">
+                                    支付宝二维码图片链接	</label></th>
+                                <td><input type="text" name="alipay" id="alipay" value="" class="regular-text"></td>
+                            </tr>
+                            <tr class="user-wxpay-wrap">
+                                <th><label for="wxpay">
+                                    微信二维码图片链接	</label></th>
+                                <td><input type="text" name="wxpay" id="wxpay" value="" class="regular-text"></td>
+                            </tr>
+                            </tbody></table>
+
+                        <h2>关于您自己</h2>
+
+                        <table class="form-table">
+                            <tbody><tr class="user-description-wrap">
+                                <th><label for="description">个人说明</label></th>
+                                <td><textarea name="description" id="description" rows="5" cols="30"></textarea>
+                                    <p class="description">分享关于您的一些信息。可能会被公开。</p></td>
+                            </tr>
+
+                            <tr class="user-profile-picture">
+                                <th>资料图片</th>
+                                <td>
+                                    <img src="https://www.dongmanzx.com/wp-content/plugins/wp-user-avatar/images/wpua.png" width="96" height="96" alt="" class="avatar avatar-96 wp-user-avatar wp-user-avatar-96 photo avatar-default">		<p class="description">您可以在<a href="https://cn.gravatar.com/">Gravatar</a>修改您的资料图片。<br>当然这是需要翻墙才可以访问的：<a target="_blank" href="https://www.tizipu.net/?grace">点我购买翻墙加速服务【站长必备】</a></p>
+                                </td>
+                            </tr>
+
+                            </tbody></table>
+
+                        <h2>账户管理</h2>
+                        <table class="form-table">
+                            <tbody><tr id="password" class="user-pass1-wrap">
+                                <th><label for="pass1-text">新密码</label></th>
+                                <td>
+                                    <input class="hidden" value=" "><!-- #24364 workaround -->
+                                    <button type="button" class="button wp-generate-pw hide-if-no-js">生成密码</button>
+                                    <div class="wp-pwd hide-if-js" style="display: none;">
+			<span class="password-input-wrapper">
+				<input type="password" name="pass1" id="pass1" class="regular-text" value="" autocomplete="off" data-pw="rzJV&amp;gs^H7H3Ums9KZFkqHgA" aria-describedby="pass-strength-result" disabled=""><input type="text" id="pass1-text" name="pass1-text" autocomplete="off" class="regular-text" disabled="">
+			</span>
+                                        <button type="button" class="button wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="隐藏密码">
+                                            <span class="dashicons dashicons-hidden"></span>
+                                            <span class="text">隐藏</span>
+                                        </button>
+                                        <button type="button" class="button wp-cancel-pw hide-if-no-js" data-toggle="0" aria-label="取消密码修改">
+                                            <span class="text">取消</span>
+                                        </button>
+                                        <div style="" id="pass-strength-result" aria-live="polite"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="user-pass2-wrap hide-if-js" style="display: none;">
+                                <th scope="row"><label for="pass2">重复新密码</label></th>
+                                <td>
+                                    <input name="pass2" type="password" id="pass2" class="regular-text" value="" autocomplete="off" disabled="">
+                                    <p class="description">再输入一遍新密码。</p>
+                                </td>
+                            </tr>
+                            <tr class="pw-weak">
+                                <th>确认密码</th>
+                                <td>
+                                    <label>
+                                        <input type="checkbox" name="pw_weak" class="pw-checkbox">
+                                        <span id="pw-weak-text-label">确认使用可能的弱密码</span>
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr class="user-sessions-wrap hide-if-no-js">
+                                <th>会话</th>
+                                <td aria-live="assertive">
+                                    <div class="destroy-sessions"><button type="button" class="button" id="destroy-sessions">登出其他设备</button></div>
+                                    <p class="description">
+                                        您丢失了您的手机或是在公共电脑上登录着您的账户？您可以在其他设备上登出，只在此处保留登录状态。			</p>
+                                </td>
+                            </tr>
+
+                            </tbody></table>
+
+                        <h3>Avatar</h3>
+                        <table class="form-table">
+                            <tbody><tr>
+                                <th><label for="wp_user_avatar">图像</label></th>
+                                <td>
+                                    <input type="hidden" name="wp-user-avatar" id="wp-user-avatar-existing" value="">
+                                    <p id="wpua-upload-button-existing">
+                                        <input name="wpua-file" id="wpua-file-existing" type="file">
+                                        <button type="submit" class="button" id="wpua-upload-existing" name="submit" value="上传">上传</button>
+                                    </p>
+                                    <p id="wpua-upload-messages-existing">
+                                        <span id="wpua-max-upload-existing" class="description">最大上传限制：51200KB</span>
+                                        <span id="wpua-allowed-files-existing" class="description">允许上传的文件: <code>jpg jpeg png gif</code></span>
+                                    </p>
+                                    <div id="wpua-images-existing" class="">
+                                        <p id="wpua-preview-existing">
+                                            <img src="https://www.dongmanzx.com/wp-content/plugins/wp-user-avatar/images/wpua-96x96.png" alt="">
+                                            <span class="description">原始尺寸</span>
+                                        </p>
+                                        <p id="wpua-thumbnail-existing">
+                                            <img src="https://www.dongmanzx.com/wp-content/plugins/wp-user-avatar/images/wpua-96x96.png" alt="">
+                                            <span class="description">缩略图</span>
+                                        </p>
+                                        <p id="wpua-remove-button-existing" class="wpua-hide">
+                                            <button type="button" class="button" id="wpua-remove-existing" name="wpua-remove">删除图像</button>
+                                        </p>
+                                        <p id="wpua-undo-button-existing"><button type="button" class="button" id="wpua-undo-existing" name="wpua-undo">撤销</button></p>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody></table>
+
+
+                        <input type="hidden" name="action" value="update">
+                        <input type="hidden" name="user_id" id="user_id" value="200">
+
+                        <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="更新个人资料"></p>
+                    </form>
+                </div>
+                <script type="text/javascript">
+                    if (window.location.hash == '#password') {
+                        document.getElementById('pass1').focus();
+                    }
+                </script>
+
+                <div class="clear"></div></div><!-- wpbody-content -->
+            <div class="clear"></div></div><!-- wpbody -->
+        <div class="clear"></div></div><!-- wpcontent -->
+
+    <div id="wpfooter" role="contentinfo">
+        <p id="footer-left" class="alignleft">
+            感谢选择 <a href="http://www.suxing.me" target="_blank">SUXING.ME</a> 为您设计！</p>	<p></p>
+        <p id="footer-upgrade" class="alignright">
+            4.9.13版本	</p>
+        <div class="clear"></div>
+    </div>
+    <div id="wp-auth-check-wrap" class="hidden">
+        <div id="wp-auth-check-bg"></div>
+        <div id="wp-auth-check">
+            <button type="button" class="wp-auth-check-close button-link"><span class="screen-reader-text">关闭对话框</span></button>
+            <div id="wp-auth-check-form" class="loading" data-src="https://www.dongmanzx.com/wp-login.php?interim-login=1&amp;wp_lang=zh_CN"></div>
+            <div class="wp-auth-fallback">
+                <p><b class="wp-auth-fallback-expired" tabindex="0">会话已过期</b></p>
+                <p><a href="https://www.dongmanzx.com/wp-login.php" target="_blank">请重新登录。</a>
+                    登录页会在新窗口中打开，在登录后您可关闭该窗口并返回本页。</p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var wpua_custom = {"avatar_thumb":"https:\/\/www.dongmanzx.com\/wp-content\/plugins\/wp-user-avatar\/images\/wpua-96x96.png"};
+        /* ]]> */
+    </script>
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var tinyCompress = {"nonce":"fb5280deb5","wpVersion":"4.9.13","pluginVersion":"3.0.1","L10nAllDone":"All images are processed","L10nNoActionTaken":"No action taken","L10nBulkAction":"Compress Images","L10nCancelled":"Cancelled","L10nCompressing":"Compressing","L10nCompressed":"compressed","L10nFile":"File","L10nSizesOptimized":"Sizes optimized","L10nInitialSize":"Initial size","L10nCurrentSize":"Current size","L10nSavings":"Savings","L10nStatus":"Status","L10nShowMoreDetails":"Show more details","L10nError":"Error","L10nLatestError":"Latest error","L10nInternalError":"Internal error","L10nOutOf":"out of","L10nWaiting":"Waiting"};
+        /* ]]> */
+    </script>
+
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var commonL10n = {"warnDelete":"\u60a8\u5373\u5c06\u4ece\u60a8\u7684\u7ad9\u70b9\u6c38\u4e45\u5220\u9664\u8fd9\u4e9b\u9879\u76ee\u3002\n\u6b64\u64cd\u4f5c\u65e0\u6cd5\u64a4\u6d88\u3002\n\u6309\u201c\u53d6\u6d88\u201d\u53ef\u53d6\u6d88\uff0c\u6309\u201c\u786e\u5b9a\u201d\u53ef\u786e\u8ba4\u5220\u9664\u3002","dismiss":"\u5ffd\u7565\u6b64\u901a\u77e5\u3002","collapseMenu":"\u6298\u53e0\u4e3b\u83dc\u5355","expandMenu":"\u5c55\u5f00\u4e3b\u83dc\u5355"};var thickboxL10n = {"next":"\u4e0b\u4e00\u9875 >","prev":"< \u4e0a\u4e00\u9875","image":"\u56fe\u50cf","of":"\/","close":"\u5173\u95ed","noiframes":"\u8fd9\u4e2a\u529f\u80fd\u9700\u8981iframe\u7684\u652f\u6301\u3002\u60a8\u53ef\u80fd\u7981\u6b62\u4e86iframe\u7684\u663e\u793a\uff0c\u6216\u60a8\u7684\u6d4f\u89c8\u5668\u4e0d\u652f\u6301\u6b64\u529f\u80fd\u3002","loadingAnimation":"https:\/\/www.dongmanzx.com\/wp-includes\/js\/thickbox\/loadingAnimation.gif"};var pwsL10n = {"unknown":"\u5bc6\u7801\u5f3a\u5ea6\u672a\u77e5","short":"\u975e\u5e38\u5f31","bad":"\u5f31","good":"\u4e2d\u7b49","strong":"\u5f3a","mismatch":"\u4e0d\u5339\u914d"};var _wpUtilSettings = {"ajax":{"url":"\/wp-admin\/admin-ajax.php"}};var userProfileL10n = {"warn":"\u60a8\u7684\u65b0\u5bc6\u7801\u672a\u88ab\u4fdd\u5b58\u3002","warnWeak":"\u786e\u8ba4\u4f7f\u7528\u5f31\u5bc6\u7801","show":"\u663e\u793a","hide":"\u9690\u85cf","cancel":"\u53d6\u6d88","ariaShow":"\u663e\u793a\u5bc6\u7801","ariaHide":"\u9690\u85cf\u5bc6\u7801"};var heartbeatSettings = {"nonce":"5fb2e4ff31"};var authcheckL10n = {"beforeunload":"\u60a8\u7684\u767b\u5f55\u4f1a\u8bdd\u5df2\u8fc7\u671f\uff0c\u8bf7\u91cd\u65b0\u767b\u5f55\u3002","interval":"180"};/* ]]> */
+    </script>
+    <script type="text/javascript" src="https://www.dongmanzx.com/wp-admin/load-scripts.php?c=0&amp;load%5B%5D=hoverIntent,common,admin-bar,thickbox,password-strength-meter,underscore,wp-util,user-profile,svg-painter,heartbeat,wp-auth-chec&amp;load%5B%5D=k&amp;ver=4.9.13"></script>
+    <script type="text/javascript" src="https://www.dongmanzx.com/wp-content/plugins/wp-user-avatar/js/wp-user-avatar-user.js?ver=2.1.1"></script>
+    <script type="text/javascript" src="https://www.dongmanzx.com/wp-content/plugins/tiny-compress-images/src/js/admin.js?ver=3.0.1"></script>
+
+    <div class="clear"></div></div><!-- wpwrap -->
+<script type="text/javascript">if(typeof wpOnload=='function')wpOnload();</script>
+
+
+</body></html>

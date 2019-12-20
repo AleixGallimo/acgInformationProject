@@ -6,5 +6,12 @@ import java.util.List;
 
 public interface IUserMapper {
     //根据id查找user
-    List<User> findUserById(Integer id);
+    User findUserById(Integer uid);
+
+    //修改个人资料
+    void updateUser(User user);
+
+    //根据id查询自己的昵称和头像
+    User findNameAndPic(Integer uid);
+
 }
