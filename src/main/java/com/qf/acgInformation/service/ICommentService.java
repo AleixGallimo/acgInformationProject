@@ -19,6 +19,9 @@ public interface ICommentService {
     //添加评论
     Integer addComment(@Param("comment") Comment comment);
 
+    //获取文章评论总条数
+    Integer getAllCommentCountByArticleId(Integer articleId);
+
     //管理员专用 -- 获取所有文章评论
     List<Comment> getAllComment();
 }

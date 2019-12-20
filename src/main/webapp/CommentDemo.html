@@ -24,15 +24,24 @@
             //当前用户id
             var userId = 1;
 
-            var offset = 0;
+            //当前页数
+            var thisPage = 1;
+            //每页展示页数
             var pageSize = 5;
+            //分页总页数
+            var pageCount = 0;
+            //评论总条数
+            var commentCount = 0;
 
-            //获取评论列表
+            //评论方法
             var doAjax = function(){
+                $("tbody tr").remove();
+                var offset = (thisPage - 1) * 5;
                 $.ajax({
                     url:"/acgInformation/comment/getComment/" + offset + "/" + pageSize,
                     type:"GET",
                     data:{articleId:articleId},
+                    sync:false,
                     success:function (data) {
                         if (data != null){
                             data = eval('(' + JSON.parse(data) + ')');
@@ -48,6 +57,13 @@
                                     "      </tr>"
                                 $("#tbody").append(str);
                             }
+                            //加载分页数字
+                            pages();
+                            if (thisPage == 1){
+                                $("#start_page").css("display","none");
+                            } else {
+                                $("#start_page").css("display","block");
+                            }
                         } else {
                             alert("评论获取失败,网络异常");
                         }
@@ -55,8 +71,29 @@
 
                 });
             }
-
-            //获取编辑框列表
+            //分页数字方法
+            var pages = function () {
+                $(".page").remove();
+                for (var i = 1;i <= pageCount;i++){
+                    var item;
+                    if (i == thisPage){
+                        item = "<li class='page active'><a href='#' class='myPage'>" + i + "</a></li>";
+                    } else {
+                        item = "<li class='page'><a href='#' class='myPage'>" + i + "</a></li>";
+                    }
+                    $(".pages").append(item);
+                }
+                $(".myPage").each(function (i) {
+                    $(this).click(function () {
+                        if (i + 1 == thisPage){
+                            return;
+                        }
+                        thisPage = $(this).text();
+                        doAjax();
+                    })
+                })
+            }
+            //编辑框方法
             var wangEditor = function (){
                 var E = window.wangEditor;
                 editor = new E('#editor');
@@ -297,11 +334,29 @@
                 //创建编辑对象
                 editor.create();
             }
+            //评论总条数 & 分页总数方法
+            var getPageCount = function () {
+                debugger;
+                $.ajax({
+                    url:"/acgInformation/comment/all",
+                    data:{articleId:articleId},
+                    async:false,
+                    success:function (data) {
+                        commentCount = data;
+                        pageCount = Math.ceil(commentCount / pageSize);
+                    }});
+            }
 
+            //判定第一次加载页面执行计算总评论条数方法
+            if (commentCount == 0){
+                getPageCount();
+            }
+            //加载评论
             doAjax();
+            //加载编辑框
             wangEditor();
 
-            //点击按钮发表评论
+            //发表评论
             $("#btn").click(function () {
                 var str = editor.txt.html();
                 console.log(str);
@@ -314,6 +369,9 @@
                     success:function (data) {
                         if (data != 0){
                             alert("评论发表成功!");
+                            thisPage = pageCount;
+                            doAjax();
+                            pages();
                         }
                     }
                 })
@@ -322,9 +380,11 @@
     </script>
 </head>
 <body>
-    <h1 id="h1" articleId="1">评论测试页面,当前文章id为1</h1>
-    <table>
-        <thead>
+
+    <div class="container" style="height: 500px">
+        <h1 id="h1" articleId="1">评论测试页面,当前文章id为1</h1>
+        <table>
+            <thead>
             <tr>
                 <th>头像</th>
                 <th>用户名</th>
@@ -332,15 +392,43 @@
                 <th>性别</th>
                 <th>评论内容</th>
             </tr>
-        </thead>
-        <tbody id="tbody">
-        </tbody>
-        <tfoot></tfoot>
-    </table>
-    <div style="width: 800px">
-        <div id="editor"></div>
-        <button type="button" id="btn">发表评论</button>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+            <tfoot></tfoot>
+        </table>
     </div>
+
+
+
+    <!--分页-->
+    <div class="container" style="text-align: center">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous" id="up">
+                        <span aria-hidden="true">上一页</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="pages pagination"></ul>
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Next" id="down">
+                        <span aria-hidden="true">下一页</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div>
+            <div id="editor"></div>
+            <button type="button" id="btn">发表评论</button>
+        </div>
+    </div>
+
 
 </body>
 </html>

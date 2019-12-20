@@ -25,6 +25,10 @@
         select * from comment where is_delete = 1;
     </select>
 
+    <select id="getAllCommentCountByArticleId" resultType="Integer">
+        select count(c_id) from comment where c_aid = #{articleId} and is_delete = 1;
+    </select>
+
     <update id="deleteCommentByCommentId">
         update comment set is_delete = 0 where c_id = #{commentId};
     </update>

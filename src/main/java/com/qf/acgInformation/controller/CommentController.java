@@ -43,6 +43,11 @@ public class CommentController {
         return integer;
     }
 
+    @RequestMapping("/all")
+    private Integer getAllCommentCount(Integer articleId){
+        return commentService.getAllCommentCountByArticleId(articleId);
+    }
+
     //管理员专用 -- 获取所有评论
     @RequestMapping(value = "/getAllComment", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     private List<Comment> getAllComment(){

@@ -19,6 +19,9 @@ public interface ICommentMapper {
     //删除单条评论
     Integer deleteCommentByCommentId(@Param("commentId") Integer commentId);
 
+    //获取文章评论总条数
+    Integer getAllCommentCountByArticleId(@Param("articleId") Integer articleId);
+
     //管理员专用 -- 获取所有文章评论
     List<Comment> getAllComment();
 }
