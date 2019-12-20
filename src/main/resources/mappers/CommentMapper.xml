@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.acgInformation.mapper.ICommentMapper">
+    <resultMap id="commentMap" type="Comment">
+        <id property="cId" column="c_id" />
+        <result property="cText" column="c_text"/>
+        <result property="cPic" column="c_pic"/>
+        <result property="cUid" column="c_uid"/>
+        <result property="cAid" column="c_aid"/>
+
+        <collection
+                property="user"
+                ofType="User"
+                column="c_uid"
+                select="com.qf.acgInformation.mapper.IChenTestUserMapper.getUserByUserId"
+        />
+    </resultMap>
+    <select id="getCommentByArticleId" resultMap="commentMap">
+        select * from comment where c_aid = #{articleId} and is_delete = 1;
+    </select>
+</mapper>

@@ -2,6 +2,7 @@ package com.qf.acgInformation.entity;
 
 import lombok.Data;
 
+
 /**
  * 评论实体类
  * CHAN
@@ -14,4 +15,6 @@ public class Comment {
     private String cPic;
     private Integer cUid;
     private Integer cAid;
+    //当前评论的用户信息
+    private User user;
 }
