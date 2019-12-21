@@ -15,6 +15,12 @@
                 column="c_uid"
                 select="com.qf.acgInformation.mapper.IUserMapper.findUserById"
         />
+        <collection
+                property="messages"
+                ofType="Message"
+                column="c_id"
+                select="com.qf.acgInformation.mapper.IMessageMapper.getMessageByCid"
+        />
     </resultMap>
 
     <select id="getCommentByArticleId" resultMap="commentMap">
