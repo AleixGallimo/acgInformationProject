@@ -3,9 +3,8 @@ package com.qf.acgInformation.controller;
 import com.qf.acgInformation.entity.User;
 import com.qf.acgInformation.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +23,8 @@ public class UserController {
         return user;
     }
     //更新数据
-    @RequestMapping(value = "/updateUser",method = RequestMethod.PUT)
-    public User updateUser(User user,HttpServletRequest request){
+    @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
+    public User updateUser(User user, HttpServletRequest request){
         userService.updateUser(user);
         Integer uid = (Integer) request.getSession().getAttribute("uid");
         return userService.findUserById(uid);
