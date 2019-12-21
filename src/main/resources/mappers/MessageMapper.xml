@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.acgInformation.mapper.IMessageMapper">
+    <resultMap id="messageMap" type="Message">
+        <id property="mId" column="m_id"/>
+        <result property="mUid" column="m_uid" />
+        <result property="mCid" column="m_cid" />
+        <result property="mFid" column="m_fid" />
+        <result property="mContent" column="m_content" />
+        <result property="mStatus" column="m_status" />
+        <result property="isRead" column="is_read" />
+
+        <collection
+                property="user"
+                ofType="User"
+                column="m_fid"
+                select="com.qf.acgInformation.mapper.IUserMapper.findUserById"
+        />
+    </resultMap>
+
+    <select id="getMessageByCid" resultMap="messageMap">
+        select * from message where m_cid = #{commentId} and m_status = 'comment' and is_delete = 1;
+    </select>
+</mapper>
