@@ -6,33 +6,12 @@
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
-    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>\
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <!-- 编辑器 -->
     <script src="asserts/plugins/wangEditor/wangEditor.js"></script>
-    <style type="text/css">
-        .option{
-            height: 30px;
-            border: black solid 1px;
-        }
-        .user{
-            height: 200px;
-            border: black solid 1px;
-            padding-top: 20px;
-        }
-        .content{
-            padding: 30px;
-            height: 200px;
-            border: black solid 1px;
-        }
-        .message{
-            border: black solid 1px;
-        }
-        .object{
-            border: black solid 1px;
-        }
-    </style>
+    <!-- 本地 css 样式 -->
+    <link href="asserts/css/commentStyle.css" rel="stylesheet">
 
     <script type="text/javascript">
         $(function () {
@@ -54,9 +33,13 @@
             //评论总条数
             var commentCount = 0;
 
+            var messageIndex;
+            var messageArray = new Array();
+
             //评论方法
             var doAjax = function(){
-                $(".object").remove();
+                $(".newMessage").remove();
+                $(".comment").remove();
                 var offset = (thisPage - 1) * 5;
                 $.ajax({
                     url:"/acgInformation/comment/getComment/" + offset + "/" + pageSize,
@@ -64,14 +47,56 @@
                     data:{articleId:articleId},
                     sync:false,
                     success:function (data) {
-                        debugger
                         if (data != null){
                             data = eval('(' + JSON.parse(data) + ')');
+                            console.log(data);
                             for (var i in data) {
                                 var comment = data[i];
                                 var user = data[i].user;
                                 var messages = data[i].messages;
+                                console.log(messages == "");
+                                var temp = "" +
+                                    "<div class='comment container-fluid'>\n" +
+                                    "    <div class='user col-lg-2'>\n" +
+                                    "        <div class='userHead'>\n" +
+                                    "            <img src='" + user.uPic + "' width='100' height='100' class='img-thumbnail'>\n" +
+                                    "        </div>\n" +
+                                    "        <div class='userName'>\n" +
+                                    "            <div>" + user.uName +  "</div>\n" +
+                                    "        </div>\n" +
+                                    "    </div>\n" +
+                                    "    <div class='content col-lg-10'>\n" +
+                                    "        " + comment.cText + "\n" +
+                                    "    </div>\n" +
+                                    "    <div class='col-lg-2' style='height: 30px'></div>\n" +
+                                    "    <div class='option col-lg-10'>\n" +
+                                    "        <a href='#' class='replyComment'>回复</a> <a href='#' class='deleteComment'>删除</a>\n" +
+                                    "    </div>\n" +
+                                    "    <div class='messages col-lg-12'>\n" +
+                                    "        <div class='col-lg-2' style='padding: 0'></div>\n" +
+                                    "        <div class='message col-lg-10' style='border-left: #ebebeb solid 1px;'>\n" +
+                                    "        </div>\n" +
+                                    "    </div>\n" +
+                                    "</div>"
+                                    if (messages != ""){
+                                        messageIndex = i;
+                                        for (var j in messages){
+                                            var message = "<div class='newMessage'><a href='#'>" + messages[j].user.uName + "</a>" + " : " + messages[j].mContent + " <a href='#' class='replyMessage'>回复</a> <a href='#' class='deleteMessage'>删除</a></div>";
+                                            messageArray[j] = message;
+                                        }
+                                    }
+                                $(".comments").append(temp);
+                                if (messageArray != ""){
+                                    var messageTemp = "";
+                                    for (var k in messageArray){
+                                        messageTemp = messageTemp + messageArray[k];
+                                    }
+                                    $(".message:eq(" + messageIndex + ")").html("<hr style='border: #dddddd solid 0.5px'>");
+                                    $(".message:eq(" + messageIndex + ")").html(messageTemp);
+                                    messageArray = new Array();
+                                }
                             }
+                            console.log(messageArray);
                             //加载分页数字
                             pages();
                             if (thisPage == 1){
@@ -92,9 +117,9 @@
                 for (var i = 1;i <= pageCount;i++){
                     var item;
                     if (i == thisPage){
-                        item = "<li class='page active'><a href='#' class='myPage'>" + i + "</a></li>";
+                        item = "<li class='page active'><a href='#pageHead' class='myPage'>" + i + "</a></li>";
                     } else {
-                        item = "<li class='page'><a href='#' class='myPage'>" + i + "</a></li>";
+                        item = "<li class='page'><a href='#pageHead' class='myPage'>" + i + "</a></li>";
                     }
                     $(".pages").append(item);
                 }
@@ -104,6 +129,7 @@
                             return;
                         }
                         thisPage = $(this).text();
+                        location.href = "#pageHead";
                         doAjax();
                     })
                 })
@@ -133,7 +159,6 @@
             }
             //评论总条数 & 分页总数方法
             var getPageCount = function () {
-                debugger;
                 $.ajax({
                     url:"/acgInformation/comment/all",
                     data:{articleId:articleId},
@@ -142,6 +167,7 @@
                         commentCount = data;
                         pageCount = Math.ceil(commentCount / pageSize);
                     }});
+                $(".commentCount").text(commentCount);
             }
 
             //判定第一次加载页面执行计算总评论条数方法
@@ -177,60 +203,80 @@
     </script>
 </head>
 <body>
-
-    <!--<div class="container" style="height: 500px">
-        <h1 id="h1" articleId="1">评论测试页面,当前文章id为1</h1>
-        <table>
-            <thead>
-            <tr>
-                <th>用户id</th>
-                <th>头像</th>
-                <th>用户名</th>
-                <th>用户权限</th>
-                <th>性别</th>
-                <th>评论内容</th>
-            </tr>
-            </thead>
-            <tbody id="tbody">
-            </tbody>
-            <tfoot></tfoot>
-        </table>
-    </div>-->
-
-    <div class="comment container">
-
-    </div>
-
-
-
-    <!--分页-->
-    <div class="container" style="text-align: center">
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous" id="up">
-                        <span aria-hidden="true">上一页</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="pages pagination"></ul>
-            <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Next" id="down">
-                        <span aria-hidden="true">下一页</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-
     <div class="container">
-        <div>
-            <div id="editor"></div>
-            <button type="button" id="btn">发表评论</button>
+        <div class="left col-lg-9">
+            <!-- 文章模块 -->
+            <div class="article">
+
+                <div class="catalog col-lg-12">
+                    首页 > 游戏
+                </div>
+
+                <div class="type col-lg-12">
+                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                    <button type="button" class="btn btn-primary">游戏</button>
+                    <!-- Indicates a successful or positive action -->
+                    <button type="button" class="btn btn-success">动漫</button>
+                    <!-- Contextual button for informational alert messages -->
+                    <button type="button" class="btn btn-info">二次元</button>
+                    <!-- Indicates caution should be taken with this action -->
+                    <button type="button" class="btn btn-warning">另类</button>
+                    <!-- Indicates a dangerous or potentially negative action -->
+                    <button type="button" class="btn btn-danger">十八禁</button>
+                </div>
+
+                <div class="title col-lg-12">
+                    兽娘在线科普 萌妹花江夏树 A站一月新番挺有趣
+                </div>
+
+                <div class="logo col-lg-12">
+                    <span class="ico glyphicon glyphicon-time"></span>2019-12-20
+                    <span class="ico glyphicon glyphicon-eye-open"></span>67
+                    <span class="ico glyphicon glyphicon-comment"></span><span class="commentCount">4</span>
+                    <span class="ico glyphicon glyphicon-heart"></span>889
+                </div>
+
+                <hr style="border: #eeeeee solid 0.5px">
+
+                <div class="articleContent">
+                    <p><img src="https://www.menfuli.org/wp-content/uploads/2019/10/0006.jpg" alt="" width="800" height="1200" title="[神楽坂真冬] 恋人以上 英梨梨 [150P/481P] 神楽坂真冬 第1张-MEN"></p><p><br></p><p style="text-align: center;">[神楽坂真冬] 恋人以上 英梨梨 [150P/481P]</p><p style="text-align: center;"><br></p><p><img src="https://www.menfuli.org/wp-content/uploads/2019/10/0001.jpg" alt="" width="800" height="1200" title="[神楽坂真冬] Milk by blue 蕾姆 [150P/312M] 神楽坂真冬 第1张-MEN"></p><p style="text-align: center;"><br></p><p style="text-align: center;">[神楽坂真冬] Milk by blue 蕾姆 [150P/312M]</p><p style="text-align: center;"><br></p>
+                </div>
+            </div>
+            <a href="#" name="pageHead"></a>
+            <!-- 评论模块 -->
+            <div class="comments"></div>
+            <!-- 分页模块 -->
+            <div class="other">
+                <!--分页-->
+                <div style="text-align: center">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li>
+                                <a href="#pageHead" aria-label="Previous" id="up">
+                                    <span aria-hidden="true">上一页</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="pages pagination"></ul>
+                        <ul class="pagination">
+                            <li>
+                                <a href="#pageHead" aria-label="Next" id="down">
+                                    <span aria-hidden="true">下一页</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div>
+                    <div>
+                        <div id="editor"></div>
+                        <div class="col-lg-12" style="text-align: right;margin-top: 10px;padding: 0;"><input class="btn btn-default" type="button" value="发表评论" style="width: 150px;height: 50px;font-size: larger;" id="btn"></div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="right col-lg-3"></div>
     </div>
-
-
 </body>
 </html>

@@ -1,0 +1,107 @@
+*{margin: 0;padding: 0}
+body{
+    background-color: #ebebeb;
+}
+#editor{
+    background-color: white;
+}
+.top{
+    height: 81px;
+    background-color: white;
+}
+.left{
+    margin-top: 30px;
+    /*background-color: white;*/
+}
+.right{
+    margin-top: 30px;
+    height: 280px;
+    background-color: #666666;
+}
+.articleContent img{
+    width: 725px;
+    height: 100%;
+}
+/*文章模块样式*/
+.article{
+    padding: 50px;
+    background-color: white;
+}
+.catalog{
+    color: #c0c0c0;
+    margin-bottom: 10px;
+}
+.btn{
+    height: 20px;
+    padding: 0 5px 0 5px;
+    font-size: xx-small;
+    width: 60px;
+    margin-bottom: 10px;
+}
+.title{
+    text-align: center;
+    font-size: xx-large;
+}
+.logo{
+    margin-top: 30px;
+    color: #858585;
+    margin-bottom: 30px;
+}
+.ico{
+    margin-left: 15px;
+    margin-right: 5px;
+    font-size: 12px;
+    text-indent: 1px;
+}
+
+
+/*评论模块样式*/
+.comments{
+    /*background-color: white;
+    padding: 0px;*/
+    margin-top: 30px;
+}
+.comment{
+    border: #ebebeb solid 1px;
+    background-color: white;
+    padding: 0;
+    margin-bottom: 10px;
+}
+.user{
+    /*background-color: #66afe9;*/
+    height: 160px;
+
+}
+.content{
+    /*background-color: #e99f89;*/
+    height: 160px;
+    border-left: #ebebeb solid 1px;
+}
+.option{
+    text-align: right;
+    padding-top: 5px;
+    /*background-color: #bbbb00;*/
+    height: 30px;
+    border-left: #ebebeb solid 1px;
+}
+.messages{
+    padding: 0;
+}
+.message{
+    /*padding: 15px;*/
+}
+.newMessage{
+    margin-bottom: 10px;
+    padding: 0 6px;
+}
+.userHead{
+    margin-top: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.userName{
+    text-align: center
+}
+.content{
+    padding-top: 20px;
+}
