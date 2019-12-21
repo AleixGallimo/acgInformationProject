@@ -1,75 +1,76 @@
-<!DOCTYPE html>
-<html lang="zh" class="no-js">
-<head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人资料</title>
-    <link rel="stylesheet" type="text/css" href="../css/default.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/component.css"/>
-    <script src="../js/modernizr.custom.js"></script>
-    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap-grid.css"></script>
-</head>
-<body>
-<div id="div">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">
-                    <img alt="Brand" src="../images/home3.gif"
-                         style="width: 100px;height: 100px; border-radius:80%; overflow:hidden;background-color: #00b9eb">
-                </a>
-            </div>
-        </div>
-    </nav>
+<!--<!DOCTYPE html>-->
+<!--<html lang="zh" class="no-js">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8"/>-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>个人资料</title>-->
+<!--    <link rel="stylesheet" type="text/css" href="../css/default.css"/>-->
+<!--    <link rel="stylesheet" type="text/css" href="../css/component.css"/>-->
+<!--    <script src="../js/modernizr.custom.js"></script>-->
+<!--    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap-grid.css"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div id="div">-->
+<!--    <nav class="navbar navbar-default">-->
+<!--        <div class="container-fluid">-->
+<!--            <div class="navbar-header">-->
+<!--                <a class="navbar-brand" href="#">-->
+<!--                    <img alt="Brand" src="../images/home3.gif"-->
+<!--                         style="width: 100px;height: 100px; border-radius:80%; overflow:hidden;background-color: #00b9eb">-->
+<!--                </a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </nav>-->
 
-    <div class="container">
-        <header class="clearfix">
-            <h1>个人资料</h1>
-        </header>
-        <div id="pic" style="text-align: center">
-            <img src="../images/Icon.jpg" style="width: 200px; height:200px; border-radius:80%; overflow:hidden;">
-        </div>
+<!--    <div class="container">-->
+<!--        <header class="clearfix">-->
+<!--            <h1>个人资料</h1>-->
+<!--        </header>-->
+<!--        &lt;!&ndash;        头像&ndash;&gt;-->
+<!--        <div id="pic" style="text-align: center">-->
+<!--            <img src="../images/Icon.jpg" style="width: 200px; height:200px; border-radius:80%; overflow:hidden;">-->
+<!--        </div>-->
 
-        <div style="text-align: right">
-            <img src="../images/member.jpg" style="width: 200px; height:200px; border-radius:80%; overflow:hidden;position: absolute;
-        right: 100px;top: 100px;>
-    </div>
+<!--        <div style="text-align: right">-->
+<!--            <img src="../images/member.jpg" style="width: 200px; height:200px; border-radius:80%; overflow:hidden;position: absolute;-->
+<!--        right: 100px;top: 100px;>-->
+<!--    </div>-->
 
-    <div class=" main">
-            <form class="cbp-mc-form">
-                <div class="cbp-mc-column">
-                    <label for="uAccount">用户名</label>
-                    <input type="text" id="uAccount" name="uAccount" placeholder="Jonathan">
-                    <label for="uPassword">密码</label>
-                    <input type="text" id="uPassword" name="uPassword" placeholder="Password">
-                    <label for="email">电子邮箱</label>
-                    <input type="text" id="email" name="email" placeholder="jon@doe.com">
-                    <label for="uBrief">个人简介</label>
-                    <textarea id="uBrief" name="uBrief"></textarea>
-                </div>
-                <div class="cbp-mc-column">
-                    <label for="uName">昵称</label>
-                    <input type="text" id="uName" name="uName" placeholder="NickName">
+<!--    <div class=">-->
+<!--            <form class="cbp-mc-form">-->
+<!--                <div class="cbp-mc-column">-->
+<!--                    <label for="uAccount">用户名</label>-->
+<!--                    <input type="text" id="uAccount" name="uAccount" placeholder="Jonathan">-->
+<!--                    <label for="uPassword">密码</label>-->
+<!--                    <input type="text" id="uPassword" name="uPassword" placeholder="Password">-->
+<!--                    <label for="email">电子邮箱</label>-->
+<!--                    <input type="text" id="email" name="email" placeholder="jon@doe.com">-->
+<!--                    <label for="uBrief">个人简介</label>-->
+<!--                    <textarea id="uBrief" name="uBrief"></textarea>-->
+<!--                </div>-->
+<!--                <div class="cbp-mc-column">-->
+<!--                    <label for="uName">昵称</label>-->
+<!--                    <input type="text" id="uName" name="uName" placeholder="NickName">-->
 
-                    <label for="uMoney">余额(￥)</label>
-                    <input type="text" id="uMoney" name="uMoney">
+<!--                    <label for="uMoney">余额(￥)</label>-->
+<!--                    <input type="text" id="uMoney" name="uMoney">-->
 
-                    <label for="uPic">上传头像</label>
-                    <input type="file" id="uPic" name="uPic"/>
-                </div>
-                <div class="cbp-mc-column">
-                    <label>性别</label>
-                    <select id="uSex" name="uSex">
-                        <option>MAN</option>
-                        <option>WOMEN</option>
-                    </select>
-                </div>
-                <div class="cbp-mc-submit-wrap"><input class="cbp-mc-submit" type="submit" value="Send your data"/>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-</body>
-</html>
+<!--                    <label for="uPic">上传头像</label>-->
+<!--                    <input type="file" id="uPic" name="uPic"/>-->
+<!--                </div>-->
+<!--                <div class="cbp-mc-column">-->
+<!--                    <label>性别</label>-->
+<!--                    <select id="uSex" name="uSex">-->
+<!--                        <option>MAN</option>-->
+<!--                        <option>WOMEN</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--                <div class="cbp-mc-submit-wrap"><input class="cbp-mc-submit" type="submit" value="Send your data"/>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

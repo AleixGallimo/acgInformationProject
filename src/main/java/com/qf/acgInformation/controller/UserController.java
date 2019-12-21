@@ -4,6 +4,7 @@ import com.qf.acgInformation.entity.User;
 import com.qf.acgInformation.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -15,7 +16,7 @@ public class UserController {
     @Resource
     private IUserService userService;
     //修改资料前的回显
-    @RequestMapping("/findUserById")
+    @RequestMapping(value = "/findUserById",method = RequestMethod.GET)
     public User findUserById(HttpServletRequest request){
         request.getSession().setAttribute("uid",1);
         Object uid = request.getSession().getAttribute("uid");
@@ -23,7 +24,7 @@ public class UserController {
         return user;
     }
     //更新数据
-    @RequestMapping("/updateUser")
+    @RequestMapping(value = "/updateUser",method = RequestMethod.PUT)
     public User updateUser(User user,HttpServletRequest request){
         userService.updateUser(user);
         Integer uid = (Integer) request.getSession().getAttribute("uid");
@@ -31,7 +32,7 @@ public class UserController {
     }
 
     //显示用户的昵称和头像
-    @RequestMapping("/findNameAndPic")
+    @RequestMapping(value = "/findNameAndPic",method = RequestMethod.GET)
     public User findNameAndPic(HttpServletRequest request){
         Integer uid = (Integer) request.getSession().getAttribute("uid");
         return userService.findNameAndPic(uid);
