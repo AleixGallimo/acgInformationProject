@@ -34,7 +34,7 @@ public class CommentServiceImpl implements ICommentService {
      */
     @Override
     public Integer deleteCommentByCommentId(Integer commentId) {
-        return null;
+        return commentMapper.deleteCommentByCommentId(commentId);
     }
 
     /**

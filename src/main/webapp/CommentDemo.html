@@ -12,7 +12,19 @@
     <script src="asserts/plugins/wangEditor/wangEditor.js"></script>
     <!-- 本地 css 样式 -->
     <link href="asserts/css/commentStyle.css" rel="stylesheet">
-
+    <!-- 图标 -->
+    <link href="https://at.alicdn.com/t/font_1546900_8r1htvnaxqi.css" rel="stylesheet">
+    <style type="text/css">
+        a{cursor:default;text-decoration:none;
+            color: #a5a5a5;}
+        a:link { color: #e6e6e6; text-decoration: none; }/* 未访问 */
+        a:visited { color: #999; text-decoration: none; }/*以访问*/
+        a:hover { color: #323232; text-decoration: none; }
+        .aName{color: #5b9dd9}
+        .aName:hover{color: #538cc3}
+        .enter{font-size: 100px;text-align: center;color: #99999f;}
+        .enter:hover{font-size: 100px;text-align: center;color: #5e5e64;}
+    </style>
     <script type="text/javascript">
         $(function () {
             //编辑窗口对象
@@ -22,7 +34,7 @@
             //当前文章id
             var articleId = 1;
             //当前用户id
-            var userId = 1;
+            var userId = 4;
 
             //当前页数
             var thisPage = 1;
@@ -35,8 +47,9 @@
 
             var messageIndex;
             var messageArray = new Array();
+            var messageDeleteArray = new Array();
 
-            //评论方法
+            //获取评论方法
             var doAjax = function(){
                 $(".newMessage").remove();
                 $(".comment").remove();
@@ -49,64 +62,176 @@
                     success:function (data) {
                         if (data != null){
                             data = eval('(' + JSON.parse(data) + ')');
-                            console.log(data);
                             for (var i in data) {
                                 var comment = data[i];
                                 var user = data[i].user;
                                 var messages = data[i].messages;
-                                console.log(messages == "");
                                 var temp = "" +
                                     "<div class='comment container-fluid'>\n" +
-                                    "    <div class='user col-lg-2'>\n" +
+                                    "    <div class='user col-lg-3'>\n" +
                                     "        <div class='userHead'>\n" +
-                                    "            <img src='" + user.uPic + "' width='100' height='100' class='img-thumbnail'>\n" +
+                                    "            <img src='" + user.uPic + "' width='100' height='100' class='imgHead img-thumbnail'>\n" +
                                     "        </div>\n" +
                                     "        <div class='userName'>\n" +
                                     "            <div>" + user.uName +  "</div>\n" +
+                                    "            <div class='authority'></div>\n" +
                                     "        </div>\n" +
                                     "    </div>\n" +
-                                    "    <div class='content col-lg-10'>\n" +
+                                    "    <div class='content col-lg-9'>\n" +
                                     "        " + comment.cText + "\n" +
                                     "    </div>\n" +
-                                    "    <div class='col-lg-2' style='height: 30px'></div>\n" +
-                                    "    <div class='option col-lg-10'>\n" +
-                                    "        <a href='#' class='replyComment'>回复</a> <a href='#' class='deleteComment'>删除</a>\n" +
+                                    "    <div class='col-lg-3' style='height: 30px;'></div>\n" +
+                                    "    <div class='option col-lg-9' uid='" + user.uId + "' cid='" + comment.cId + "' uname='" + user.uName + "'>\n" +
+                                    "        <a class='replyComment' data-toggle='modal' data-target='#exampleModal'>回复</a> " +
+                                    "       <a class='deleteComment'>删除</a>\n" +
                                     "    </div>\n" +
                                     "    <div class='messages col-lg-12'>\n" +
-                                    "        <div class='col-lg-2' style='padding: 0'></div>\n" +
-                                    "        <div class='message col-lg-10' style='border-left: #ebebeb solid 1px;'>\n" +
+                                    "        <div class='col-lg-3' style='padding: 0'></div>\n" +
+                                    "        <div class='message col-lg-9' style='border-left: #ebebeb solid 1px;'>\n" +
                                     "        </div>\n" +
                                     "    </div>\n" +
                                     "</div>"
+
+                                    /*判定当前评论是否存在子评论，是则遍历，将评论存放在数组中*/
                                     if (messages != ""){
                                         messageIndex = i;
                                         for (var j in messages){
-                                            var message = "<div class='newMessage'><a href='#'>" + messages[j].user.uName + "</a>" + " : " + messages[j].mContent + " <a href='#' class='replyMessage'>回复</a> <a href='#' class='deleteMessage'>删除</a></div>";
+                                            var m = messages[j];
+                                            console.log(m.mFid == userId)
+                                            var message = "<div class='newMessage' " +
+                                                "messageName='" + m.user.uName + "' " +
+                                                "mUid='" + m.user.uId + "' " +
+                                                "mCid='" + m.mCid + "' " +
+                                                "mId='" + m.mId + "'>" +
+                                                "<a class='aName'>" + m.user.uName + "</a>" + " : " + messages[j].mContent + " " +
+                                                "<a class='deleteMessage' style='float: right;font-size: small;margin-right: 15px''>删除 </a>" +
+                                                "<a class='replyMessage'  data-toggle='modal' data-target='#exampleModa2' style='float: right;font-size: small;margin-right: 5px''>回复</a>" +
+                                                "</div>";
                                             messageArray[j] = message;
+                                            if (m.mFid == userId){
+                                                messageDeleteArray[j] = true;
+                                            } else {
+                                                messageDeleteArray[j] = false;
+                                            }
                                         }
                                     }
+                                /*插入评论*/
                                 $(".comments").append(temp);
+                                /*判定评论是否由用户发出，true则允许删除评论*/
+                                if (user.uId != userId){
+                                    $(".deleteComment:eq(" + i + ")").css("display","none");
+                                }
+                                /*判定用户权限*/
+                                var uAuthority = user.uAuthority;
+                                if (uAuthority == 2){
+                                    $(".authority:eq(" + i + ")").html("<div class='iconfont icon-huiyuanjulebu' style='text-align: center;color: #f6c214;font-size: small;margin-top: 5px;'> 超级会员</div>");
+                                } else if (uAuthority == 3) {+
+                                    $(".authority:eq(" + i + ")").html("<div class='iconfont icon-guanliyuan' style='text-align: center;color: #005dac;font-size: small;margin-top: 5px;'> 管理员</div>");
+                                } else {
+                                    $(".authority:eq(" + i + ")").html("<div class='iconfont icon-yonghu' style='text-align: center;color: #898989;font-size: small;margin-top: 5px;'> 普通用户</div>");
+                                }
+
+                                /*检查数组是否为空，不为空则插入前端页面*/
                                 if (messageArray != ""){
                                     var messageTemp = "";
                                     for (var k in messageArray){
                                         messageTemp = messageTemp + messageArray[k];
                                     }
-                                    $(".message:eq(" + messageIndex + ")").html("<hr style='border: #dddddd solid 0.5px'>");
+                                    $(".message:eq(" + messageIndex + ")").html("<hr style='border: #dddddd solid 0.5px;'>");
                                     $(".message:eq(" + messageIndex + ")").html(messageTemp);
+                                    for (var x in messageDeleteArray){
+                                        if(messageDeleteArray[x] != true ){
+                                            $(".message:eq(" + messageIndex + ") .deleteMessage:eq(" + x + ")").css("display","none");
+                                        }
+                                    }
+                                    messageDeleteArray = new Array();
                                     messageArray = new Array();
+                                } else {
+                                    $(".message:eq(" + i + ")").css("display","none");
                                 }
                             }
-                            console.log(messageArray);
-                            //加载分页数字
+
+                            /*加载分页数字*/
                             pages();
-                            if (thisPage == 1){
-                                $("#start_page").css("display","none");
-                            } else {
-                                $("#start_page").css("display","block");
-                            }
                         } else {
                             alert("评论获取失败,网络异常");
                         }
+
+                        /*回复评论*/
+                        $(".replyComment").each(function (index) {
+                            $(this).click(function () {
+                                $("#replyText").val("");
+                                var mUid = $(".option:eq(" + index + ")").attr("uid");
+                                var mCid = $(".option:eq(" + index + ")").attr("cid");
+                                var mFid = userId;
+
+                                var json = "{'mUid':'" + mUid + "','mCid':'" + mCid + "','mFid':'" + mFid + "','mStatus':'comment',";
+                                $("#data").val(json);
+                                $("#modalTitle").text("回复用户: " + data[index].user.uName);
+                            })
+                        });
+
+                        /*回复子评论*/
+                        $(".replyMessage").each(function (index) {
+                            $(this).click(function () {
+                                $("#replyText2").val("");
+                                var mUid = $(".newMessage:eq(" + index + ")").attr("mUid");
+                                var mCid = $(".newMessage:eq(" + index + ")").attr("mCid");
+                                var mFid = userId;
+                                var json = "{'mUid':'" + mUid + "','mCid':'" + mCid + "','mFid':'" + mFid + "','mStatus':'comment',";
+                                $("#data2").val(json);
+                                $("#modalTitle2").text("@" + $(this).parent().attr("messageName") + ": ");
+                            })
+                        });
+
+                        /*删除评论*/
+                        $(".deleteComment").each(function (index) {
+                            $(this).click(function () {
+                                if(confirm("确实要删除吗？")){
+                                    $.ajax({
+                                        url:"/acgInformation/comment/deleteComment",
+                                        data:{
+                                            commentId:data[index].cId
+                                        },
+                                        success:function () {
+                                            getPageCount();
+                                            doAjax();
+                                        }
+                                    });
+                                }
+                            })
+                        });
+
+                        /*删除子评论*/
+                        $(".deleteMessage").each(function (index) {
+                            $(this).click(function () {
+                                if(confirm("确实要删除吗？")){
+                                    $.ajax({
+                                        url:"/acgInformation/message/delete",
+                                        data:{
+                                            messageId:$(".newMessage:eq(" + index + ")").attr("mId")
+                                        },
+                                        success:function () {
+                                            getPageCount();
+                                            doAjax();
+                                        }
+                                    })
+                                }
+
+                            })
+                        });
+
+                        $(".comment").each(function (index) {
+                            $(this).mouseover(function () {
+                                // $(this).css("box-shadow","1px 1px 10px #858585");
+                                $(this).css("box-shadow","1px 1px 10px #cbcbcb");
+                            })
+                        })
+                        $(".comment").each(function (index) {
+                            $(this).mouseout(function () {
+                                $(this).css("box-shadow","0 0 0 0");
+                            })
+                        })
                     }
 
                 });
@@ -180,7 +305,7 @@
             wangEditor();
 
             //发表评论
-            $("#btn").click(function () {
+            $(".enter").click(function () {
                 var str = editor.txt.html();
                 console.log(str);
                 $.ajax({
@@ -192,6 +317,7 @@
                     success:function (data) {
                         if (data != 0){
                             alert("评论发表成功!");
+                            getPageCount();
                             thisPage = pageCount;
                             doAjax();
                             pages();
@@ -199,12 +325,73 @@
                     }
                 })
             })
+
+            /*模态框点击提交*/
+            $("#reply").click(function () {
+                var data = $("#data").val() + ",'mContent':'" + $("#replyText").val() + "'}";
+                $.ajax({
+                    url:"/acgInformation/message/add",
+                    type:"POST",
+                    async:false,
+                    data:data,
+                    contentType:"application/json;charset=UTF-8",
+                    dataType:"JSON",
+                    success:function (data) {
+                        alert("回复成功！");
+                        $("#editor").html("");
+                        wangEditor();
+                        doAjax();
+                    }
+                })
+            })
+
+            /*子评论模态框点击提交*/
+            $("#reply2").click(function () {
+                var data = $("#data2").val() + ",'mContent':'" + $("#modalTitle2").text() + $("#replyText2").val() + "'}";
+                $.ajax({
+                    url:"/acgInformation/message/add",
+                    type:"POST",
+                    async:false,
+                    data:data,
+                    contentType:"application/json;charset=UTF-8",
+                    dataType:"JSON",
+                    success:function (data) {
+                        alert("回复成功！");
+                        $("#editor").html("");
+                        wangEditor();
+                        doAjax();
+                    }
+                })
+            })
+
+            //上一页
+            $("#up").click(function () {
+                if (thisPage == 1){
+                    return;
+                } else {
+                    thisPage = Number(thisPage) - 1;
+                    doAjax();
+                }
+            })
+            //下一页
+            $("#down").click(function () {
+                if (thisPage == pageCount){
+                    return;
+                } else {
+                    thisPage = Number(thisPage) + 1;
+                    doAjax();
+                }
+            })
         })
     </script>
 </head>
 <body>
-    <div class="container">
-        <div class="left col-lg-9">
+    <div class="top container-fluid">
+
+    </div>
+    <div class="container" >
+        <!-- 左边模块 -->
+        <div class="left col-lg-8">
             <!-- 文章模块 -->
             <div class="article">
 
@@ -213,16 +400,11 @@
                 </div>
 
                 <div class="type col-lg-12">
-                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                    <button type="button" class="btn btn-primary">游戏</button>
-                    <!-- Indicates a successful or positive action -->
-                    <button type="button" class="btn btn-success">动漫</button>
-                    <!-- Contextual button for informational alert messages -->
-                    <button type="button" class="btn btn-info">二次元</button>
-                    <!-- Indicates caution should be taken with this action -->
-                    <button type="button" class="btn btn-warning">另类</button>
-                    <!-- Indicates a dangerous or potentially negative action -->
-                    <button type="button" class="btn btn-danger">十八禁</button>
+                    <button type="button" class="btnType btn btn-primary">游戏</button>
+                    <button type="button" class="btnType btn btn-success">动漫</button>
+                    <button type="button" class="btnType btn btn-info">二次元</button>
+                    <button type="button" class="btnType btn btn-warning">另类</button>
+                    <button type="button" class="btnType btn btn-danger">十八禁</button>
                 </div>
 
                 <div class="title col-lg-12">
@@ -230,10 +412,10 @@
                 </div>
 
                 <div class="logo col-lg-12">
-                    <span class="ico glyphicon glyphicon-time"></span>2019-12-20
-                    <span class="ico glyphicon glyphicon-eye-open"></span>67
-                    <span class="ico glyphicon glyphicon-comment"></span><span class="commentCount">4</span>
-                    <span class="ico glyphicon glyphicon-heart"></span>889
+                    <span class="ico glyphicon glyphicon-time"></span><span class="commentCount">2019-12-20</span>
+                    <span class="ico glyphicon glyphicon-eye-open"></span><span class="commentCount"></span>
+                    <span class="ico glyphicon glyphicon-comment"></span><span class="commentCount"></span>
+                    <span class="ico glyphicon glyphicon-heart"></span><span class="commentCount"></span>
                 </div>
 
                 <hr style="border: #eeeeee solid 0.5px">
@@ -242,9 +424,12 @@
                     <p><img src="https://www.menfuli.org/wp-content/uploads/2019/10/0006.jpg" alt="" width="800" height="1200" title="[神楽坂真冬] 恋人以上 英梨梨 [150P/481P] 神楽坂真冬 第1张-MEN"></p><p><br></p><p style="text-align: center;">[神楽坂真冬] 恋人以上 英梨梨 [150P/481P]</p><p style="text-align: center;"><br></p><p><img src="https://www.menfuli.org/wp-content/uploads/2019/10/0001.jpg" alt="" width="800" height="1200" title="[神楽坂真冬] Milk by blue 蕾姆 [150P/312M] 神楽坂真冬 第1张-MEN"></p><p style="text-align: center;"><br></p><p style="text-align: center;">[神楽坂真冬] Milk by blue 蕾姆 [150P/312M]</p><p style="text-align: center;"><br></p>
                 </div>
             </div>
+
             <a href="#" name="pageHead"></a>
+
             <!-- 评论模块 -->
             <div class="comments"></div>
+
             <!-- 分页模块 -->
             <div class="other">
                 <!--分页-->
@@ -268,15 +453,63 @@
                     </nav>
                 </div>
 
-                <div>
+                <div class="col-lg-9" style="padding: 0">
                     <div>
                         <div id="editor"></div>
-                        <div class="col-lg-12" style="text-align: right;margin-top: 10px;padding: 0;"><input class="btn btn-default" type="button" value="发表评论" style="width: 150px;height: 50px;font-size: larger;" id="btn"></div>
                     </div>
+                </div>
+                <div class="col-lg-3" style="text-align: right;margin-top: 10px;padding: 0;">
+                    <div class="enter iconfont icon--fasong" ></div>
+<!--                    <input class="btn btn-default" type="button" value="发表评论" style="width: 150px;height: 50px;font-size: larger;" id="btn">-->
+                </div>
+
+            </div>
+        </div>
+        <!-- 右边模块 -->
+        <div class="right col-lg-4">
+
+        </div>
+    </div>
+    <div class="foot container-fluid">
+
+    </div>
+
+    <!-- 模态框 -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle"></h5>
+                    <input type="hidden" name="data" id="data">
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" placeholder="请输入内容.." id="replyText">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="reply">回复</button>
                 </div>
             </div>
         </div>
-        <div class="right col-lg-3"></div>
     </div>
+    <!-- 子评论回复模态框 -->
+    <div class="modal fade" id="exampleModa2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle2"></h5>
+                    <input type="hidden" name="data" id="data2">
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" placeholder="请输入内容.." id="replyText2">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="reply2">回复</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

@@ -1,13 +1,35 @@
+@media (max-width: 1200px) {
+    .right{
+        display: none;
+    }
+    .article{
+        width: 730px;
+    }
+}
+
 *{margin: 0;padding: 0}
+a{
+    cursor:pointer;
+}
 body{
     background-color: #ebebeb;
 }
 #editor{
     background-color: white;
+    width: 540px;
+}
+
+.w-e-text-container {
+    height: 150px !important;
 }
 .top{
     height: 81px;
     background-color: white;
+}
+.foot{
+    margin-top: 50px;
+    background-color: #212121;
+    height: 130px;
 }
 .left{
     margin-top: 30px;
@@ -19,28 +41,33 @@ body{
     background-color: #666666;
 }
 .articleContent img{
-    width: 725px;
+    /*width: 650px;
+    height: 100%;*/
+    width: 100%;
     height: 100%;
 }
 /*文章模块样式*/
 .article{
-    padding: 50px;
+    border: #d7d7d7 solid 1px;
+    padding: 50px 30px;
     background-color: white;
 }
 .catalog{
     color: #c0c0c0;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
 }
-.btn{
+.btnType{
     height: 20px;
     padding: 0 5px 0 5px;
     font-size: xx-small;
     width: 60px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 .title{
     text-align: center;
-    font-size: xx-large;
+    font-size: 30px;
+    padding: 0;
+    font-weight: bold;
 }
 .logo{
     margin-top: 30px;
@@ -62,7 +89,7 @@ body{
     margin-top: 30px;
 }
 .comment{
-    border: #ebebeb solid 1px;
+    border: #d7d7d7 solid 1px;
     background-color: white;
     padding: 0;
     margin-bottom: 10px;
@@ -88,7 +115,8 @@ body{
     padding: 0;
 }
 .message{
-    /*padding: 15px;*/
+    padding: 15px;
+    background-color: #fcfcfc;
 }
 .newMessage{
     margin-bottom: 10px;

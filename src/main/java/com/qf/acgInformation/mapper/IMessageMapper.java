@@ -16,4 +16,10 @@ public interface IMessageMapper {
      * @return
      */
     List<Message> getMessageByCid(@Param("commentId") Integer commentId);
+
+    //添加消息
+    Integer addMessage(@Param("message") Message message);
+
+    //删除消息
+    Integer deleteMessage(@Param("messageId") Integer messageId);
 }

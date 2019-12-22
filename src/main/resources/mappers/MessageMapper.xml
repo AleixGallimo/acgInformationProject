@@ -22,4 +22,14 @@
     <select id="getMessageByCid" resultMap="messageMap">
         select * from message where m_cid = #{commentId} and m_status = 'comment' and is_delete = 1;
     </select>
+
+    <insert id="addMessage">
+        insert into message(m_uid, m_cid, m_fid, m_content, m_status)
+        values(#{message.mUid}, #{message.mCid}, #{message.mFid}, #{message.mContent}, #{message.mStatus});
+    </insert>
+
+    <update id="deleteMessage">
+        update message set is_delete = 0 where m_id = #{messageId};
+    </update>
+
 </mapper>

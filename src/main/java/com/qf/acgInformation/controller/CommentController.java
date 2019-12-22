@@ -54,4 +54,9 @@ public class CommentController {
         return commentService.getAllComment();
     }
 
+    //删除评论
+    @RequestMapping(value = "/deleteComment", method = RequestMethod.GET)
+    private Integer deleteComment(Integer commentId){
+        return commentService.deleteCommentByCommentId(commentId);
+    }
 }
