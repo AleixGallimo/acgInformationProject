@@ -10,7 +10,7 @@ public interface IUserService {
     User findUserById(Integer uid);
 
     //修改个人资料
-    void updateUser(User user);
+    Integer updateUser(User user);
 
     //显示用户昵称和头像
     User findNameAndPic(Integer uid);

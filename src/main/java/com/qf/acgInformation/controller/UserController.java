@@ -23,11 +23,24 @@ public class UserController {
         return user;
     }
     //更新数据
-    @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
-    public User updateUser(User user, HttpServletRequest request){
-        userService.updateUser(user);
-        Integer uid = (Integer) request.getSession().getAttribute("uid");
-        return userService.findUserById(uid);
+    @RequestMapping(value = "/updateUser",method = RequestMethod.GET)
+    public String updateUser(User user, HttpServletRequest request){
+        request.getSession().setAttribute("uid",1);
+        Object uid = request.getSession().getAttribute("uid");
+        log.debug("uid:"+uid);
+        user.setUId((Integer) uid);
+        User user1 = userService.findUserById((Integer) uid);
+        log.debug("user1:"+user1);
+        log.debug("user:"+user);
+//        String uAccount = user1.getUAccount();
+        user1 = user;
+        log.debug("user1:"+user1);
+        Integer updateUser = userService.updateUser(user1);
+        if (updateUser>0){
+            return "1";
+        }
+        return "0";
+
     }
 
     //显示用户的昵称和头像
