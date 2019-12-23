@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>jQuery仿微信支付输入密码代码 - 站长素材</title>
+<meta charset="utf-8" />
+
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap-grid.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
+<link rel="stylesheet" type="text/css" href="../asserts/member/css/zhifu.css">
+<script type="text/javascript" src="../asserts/member/js/jquery.min.js"></script>
+    <script src="../asserts/js/member.js"></script>
+    <!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+    <div class="header">
+        <div class="all_w ">
+            <div class="gofh">
+                <a href="finduser.html">
+                    <img src="../asserts/member/images/jt_03.jpg"></a>
+            </div>
+        </div>
+    </div>
+    <div class="wenx_xx">
+        <div class="mz">测试商城</div>
+        <div class="zhifu_price">￥88.88</div></div>
+    </div>
+    <a href="javascript:void(0);" class="ljzf_but all_w">立即支付</a>
+    <!--浮动层-->
+    <div class="ftc_wzsf">
+        <div class="srzfmm_box">
+            <div class="qsrzfmm_bt clear_wl">
+                <img src="../asserts/member/images/xx_03.jpg" class="tx close fl">
+                <img src="../asserts/member/images/jftc_03.png" class="tx fl">
+                <span class="fl">请输入支付密码</span></div>
+            <div class="zfmmxx_shop">
+                <div class="mz">测试商品</div>
+                <div class="zhifu_price">￥88.88</div></div>
+            <ul class="mm_box">
+                <li></li><li></li><li></li><li></li><li></li><li></li>
+            </ul>
+        </div>
+        <div class="numb_box">
+            <div class="xiaq_tb">
+                <img src="../asserts/member/images/jftc_14.jpg" height="10"></div>
+            <ul class="nub_ggg">
+                <li><a href="javascript:void(0);" class="zf_num">1</a></li>
+                <li><a href="javascript:void(0);" class="zj_x zf_num">2</a></li>
+                <li><a href="javascript:void(0);" class="zf_num">3</a></li>
+                <li><a href="javascript:void(0);" class="zf_num">4</a></li>
+                <li><a href="javascript:void(0);" class="zj_x zf_num">5</a></li>
+                <li><a href="javascript:void(0);" class="zf_num">6</a></li>
+                <li><a href="javascript:void(0);" class="zf_num">7</a></li>
+                <li><a href="javascript:void(0);" class="zj_x zf_num">8</a></li>
+                <li><a href="javascript:void(0);" class="zf_num">9</a></li>
+                <li><a href="javascript:void(0);" class="zf_empty">清空</a></li>
+                <li><a href="javascript:void(0);" class="zj_x zf_num">0</a></li>
+                <li><a href="javascript:void(0);" class="zf_del">删除</a></li>
+            </ul>
+        </div>
+        <div class="hbbj"></div>
+    </div>
+
+	<script type="text/javascript">
+	// $(function(){
+	// 	//出现浮动层
+	// 	$(".ljzf_but").click(function(){
+	// 		$(".ftc_wzsf").show();
+	// 	});
+	// 	//关闭浮动
+	// 	$(".close").click(function(){
+	// 		$(".ftc_wzsf").hide();
+	// 		$(".mm_box li").removeClass("mmdd");
+	// 		$(".mm_box li").attr("data","");
+	// 		i = 0;
+	// 	});
+	// 		//数字显示隐藏
+	// 	$(".xiaq_tb").click(function(){
+	// 		$(".numb_box").slideUp(500);
+	// 	});
+	// 	$(".mm_box").click(function(){
+	// 		$(".numb_box").slideDown(500);
+	// 	});
+	// 		//----
+	// 	var i = 0;
+	// 	$(".nub_ggg li .zf_num").click(function(){
+	//
+	// 		if(i<6){
+	// 			$(".mm_box li").eq(i).addClass("mmdd");
+	// 			$(".mm_box li").eq(i).attr("data",$(this).text());
+	// 			i++
+	// 			if (i==6) {
+	// 			  setTimeout(function(){
+	// 				var data = "";
+	// 					$(".mm_box li").each(function(){
+	// 					data += $(this).attr("data");
+	// 				});
+	// 					pay();
+	// 				// alert("支付成功"+data);
+	// 			  },100);
+	// 			};
+	// 		}
+	// 	});
+	//
+	// 	$(".nub_ggg li .zf_del").click(function(){
+	// 		if(i>0){
+	// 			i--
+	// 			$(".mm_box li").eq(i).removeClass("mmdd");
+	// 			$(".mm_box li").eq(i).attr("data","");
+	// 		}
+	// 	});
+	//
+	// 	$(".nub_ggg li .zf_empty").click(function(){
+	// 		$(".mm_box li").removeClass("mmdd");
+	// 		$(".mm_box li").attr("data","");
+	// 		i = 0;
+	// 	});
+	//
+	// });
+</script>
+
+<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+
+</div>
+</body>
+</html>
