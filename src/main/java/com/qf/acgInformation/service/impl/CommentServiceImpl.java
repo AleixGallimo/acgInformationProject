@@ -53,6 +53,26 @@ public class CommentServiceImpl implements ICommentService {
     }
 
     /**
+     * 根据用户id获取评论
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Comment> getCommentByUserId(Integer userId) {
+        return commentMapper.getCommentByUserId(userId);
+    }
+
+    /**
+     * 根据文章id获取文章标题
+     * @param articleId
+     * @return
+     */
+    @Override
+    public String getArticleTitleById(Integer articleId) {
+        return commentMapper.getArticleTitleById(articleId);
+    }
+
+    /**
      * 管理员专用 -- 获取所有文章评论
      * @return
      */

@@ -1,0 +1,48 @@
+p{
+    padding: 0;
+    margin: 0;
+}
+.title{
+    background-color: #f9f9f9;
+    padding-top: 20px;
+    padding-left: 20px;
+    border: #dcdcdc solid 1px;
+}
+.right{
+    padding: 40px;
+    background-color: #f9f9f9;
+    height: 500px;
+    overflow:auto;
+    border-right:  #dcdcdc solid 1px;
+    border-left:  #dcdcdc solid 1px;
+
+}
+.window{
+    padding: 0;
+}
+.user{
+    padding: 0;
+}
+.messageContent{
+    padding: 10px;
+    background-color: white;
+    float: left;
+    border-radius: 5px;
+}
+.thisMessageContent{
+    padding: 10px;
+    background-color: #9eea6a;
+    float: right;
+    border-radius: 5px;
+}
+.w-e-text-container{
+    height: 150px !important;
+}
+.other,.my{
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+.myEditor{
+    padding: 0;
+}

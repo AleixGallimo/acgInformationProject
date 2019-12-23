@@ -1,5 +1,8 @@
 package com.qf.acgInformation.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.qf.acgInformation.entity.Message;
 import com.qf.acgInformation.service.IMessageService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * CHAN
@@ -29,10 +33,24 @@ public class MessageController {
         return messageService.addMessage(message);
     }
 
+    //根据用户id获取所有消息
+    @RequestMapping(value = "/getMessage")
+    private String getMessageByUid(Integer userId){
+        List<Message> list = messageService.getMessageByUid(userId);
+        return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
+    }
+
     //删除消息 / 删除评论
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     private Integer deleteMessage(Integer messageId){
         log.debug("mid:" + messageId);
         return messageService.deleteMessage(messageId);
+    }
+
+    //聊天框消息
+    @RequestMapping(value = "/getMessageByFid")
+    private String getMessageByFid(Integer fUserId, Integer userId){
+        List<Message> list = messageService.getMessageByFid(fUserId, userId);
+        return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
     }
 }

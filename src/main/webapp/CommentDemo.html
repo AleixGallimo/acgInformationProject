@@ -29,12 +29,28 @@
         $(function () {
             //编辑窗口对象
             var editor;
-            //当前用户权限
-            var authority = 1;
+            var user = null;
+            if(user == null){
+                $.ajax({
+                    url:"/acgInformation/UserController/findUserById",
+                    type:"GET",
+                    async:false,
+                    data:{},
+                    success:function (user) {
+                        json = JSON.parse(user);
+                    }
+                })
+            }
+
+
+            console.log(user);
             //当前文章id
             var articleId = 1;
+            //当前用户权限
+            var authority = 3;
             //当前用户id
-            var userId = 4;
+            var userId = user.uId;
+            sessionStorage.setItem("user", JSON.stringify(user));
 
             //当前页数
             var thisPage = 1;
@@ -64,7 +80,7 @@
                             data = eval('(' + JSON.parse(data) + ')');
                             for (var i in data) {
                                 var comment = data[i];
-                                var user = data[i].user;
+                                user = data[i].user;
                                 var messages = data[i].messages;
                                 var temp = "" +
                                     "<div class='comment container-fluid'>\n" +
@@ -319,6 +335,7 @@
                             alert("评论发表成功!");
                             getPageCount();
                             thisPage = pageCount;
+                            editor.txt.clear();
                             doAjax();
                             pages();
                         }
@@ -389,6 +406,8 @@
     <div class="top container-fluid">
 
     </div>
+    <h1><a href="messageBox.html">您的消息</a></h1>
+    <h1><a href="privateMessage.html">私聊</a></h1>
     <div class="container" >
         <!-- 左边模块 -->
         <div class="left col-lg-8">
@@ -460,7 +479,6 @@
                 </div>
                 <div class="col-lg-3" style="text-align: right;margin-top: 10px;padding: 0;">
                     <div class="enter iconfont icon--fasong" ></div>
-<!--                    <input class="btn btn-default" type="button" value="发表评论" style="width: 150px;height: 50px;font-size: larger;" id="btn">-->
                 </div>
 
             </div>
@@ -492,6 +510,7 @@
             </div>
         </div>
     </div>
+
     <!-- 子评论回复模态框 -->
     <div class="modal fade" id="exampleModa2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

@@ -19,7 +19,7 @@ public class Message {
     private Integer mFid;
     //内容
     private String mContent;
-    //内容类型
+    //内容类型 -- message(私聊) -- call(@好友) --comment(评论)
     private String mStatus;
     //以读状态
     private Integer isRead;

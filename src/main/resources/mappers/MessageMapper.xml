@@ -18,6 +18,17 @@
                 select="com.qf.acgInformation.mapper.IUserMapper.findUserById"
         />
     </resultMap>
+    <select id="getMessageByUid" resultMap="messageMap">
+        select * from message where m_uid = #{userId} and m_status = 'message' and is_delete = 1;
+    </select>
+
+    <select id="getMessageByFid" resultMap="messageMap">
+        select * from message
+        where
+        m_fid = #{fUserId} and m_uid = #{userId} and m_status = 'message' and is_delete = 1
+        or
+        m_fid = #{userId} and m_uid = #{fUserId} and m_status = 'message' and is_delete = 1
+    </select>
 
     <select id="getMessageByCid" resultMap="messageMap">
         select * from message where m_cid = #{commentId} and m_status = 'comment' and is_delete = 1;
