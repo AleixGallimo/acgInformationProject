@@ -20,11 +20,19 @@
         select u_authority from user where u_id = #{uId};
     </select>
 
-    <update id="BuyVIP" parameterType="int">
-        update user set u_money = u_money - 100 where u_id = #{uId};
+    <update id="BuyVIP" parameterType="INTEGER">
+        update user set u_money = u_money - 88.88 where u_id = #{uId};
     </update>
 
-    <update id="updateUserRight" parameterType="int">
+    <select id="CheckMoney" resultMap="userMap">
+        select u_money from user where u_id = #{uId};
+    </select>
+
+    <update id="updateUserRight" parameterType="INTEGER">
         update user set u_authority = 2 where u_id = #{uId};
     </update>
+
+    <select id="checkPassword" resultMap="userMap">
+        select u_password from user WHERE u_id = #{uId} ;
+    </select>
 </mapper>

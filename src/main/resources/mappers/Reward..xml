@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.acgInformation.mapper.IRewardMapper">
+    <resultMap id="userMap" type="User">
+        <id property="uId" column="u_id"/>
+        <result property="uAccount" column="u_account"/>
+        <result property="uPassword" column="u_password"/>
+        <result property="uName" column="u_name"/>
+        <result property="uPic" column="u_pic"/>
+        <result property="uEmail" column="u_email"/>
+        <result property="uBirth" column="u_birth"/>
+        <result property="uSex" column="u_sex"/>
+        <result property="uBrief" column="u_brief"/>
+        <result property="uMoney" column="u_money"/>
+        <result property="uAuthority" column="u_authority"/>
+    </resultMap>
+    
+    <resultMap id="articleMap" type="Article">
+        <id property="aId" column="a_id"/>
+        <result property="aType" column="a_type"/>
+        <result property="title" column="a_title"/>
+        <result property="aText" column="a_text"/>
+        <result property="aPic" column="a_pic"/>
+        <result property="aAuthor" column="a_author"/>
+        <result property="aLike" column="a_like"/>
+        <result property="aRead" column="a_read"/>
+        <result property="aDate" column="a_date"/>
+        <result property="aState" column="a_state"/>
+    </resultMap>
+    
+    <select id="userAccount" resultMap="userMap">
+        select user from user where u_id = #{uId};
+    </select>
+
+    <select id="" resultMap="userMap">
+       SELECT `user`.* FROM `user` LEFT JOIN article ON  #{aAuthor} = u_id;
+    </select>
+    
+    <update id="updateMoney" parameterType="INTEGER">
+        UPDATE `user` SET u_money = u_money - 6 WHERE u_id = #{uId};
+    </update>
+
+    <update id="updateMoney2" parameterType="INTEGER">
+        UPDATE `user` SET u_money = u_money + 6 WHERE u_id = #{uId};
+    </update>
+</mapper>

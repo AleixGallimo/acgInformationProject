@@ -12,6 +12,8 @@ var update = {
                 contentType: "application/json;charset=UTF-8",
                 data: {},
                 success: function (data) {
+
+                    data.
                     $("#div").empty();
                     var html = '<div id="div">' +
                         '<nav class="navbar navbar-default">' +
