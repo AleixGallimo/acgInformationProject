@@ -70,9 +70,10 @@ public class CommentController {
     }
 
     //管理员专用 -- 获取所有评论
-    @RequestMapping(value = "/getAllComment", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    private List<Comment> getAllComment(){
-        return commentService.getAllComment();
+    @RequestMapping(value = "/getAllComment")
+    private String getAllComment(){
+        List<Comment> list = commentService.getAllComment();
+        return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
     }
 
     //删除评论
