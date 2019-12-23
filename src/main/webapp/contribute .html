@@ -35,19 +35,20 @@
 				$(this).toggleClass('is-visible');
 			})
 			$("#upload").bind("click",function () {
-				var formData = new FormData($(".form-upimg"));
+
+				var formData = new FormData($("#uploadForm")[0])
 				$.ajax({
-					url:"/acgInformation/article/addPic",
+					url:"/acgInformation/article/image",
 					contentType:"html/text;charset=UTF-8",
 					data:formData,
 					type:"POST",
+					async: false,
 					cache: false,
 					contentType: false,
 					processData: false,
-					dataType:"JSON",
 					success:function (imgSrc) {
-						console.log(imgSrc)
-						$(".uploadPic").src=imgSrc;
+						let pic = document.querySelector(".uploadPic")
+						pic.src=imgSrc.substring(1,imgSrc.length-1)
 					}
 				})
 			})
@@ -117,9 +118,9 @@
 	          	</div>
 	          	<div class="form-group">
 	          		<div>
-						<form class="form-upimg">
+						<form id="uploadForm" class="form-upimg" enctype="multipart/form-data">
 	          			<span><i class="icon-picture"></i>添加图片&nbsp;</span>
-		          		<input id="upimg" type="file" name="image">
+		          		<input id="upimg" type="file" name="upload">
 		          		</form>
 						<a id="upload">上传</a>
 		          	</div>
