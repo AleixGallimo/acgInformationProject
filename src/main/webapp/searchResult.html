@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html LANG="EN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" href="https://www.dongmanzx.com/wp-content/uploads/2018/07/2018070623043133.ico"
+          type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE;chrome=1">
+    <title>ACG资讯-最前沿,最专业的ACG新闻资讯</title>
+    <link rel='stylesheet' id='carousel-css' href="asserts/css/owl.carousel.min.css-ver=Grace8.css"
+          type='text/css' media='all' />
+    <link rel='stylesheet' id='animate-css' href="asserts/css/animate.min.css-ver=Grace8.css"
+          type='text/css' media='all' />
+    <link rel='stylesheet' id='bootstrap-css' href="asserts/css/bootstrap.min.css-ver=Grace8.css"
+          type='text/css' media='all' />
+    <link rel='stylesheet' id='fontello-css' href="asserts/css/fontello.css-ver=Grace8.css"
+          type='text/css' media='all' />
+    <link rel='stylesheet' id='reset-css' href="asserts/css/reset.css-ver=Grace8.css"
+          type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='style-css' href="asserts/css/style.css-ver=Grace8.css"
+          type='text/css'
+          media='all' />
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var keyWords = sessionStorage.getItem("keyWords");
+            $.ajax({
+                url:"/acgInformation/article/search",
+                type:"GET",
+                data:{keyWords:keyWords.substring(1,keyWords.length-1)},
+                contentType:"application/json;charset=UTF-8",
+                dataType:"JSON",
+                success:function (data) {
+                    let lbox=document.querySelector(".ajax-load-con ");
+                    for (var i in data){
+                        let bbox=lbox.querySelectorAll(".content-box")
+                        let srcImg=bbox[i].querySelector("img")
+                        let Title=bbox[i].querySelector(".posts-gallery-content-title")
+                        let Text=bbox[i].querySelector(".posts-gallery-text")
+                        let time=bbox[i].querySelector(".ico-time").querySelector("i")
+                        let like=bbox[i].querySelector(".ico-like").querySelector("i")
+                        let read=bbox[i].querySelector(".ico-eye").querySelector("i")
+                        Title.innerText=data[i].title
+                        Text.innerText=data[i].aText
+                        srcImg.src=data[i].aPic
+                        read.innerText=data[i].aRead
+                        time.innerText=data[i].aDate
+                        like.innerText=data[i].aLike
+                    }
+                    $.ajax({
+                        url:"/acgInformation/article/read",
+                        type:"GET",
+                        data:{},
+                        contentType:"application/json;charset=UTF-8",
+                        dataType:"JSON",
+                        success:function (data) {
+                            let bbox=document.querySelector(".widget_suxingme_post").querySelectorAll("li")
+                            for(let i = 0 ;i<3;i++){
+                                let srcImg=bbox[i].querySelector("img")
+                                let Title=bbox[i].querySelector("h4")
+                                let time=bbox[i].querySelector(".entry-meta").querySelectorAll("span")[0]
+                                let read=bbox[i].querySelector(".entry-meta").querySelectorAll("span")[1]
+                                Title.innerText=data[i].title
+                                srcImg.src=data[i].aPic
+                                $(read).append(data[i].aRead)
+                                time.innerText=data[i].aDate
+                            }
+                            $.ajax({
+                                url:"/acgInformation/article/type",
+                                type:"GET",
+                                data:{type:"cosplay"},
+                                contentType:"application/json;charset=UTF-8",
+                                dataType:"JSON",
+                                success:function (data) {
+                                    let bbox=document.querySelector(".widget_suxingme_postlist").querySelectorAll("li")
+                                    for(let i = 0 ;i<3;i++){
+                                        let srcImg=bbox[i].querySelector("img")
+                                        let Title=bbox[i].querySelector("h4")
+                                        let time=bbox[i].querySelector(".title").querySelectorAll("span")[0]
+                                        Title.innerText=data[i].title
+                                        srcImg.src=data[i].aPic
+                                        time.innerText=data[i].aDate
+                                    }
+                                }
+                            })
+                        }
+                    })
+                }
+            });
+            $(".type").bind("click",function () {
+                sessionStorage.setItem("type", JSON.stringify($(this).attr("name")));
+                location.href='type.html';
+            });
+            $(".btn-primary").bind("click",function () {
+                sessionStorage.setItem("keyWords", JSON.stringify($(".form-control").val()));
+                location.href='searchResult.html';
+            });
+        })
+    </script>
+</head>
+
+<body data-rsssl=1 class="home blog off-canvas-nav-left">
+<div id="header" class="navbar-fixed-top">
+    <div class="container">
+        <h1 class="logo">
+            <a href="index.html"  title="ACG资讯"
+               style="background-image: url(https://wx3.sinaimg.cn/mw690/a8a5aaf4gy1ga6hmhw0y9j209203udfu.jpg);" >
+            </a>
+        </h1>
+        <div role="navigation" class="site-nav primary-menu">
+            <div class="menu-fix-box">
+                <ul id="menu-navigation" class="menu">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a class="type" name="动画">动画</a></li>
+                    <li><a class="type" name="游戏">游戏</a></li>
+                    <li><a class="type" name="音乐">音乐</a></li>
+                    <li><a class="type" name="电影">电影</a></li>
+                    <li><a class="type" name="cosplay">cosplay</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="right-nav pull-right">
+
+
+            <button type="button" class="js-toggle-search" data-toggle="modal" data-target="#exampleModal"><i class=" icon-search"></i></button>
+            <a href="contribute .html"
+               class="toggle-tougao  hidden-xs hidden-sm">投稿</a>
+            <a href=""
+               class="toggle-login hidden-xs hidden-sm">登录</a>
+            <span class="line  hidden-xs hidden-sm"></span>
+            <a href=""
+               class="toggle-login hidden-xs hidden-sm">注册</a>
+
+
+        </div>
+        <div class="navbar-mobile hidden-md hidden-lg">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a class="type" name="动画">动画</a></li>
+                    <li><a class="type" name="游戏">游戏</a></li>
+                    <li><a class="type" name="音乐">音乐</a></li>
+                    <li><a class="type" name="电影">电影</a></li>
+                    <li><a class="type" name="cosplay">cosplay</a></li>
+                </ul>
+            </div>
+            <div class="body-overlay"></div>
+        </div>
+    </div>
+</div>
+
+<div id="page-content">
+    <div class="top-content">
+        <div class="container">
+            <!--            <div class="row">-->
+            <!--                <div class="owl-carousel top-slide-two">-->
+            <!--                </div>-->
+            <!--                <div class="top-singles hidden-xs hidden-sm">-->
+            <!--                    <div class="single-item">-->
+            <!--                        <div class="image"-->
+            <!--                             style="background-image:url(https://www.dongmanzx.com/wp-content/uploads/2019/12/2019121908443129.jpg)">-->
+            <!--                            <a href="" >-->
+            <!--                                <div class="overlay"></div>-->
+            <!--                                <div class="title"><span>动画</span>-->
+            <!--                                    <h3>《数码宝贝》20周年剧场版新剧照 奥米加兽帅气登场</h3>-->
+            <!--                                </div>-->
+            <!--                            </a>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                <div class="top-singles hidden-xs hidden-sm">-->
+            <!--                    <div class="single-item">-->
+            <!--                        <div class="image"-->
+            <!--                             style="background-image:url(https://www.dongmanzx.com/wp-content/uploads/2019/11/2019110510323687.png)">-->
+            <!--                            <a href="" >-->
+            <!--                                <div class="overlay"></div>-->
+            <!--                                <div class="title"><span>游戏</span>-->
+            <!--                                    <h3>唱响希望之声 《魂器学院》联合源音塘开启琉璃角色曲翻唱大赛</h3>-->
+            <!--                                </div>-->
+            <!--                            </a>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                <div class="top-singles hidden-xs hidden-sm">-->
+            <!--                    <div class="single-item">-->
+            <!--                        <div class="image"-->
+            <!--                             style="background-image:url(http://img5.mtime.cn/CMS/News/2019/12/20/095621.10078157_620X620.jpg)">-->
+            <!--                            <a href="" >-->
+            <!--                                <div class="overlay"></div>-->
+            <!--                                <div class="title"><span>电影</span>-->
+            <!--                                    <h3>神仙打架！"封神三部曲"首曝预告  姜子牙献上封神榜 苏妲己与纣王共浴</h3>-->
+            <!--                                </div>-->
+            <!--                            </a>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="article col-xs-12 col-sm-8 col-md-8">
+
+                    <div class="ajax-load-box posts-con">
+
+                        <div class="ajax-load-con content wow fadeInUp">
+                            <div class="content-box posts-gallery-box">
+                                <div class="posts-gallery-img">
+                                    <a href=""  target="_blank">
+                                        <img src="" data-original="" class="lazy thumbnail" />
+                                    </a>
+                                </div>
+                                <div class="posts-gallery-content">
+                                    <h2><a href="" target="_blank" class="posts-gallery-content-title"></a></h2>
+                                    <div class="posts-gallery-text">&hellip;</div>
+                                    <div class="posts-default-info posts-gallery-info">
+                                        <ul>
+                                            <li class="ico-time"><i class="icon-clock-1"></i> </li>
+                                            <li class="ico-eye hidden-xs hidden-sm"><i class="icon-eye-4"></i> </li>
+                                            <li class="ico-like hidden-xs hidden-sm"><i class="icon-heart"></i> </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-box posts-gallery-box">
+                                <div class="posts-gallery-img">
+                                    <a href=""  target="_blank">
+                                        <img src="" data-original="" class="lazy thumbnail" />
+                                    </a>
+                                </div>
+                                <div class="posts-gallery-content">
+                                    <h2><a href="" target="_blank" class="posts-gallery-content-title"></a></h2>
+                                    <div class="posts-gallery-text">&hellip;</div>
+                                    <div class="posts-default-info posts-gallery-info">
+                                        <ul>
+                                            <li class="ico-time"><i class="icon-clock-1"></i> </li>
+                                            <li class="ico-eye hidden-xs hidden-sm"><i class="icon-eye-4"></i> </li>
+                                            <li class="ico-like hidden-xs hidden-sm"><i class="icon-heart"></i> </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-box posts-gallery-box">
+                                <div class="posts-gallery-img">
+                                    <a href=""  target="_blank">
+                                        <img src="" data-original="" class="lazy thumbnail" />
+                                    </a>
+                                </div>
+                                <div class="posts-gallery-content">
+                                    <h2><a href="" target="_blank" class="posts-gallery-content-title"></a></h2>
+                                    <div class="posts-gallery-text">&hellip;</div>
+                                    <div class="posts-default-info posts-gallery-info">
+                                        <ul>
+                                            <li class="ico-time"><i class="icon-clock-1"></i> </li>
+                                            <li class="ico-eye hidden-xs hidden-sm"><i class="icon-eye-4"></i> </li>
+                                            <li class="ico-like hidden-xs hidden-sm"><i class="icon-heart"></i> </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-box posts-gallery-box">
+                                <div class="posts-gallery-img">
+                                    <a href=""  target="_blank">
+                                        <img src="" data-original="" class="lazy thumbnail" />
+                                    </a>
+                                </div>
+                                <div class="posts-gallery-content">
+                                    <h2><a href="" target="_blank" class="posts-gallery-content-title"></a></h2>
+                                    <div class="posts-gallery-text">&hellip;</div>
+                                    <div class="posts-default-info posts-gallery-info">
+                                        <ul>
+                                            <li class="ico-time"><i class="icon-clock-1"></i> </li>
+                                            <li class="ico-eye hidden-xs hidden-sm"><i class="icon-eye-4"></i> </li>
+                                            <li class="ico-like hidden-xs hidden-sm"><i class="icon-heart"></i> </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-box posts-gallery-box">
+                                <div class="posts-gallery-img">
+                                    <a href=""  target="_blank">
+                                        <img src="" data-original="" class="lazy thumbnail" />
+                                    </a>
+                                </div>
+                                <div class="posts-gallery-content">
+                                    <h2><a href="" target="_blank" class="posts-gallery-content-title"></a></h2>
+                                    <div class="posts-gallery-text">&hellip;</div>
+                                    <div class="posts-default-info posts-gallery-info">
+                                        <ul>
+                                            <li class="ico-time"><i class="icon-clock-1"></i> </li>
+                                            <li class="ico-eye hidden-xs hidden-sm"><i class="icon-eye-4"></i> </li>
+                                            <li class="ico-like hidden-xs hidden-sm"><i class="icon-heart"></i> </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-box posts-gallery-box">
+                                <div class="posts-gallery-img">
+                                    <a href=""  target="_blank">
+                                        <img src="" data-original="" class="lazy thumbnail" />
+                                    </a>
+                                </div>
+                                <div class="posts-gallery-content">
+                                    <h2><a href="" target="_blank" class="posts-gallery-content-title"></a></h2>
+                                    <div class="posts-gallery-text">&hellip;</div>
+                                    <div class="posts-default-info posts-gallery-info">
+                                        <ul>
+                                            <li class="ico-time"><i class="icon-clock-1"></i> </li>
+                                            <li class="ico-eye hidden-xs hidden-sm"><i class="icon-eye-4"></i> </li>
+                                            <li class="ico-like hidden-xs hidden-sm"><i class="icon-heart"></i> </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-box posts-gallery-box">
+                                <div class="posts-gallery-img">
+                                    <a href=""  target="_blank">
+                                        <img src="" data-original="" class="lazy thumbnail" />
+                                    </a>
+                                </div>
+                                <div class="posts-gallery-content">
+                                    <h2><a href="" target="_blank" class="posts-gallery-content-title"></a></h2>
+                                    <div class="posts-gallery-text">&hellip;</div>
+                                    <div class="posts-default-info posts-gallery-info">
+                                        <ul>
+                                            <li class="ico-time"><i class="icon-clock-1"></i> </li>
+                                            <li class="ico-eye hidden-xs hidden-sm"><i class="icon-eye-4"></i> </li>
+                                            <li class="ico-like hidden-xs hidden-sm"><i class="icon-heart"></i> </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-box posts-gallery-box">
+                                <div class="posts-gallery-img">
+                                    <a href=""  target="_blank">
+                                        <img src="" data-original="" class="lazy thumbnail" />
+                                    </a>
+                                </div>
+                                <div class="posts-gallery-content">
+                                    <h2><a href="" target="_blank" class="posts-gallery-content-title"></a></h2>
+                                    <div class="posts-gallery-text">&hellip;</div>
+                                    <div class="posts-default-info posts-gallery-info">
+                                        <ul>
+                                            <li class="ico-time"><i class="icon-clock-1"></i> </li>
+                                            <li class="ico-eye hidden-xs hidden-sm"><i class="icon-eye-4"></i> </li>
+                                            <li class="ico-like hidden-xs hidden-sm"><i class="icon-heart"></i> </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="sidebar col-xs-12 col-sm-4 col-md-4">
+                    <div class="widget widget_suxingme_mostviews">
+                        <h3><span>本周热点</span></h3>
+                        <ul class="widget_suxingme_post">
+                            <li>
+                                <a href="" title="">
+                                    <div class="overlay"></div>
+
+                                    <img src=""
+                                         style="display: block" class="lazy thumbnail" />
+
+                                    <div class="title">
+                                        <div class="entry-meta"><span>日期</span>
+                                            <span><i class="icon-eye"></i></span></div>
+                                        <h4>标题</h4>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" title="">
+                                    <div class="overlay"></div>
+
+                                    <img src=""
+                                         class="lazy thumbnail" />
+
+                                    <div class="title">
+                                        <div class="entry-meta"><span>日期</span>
+                                            <span><i class="icon-eye"></i></span></div>
+                                        <h4>标题</h4>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" title="">
+                                    <div class="overlay"></div>
+
+                                    <img src=""
+                                         class="lazy thumbnail" />
+
+                                    <div class="title">
+                                        <div class="entry-meta">
+                                            <span>日期</span>
+                                            <span><i class="icon-eye"></i></span></div>
+                                        <h4>标题</h4>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="widget widget_suxingme_postlist">
+                        <h3><span>COS美图</span></h3>
+                        <ul class="recent-posts-widget">
+                            <li class="one">
+                                <a href="">
+                                    <div class="overlay"></div>
+                                    <img src="" style="size:100px"/>
+                                    <div class="title">
+                                        <span>2019-09-02</span>
+                                        <h4>标题</h4>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="one">
+                                <a href="">
+                                    <div class="overlay"></div>
+                                    <img src="" style="size:100px"/>
+                                    <div class="title">
+                                        <span>2019-09-02</span>
+                                        <h4>标题</h4>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="one">
+                                <a href="">
+                                    <div class="overlay"></div>
+                                    <img src="" style="size:50px"/>
+                                    <div class="title">
+                                        <span>2019-09-02</span>
+                                        <h4>标题</h4>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div id="footer" class="two-s-footer clearfix">
+    <div class="footer-box">
+        <div class="container">
+            <div class="social-footer">
+                <a class="qqii"
+                   href="" target="_blank"><i
+                        class="icon-qq"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="search-form">
+    <form method="get" action="https://www.dongmanzx.com/" role="search">
+        <div class="search-form-inner">
+            <div class="search-form-box">
+                <input class="form-search" type="text" name="s" placeholder="键入搜索关键词">
+                <button type="submit" id="btn-search"><i class="icon-search"></i> </button>
+
+            </div>
+        </div>
+    </form>
+    <div class="close-search">
+        <span class="close-top"></span>
+        <span class="close-bottom"></span>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">検索を試みる</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <span class="input-group-addon">關鍵字:</span>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                <button type="button" class="btn btn-primary">検索</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
