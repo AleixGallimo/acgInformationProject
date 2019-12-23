@@ -20,34 +20,36 @@
         a:link { color: #e6e6e6; text-decoration: none; }/* 未访问 */
         a:visited { color: #999; text-decoration: none; }/*以访问*/
         a:hover { color: #323232; text-decoration: none; }
-        .aName{color: #5b9dd9}
-        .aName:hover{color: #538cc3}
+        .aName{color: #538cc3}
+        .aName:hover{color: #3f5b83
+        }
         .enter{font-size: 100px;text-align: center;color: #99999f;}
         .enter:hover{font-size: 100px;text-align: center;color: #5e5e64;}
+        .userNameHref{color: #3f5b83;}
+        .userNameHref:hover{color: #000000;}
     </style>
     <script type="text/javascript">
         $(function () {
             //编辑窗口对象
             var editor;
             var user = null;
+            var fuser = null;
             if(user == null){
                 $.ajax({
                     url:"/acgInformation/UserController/findUserById",
                     type:"GET",
                     async:false,
                     data:{},
-                    success:function (user) {
-                        json = JSON.parse(user);
+                    success:function (data) {
+                        user = JSON.parse(data);
                     }
                 })
             }
 
-
-            console.log(user);
             //当前文章id
             var articleId = 1;
             //当前用户权限
-            var authority = 3;
+            var authority = user.uAuthority;
             //当前用户id
             var userId = user.uId;
             sessionStorage.setItem("user", JSON.stringify(user));
@@ -74,11 +76,12 @@
                     url:"/acgInformation/comment/getComment/" + offset + "/" + pageSize,
                     type:"GET",
                     data:{articleId:articleId},
-                    sync:false,
+                    async:false,
                     success:function (data) {
                         if (data != null){
                             data = eval('(' + JSON.parse(data) + ')');
                             for (var i in data) {
+                                fuser = data;
                                 var comment = data[i];
                                 user = data[i].user;
                                 var messages = data[i].messages;
@@ -89,7 +92,7 @@
                                     "            <img src='" + user.uPic + "' width='100' height='100' class='imgHead img-thumbnail'>\n" +
                                     "        </div>\n" +
                                     "        <div class='userName'>\n" +
-                                    "            <div>" + user.uName +  "</div>\n" +
+                                    "            <div><a class='userNameHref'>" + user.uName +  "</a></div>\n" +
                                     "            <div class='authority'></div>\n" +
                                     "        </div>\n" +
                                     "    </div>\n" +
@@ -102,7 +105,8 @@
                                     "       <a class='deleteComment'>删除</a>\n" +
                                     "    </div>\n" +
                                     "    <div class='messages col-lg-12'>\n" +
-                                    "        <div class='col-lg-3' style='padding: 0'></div>\n" +
+                                    "        <div class='col-lg-3' style='padding: 0'>" +
+                                    "        </div>\n" +
                                     "        <div class='message col-lg-9' style='border-left: #ebebeb solid 1px;'>\n" +
                                     "        </div>\n" +
                                     "    </div>\n" +
@@ -173,7 +177,7 @@
                             alert("评论获取失败,网络异常");
                         }
 
-                        /*回复评论*/
+                        //回复评论
                         $(".replyComment").each(function (index) {
                             $(this).click(function () {
                                 $("#replyText").val("");
@@ -186,8 +190,7 @@
                                 $("#modalTitle").text("回复用户: " + data[index].user.uName);
                             })
                         });
-
-                        /*回复子评论*/
+                        //回复子评论
                         $(".replyMessage").each(function (index) {
                             $(this).click(function () {
                                 $("#replyText2").val("");
@@ -199,8 +202,7 @@
                                 $("#modalTitle2").text("@" + $(this).parent().attr("messageName") + ": ");
                             })
                         });
-
-                        /*删除评论*/
+                        //删除评论
                         $(".deleteComment").each(function (index) {
                             $(this).click(function () {
                                 if(confirm("确实要删除吗？")){
@@ -217,8 +219,7 @@
                                 }
                             })
                         });
-
-                        /*删除子评论*/
+                        //删除子评论
                         $(".deleteMessage").each(function (index) {
                             $(this).click(function () {
                                 if(confirm("确实要删除吗？")){
@@ -236,6 +237,19 @@
 
                             })
                         });
+
+                        $(".userNameHref").each(function (index) {
+                            $(this).click(function () {
+                                if (fuser[index].user.uId == userId){
+                                    alert("您不能与自己聊天");
+                                    return;
+                                }
+                                if(confirm('即将进入会话') == true){
+                                    sessionStorage.setItem("uName", fuser[index].user.uName);
+                                    location.href = "privateMessage.html?fId=" + fuser[index].user.uId + "&uId=" + userId;
+                                }
+                            })
+                        })
 
                         $(".comment").each(function (index) {
                             $(this).mouseover(function () {
@@ -398,7 +412,8 @@
                     thisPage = Number(thisPage) + 1;
                     doAjax();
                 }
-            })
+            });
+
         })
     </script>
 </head>

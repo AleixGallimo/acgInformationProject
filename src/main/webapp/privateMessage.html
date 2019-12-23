@@ -13,7 +13,7 @@
     <!-- 编辑器 -->
     <script src="https://unpkg.com/wangeditor/release/wangEditor.min.js"></script>
 
-    <link href="asserts/css/messageBoxStyle.css" rel="stylesheet">
+    <link href="asserts/css/privateMessage.css" rel="stylesheet">
     <script type="text/javascript">
         $(function () {
             //编辑框方法
@@ -25,11 +25,22 @@
                 editor.create();
             }
             wangEditor();
-            // var userId = sessionStorage.getItem("userId");
-            var userId = 1;
-            var fid = 2;
-            var userName = "千锋讲师江达然"
-            $("h4").text(userName);
+
+            function getParams(key) {
+                var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                console.log(r)
+                if (r != null) {
+                    return unescape(r[2]);
+                }
+                return null;
+            };
+
+            //当前用户id，回复用户id，回复用户名
+            var userId = getParams("uId");
+            var fid = getParams("fId");
+            var fName = sessionStorage.getItem("uName");
+            $("h4").text(fName);
 
             var start = function () {
                 $(".window div").remove();
@@ -38,12 +49,10 @@
                     data:{
                         fUserId:fid,
                         userId:userId,
-                        sync:false
+                        async:false
                     },
                     success:function (message) {
                         message = eval('(' + JSON.parse(message) + ')');
-                        console.log(message)
-                        // $("h4").text(message)
                         for (var i in message){
                             var temp = null;
                             if (message[i].mFid == userId){
