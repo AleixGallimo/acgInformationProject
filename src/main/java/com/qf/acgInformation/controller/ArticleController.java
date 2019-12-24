@@ -29,10 +29,10 @@ public class ArticleController {
         return list;
     }
 
-    @RequestMapping("/select")
-    public void getArticleById(Integer id){
+    @RequestMapping("/getArticleById")
+    public Article getArticleById(Integer id){
         Article article = articleService.getArticleById(id);
-        log.debug(article.toString());
+        return article;
     }
 
     @RequestMapping("/type")

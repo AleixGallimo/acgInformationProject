@@ -44,11 +44,11 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    <!--配置文件上传解析对象-->
-<!--    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
-<!--        &lt;!&ndash;        限制文件上传的大小 限制大小为10MB&ndash;&gt;-->
-<!--        <property name="maxUploadSize" value="10485760"/>-->
-<!--    </bean>-->
+<!--    配置文件上传解析对象-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--        限制文件上传的大小 限制大小为10MB-->
+        <property name="maxUploadSize" value="10485760"/>
+    </bean>
 <!--    静态资源不被拦截-->
     <mvc:resources mapping="/asserts/**" location="/asserts/"/>
 
