@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 public interface IRewardService {
 
 
-    //用户打赏的余额减少6元
-    Integer updateMoney(Integer uid,Integer aAuthor);
+    //用户打赏功能
+    String reward(Integer uid,Integer aAuthor);
 
 }

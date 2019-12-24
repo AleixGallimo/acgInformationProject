@@ -50,4 +50,10 @@ public class UserController {
         return userService.findNameAndPic(uid);
     }
 
+
+    //根据传进来的uid查找用户信息
+    @RequestMapping(value = "/findUser",method = RequestMethod.GET)
+    public User findUser(Integer uid){
+        return userService.findUserById(uid);
+    }
 }
