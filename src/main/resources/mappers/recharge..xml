@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.acgInformation.mapper.IRechargeMapper">
+    <resultMap id="userMap" type="User">
+        <id property="uId" column="u_id"/>
+        <result property="uAccount" column="u_account"/>
+        <result property="uPassword" column="u_password"/>
+        <result property="uName" column="u_name"/>
+        <result property="uPic" column="u_pic"/>
+        <result property="uEmail" column="u_email"/>
+        <result property="uBirth" column="u_birth"/>
+        <result property="uSex" column="u_sex"/>
+        <result property="uBrief" column="u_brief"/>
+        <result property="uMoney" column="u_money"/>
+        <result property="uAuthority" column="u_authority"/>
+    </resultMap>
+    <update id="addMoney" parameterType="INTEGER">
+        update user set u_money = u_money + #{uMoney} where u_id = #{uId};
+    </update>
+</mapper>

@@ -17,10 +17,13 @@ $(function () {
                 '<a class="navbar-brand" href="#">' +
                 //首页的入口
                 '<a href="../views/Demo.html">'+
-                '<img alt="Brand" src="../asserts/images/home3.gif"' +
+                '<img alt="Brand" src="../asserts/images/logo.png"' +
                 'style="width: 100px;height: 100px; border-radius:80%; overflow:hidden;background-color: #00b9eb"></a>' +
-                '<img alt="Brand" src="../asserts/images/Recharge.jpg"' +
-                'style="right:300px; width: 100px;height: 100px; border-radius:80%; overflow:hidden;background-color: #00b9eb">'+
+                //充值的入口
+                '<a href="../views/recharge.html">'+
+                '<img alt="Brand" id="recharge" src="../asserts/images/Recharge.jpg"' +
+                'style="right:300px; width: 100px;height: 100px; border-radius:80%; overflow:hidden;background-color: #00b9eb"></a>'+
+
                 '</a>' +
                 '</div></div></nav><div class="container"><header class="clearfix"><h1>个人资料</h1></header>' +
                 <!--        头像-->
@@ -66,6 +69,10 @@ $(function () {
             });
             $("#member").click(function () {
                 UpgradeMember();
+            });
+
+            $("#recharge").click(function () {
+                toRecharge();
             })
         }
     });
@@ -113,3 +120,7 @@ var removeHidden = function (data) {
         $("#crown").removeAttribute("hidden");
     }
 };
+//跳转到充值页面
+// var  toRecharge = function () {
+//     location.href = "../views/recharge.html";
+// };
