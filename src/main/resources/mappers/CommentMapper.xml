@@ -22,32 +22,40 @@
                 select="com.qf.acgInformation.mapper.IMessageMapper.getMessageByCid"
         />
     </resultMap>
-
+<!--    获取文章id所有评论-->
     <select id="getCommentByArticleId" resultMap="commentMap">
         select * from comment where c_aid = #{articleId} and is_delete = 1 limit #{offset},#{pageSize};
     </select>
-
-    <select id="getAllComment" resultMap="commentMap">
-        select * from comment where is_delete = 1;
-    </select>
-
+<!--    获取文章id所有评论总数-->
     <select id="getAllCommentCountByArticleId" resultType="Integer">
         select count(c_id) from comment where c_aid = #{articleId} and is_delete = 1;
     </select>
-
+<!--    通过评论id删除评论-->
     <update id="deleteCommentByCommentId">
         update comment set is_delete = 0 where c_id = #{commentId};
     </update>
-
+<!--    添加评论-->
     <insert id="addComment" parameterType="Comment">
         insert into comment(c_text, c_uid, c_aid) values(#{comment.cText}, #{comment.cUid}, #{comment.cAid});
     </insert>
-
+<!--    通过用户id获取评论-->
     <select id="getCommentByUserId" resultMap="commentMap">
          select * from comment where c_uid = #{userId} and is_delete = 1;
     </select>
-
+<!--    通过文章id获取文章标题-->
     <select id="getArticleTitleById" resultType="String">
         select a_title from article where a_id = #{articleId} and is_delete = 1;
     </select>
+<!--    获取所有未删除评论-->
+    <select id="getAllComment" resultMap="commentMap">
+        select * from comment where is_delete = 1 limit #{offset},#{pageSize};
+    </select>
+<!--    查看已删除评论-->
+    <select id="getAllComment" resultMap="commentMap">
+        select * from comment where is_delete = 0 limit #{offset},#{pageSize};
+    </select>
+<!--    恢复已删除评论-->
+    <update id="deleteCommentByCommentId">
+        update comment set is_delete = 1 where c_id = #{commentId};
+    </update>
 </mapper>

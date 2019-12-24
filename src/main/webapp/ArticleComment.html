@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>评论测试页面</title>
+    <title></title>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
@@ -13,25 +13,199 @@
     <!-- 本地 css 样式 -->
     <link href="asserts/css/commentStyle.css" rel="stylesheet">
     <!-- 图标 -->
-    <link href="https://at.alicdn.com/t/font_1546900_8r1htvnaxqi.css" rel="stylesheet">
+    <link href="https://at.alicdn.com/t/font_1546900_y8hdaf5oyp.css" rel="stylesheet">
     <style type="text/css">
         *:hover{cursor:default;}
-        a{cursor:default;text-decoration:none;color: #a5a5a5;}
-        a:link { color: #e6e6e6; text-decoration: none; }/* 未访问 */
-        a:visited { color: #999; text-decoration: none; }/*以访问*/
-        a:hover { color: #323232; text-decoration: none; }
-        .aName{color: #538cc3}
-        .aName:hover{color: #3f5b83}
-        .enter{font-size: 100px;text-align: center;color: #99999f;}
-        .enter:hover{font-size: 100px;text-align: center;color: #5e5e64;}
-        .userNameHref{color: #3f5b83;}
-        .userNameHref:hover{color: #000000;}
+        a{cursor:default;text-decoration:none;color: #404040;}
+        a:link { color: #404040; text-decoration: none; }/* 未访问 */
+        a:visited { color: #404040; text-decoration: none; }/*以访问*/
+        a:hover { color: #00b0ff; text-decoration: none; }
+        .aName{color: #0e90d2}
+        .option a{color: #cecece}
+        .option a:hover{color: #00b0ff}
+        .replyMessage,.deleteMessage{color: #cecece}
+        .go:hover{color: #00b0ff}
     </style>
+</head>
+<body>
+    <div class="top container-fluid">
+        <div class="container">
+            <div class="titleLogo">
+                <img src="https://wx3.sinaimg.cn/mw690/a8a5aaf4gy1ga6hmhw0y9j209203udfu.jpg" height="78" width="197">
+            </div>
+            <div class="menu-fix-box col-lg-7">
+                <ul id="menu-navigation" class="menu">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a class="type" name="动画">动画</a></li>
+                    <li><a class="type" name="游戏">游戏</a></li>
+                    <li><a class="type" name="音乐">音乐</a></li>
+                    <li><a class="type" name="电影">电影</a></li>
+                    <li><a class="type" name="cosplay">cosplay</a></li>
+                </ul>
+            </div>
+            <div class="menu-message col-lg-2" style="text-align: right;float: right">
+                <a class="myMessages" href="myMessages.html" style="line-height: 80px;padding-right: 15px">我的消息</a>
+            </div>
+        </div>
+    </div>
+    <div class="container" >
+        <!-- 左边模块 -->
+        <div class="left col-lg-8">
+            <!-- 文章模块 -->
+            <div class="article">
+                <div class="catalog col-lg-12"></div>
+                <div class="type col-lg-12">
+                    <button type="button" class="btnType btn btn-primary">游戏</button>
+                    <button type="button" class="btnType btn btn-success">动漫</button>
+                    <button type="button" class="btnType btn btn-info">二次元</button>
+                    <button type="button" class="btnType btn btn-warning">另类</button>
+                    <button type="button" class="btnType btn btn-danger">十八禁</button>
+                </div>
+                <div class="title col-lg-12"></div>
+                <div class="logo col-lg-12">
+                    <span class="ico glyphicon glyphicon-time"></span><span class="time"></span>
+                    <span class="ico glyphicon glyphicon-eye-open"></span><span class="read"></span>
+                    <span class="ico glyphicon glyphicon-comment"></span><span class="commentCount"></span>
+                    <span class="ico glyphicon glyphicon-heart"></span><span class="like"></span>
+                </div>
+                <hr style="border: #eeeeee solid 0.5px">
+                <div class="articleContent">
+                    <p class='articleP' style="text-indent: 30px;font-size: large;line-height:40px;color: #4a535b"></p>
+                    <img src="" class="contentImg">
+                </div>
+
+                <div class="myButton row" style="text-align: center;margin-top: 100px">
+                    <button class="giveMoney btn btn-default" type="submit">打赏文章</button>
+                    <button class="giveLike btn btn-default" type="submit">我喜欢</button>
+                </div>
+            </div>
+
+            <a href="#" name="pageHead"></a>
+
+            <!-- 评论模块 -->
+            <div class="comments"></div>
+
+            <!-- 分页模块 -->
+            <div class="other">
+                <!--分页-->
+                <div style="text-align: center" class="upDownPage">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li>
+                                <a href="#pageHead" aria-label="Previous" id="up">
+                                    <span aria-hidden="true">上一页</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="pages pagination"></ul>
+                        <ul class="pagination">
+                            <li>
+                                <a href="#pageHead" aria-label="Next" id="down">
+                                    <span aria-hidden="true">下一页</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="eee col-lg-9">
+                        <div id="editor"></div>
+                    </div>
+                </div>
+                <div class="row" style="text-align: right">
+                    <div class="col-lg-12">
+                        <button type="button" class="enter btn btn-default">回复文章</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 右边模块 -->
+
+        <div class="right col-lg-4">
+            <div class="home col-lg-12"><!--authorObj-->
+                <div class="rHeadPic">
+                    <img class="img-circle" src="asserts/images/headPicture/hcx.jpg" width="85" height="85">
+                </div>
+                <div class="rUserName">
+                    <span>胡纯霞姐姐 </span><span class="setting iconfont icon-V"></span>
+                </div>
+                <div class="uType">
+                    <div class='iconfont icon icon-huiyuanjulebu' style='text-align: center;color: #f6c214;font-size: small;margin-top: 5px;'> 超级会员</div>
+                </div>
+                <div>
+
+                </div>
+            </div>
+            <div class="news col-lg-12">
+                <div class="nTitle">
+                    <p>最新文章</p>
+                </div>
+                <div class="nContent">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="foot container-fluid">
+
+    </div>
+
+    <!-- 模态框 -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle"></h5>
+                    <input type="hidden" name="data" id="data">
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" placeholder="请输入内容.." id="replyText">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="reply">回复</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 子评论回复模态框 -->
+    <div class="modal fade" id="exampleModa2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle2"></h5>
+                    <input type="hidden" name="data" id="data2">
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" placeholder="请输入内容.." id="replyText2">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="reply2">回复</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript">
         $(function () {
             //编辑窗口对象
             var editor;
-
+            //检查用户登录状态
+            $.ajax({
+                url:"/acgInformation/comment/check",
+                async:false,
+                data:{},
+                success:function (data) {
+                    if (data == 0){
+                        location.href = "login.html";
+                        return;
+                    }
+                }
+            })
             //加载当前用户
             var user = null;
             var fuser = null;
@@ -47,16 +221,6 @@
                 })
             }
 
-            //解析url地址栏
-            function getParams(key) {
-                var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
-                var r = window.location.search.substr(1).match(reg);
-                if (r != null) {
-                    return unescape(r[2]);
-                }
-                return null;
-            };
-
             //当前文章id
             var articleId = getParams("aId");
             //当前用户权限
@@ -64,6 +228,9 @@
             //当前用户id
             var userId = user.uId;
             sessionStorage.setItem("user", JSON.stringify(user));
+            //获取文章作者对象
+            var author;
+            var authorObj;
 
             //当前页数
             var thisPage = 1;
@@ -78,6 +245,15 @@
             var messageArray = new Array();
             var messageDeleteArray = new Array();
 
+            //解析url地址栏
+            function getParams(key) {
+                var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) {
+                    return unescape(r[2]);
+                }
+                return null;
+            };
             //获取文章方法
             var getArticle = function () {
                 $.ajax({
@@ -88,7 +264,7 @@
                     async:false,
                     success:function (data) {
                         var article = JSON.parse(data);
-                        console.log(article);
+                        $("title").text(article.title);
                         author = article.aAuthor;
                         $(".catalog").text("首页 > " +  article.aType);
                         $(".title").text(article.title);
@@ -100,9 +276,7 @@
                     }
                 })
             }
-            //获取文章作者对象
-            var author;
-            var authorObj;
+            //获取文章作者对象方法
             var getAuthor = function () {
                 $.ajax({
                     url:"/acgInformation/UserController/findUserById",
@@ -115,7 +289,42 @@
                     }
                 })
             }
+            //检查文章是否已被用户赞赏
+            var checkUserMoney = function () {
+                $.ajax({
+                    url:"/acgInformation/collection/check",
+                    data:{
+                        articleId:articleId,
+                        type:"money",
+                    },
+                    async:false,
+                    success:function (value) {
+                        console.log("内容为:" + value)
+                        if (value == userId){
+                            $(".giveMoney").attr("disabled","disabled");
+                            $(".giveMoney").text("已打赏");
+                            $(".giveMoney").attr("class", "giveMoney btn btn-danger");
 
+                        }
+                    }
+                })
+                $.ajax({
+                    url:"/acgInformation/collection/check",
+                    data:{
+                        articleId:articleId,
+                        type:"like",
+                    },
+                    async:false,
+                    success:function (value) {
+                        if (value == userId){
+                            $(".giveLike").attr("disabled","disabled");
+                            $(".giveLike").text("已点赞");
+                            $(".giveLike").attr("class", "giveLike btn btn-danger");
+
+                        }
+                    }
+                })
+            }
             //获取评论方法
             var doAjax = function(){
                 $(".newMessage").remove();
@@ -161,28 +370,28 @@
                                     "    </div>\n" +
                                     "</div>"
 
-                                    /*判定当前评论是否存在子评论，是则遍历，将评论存放在数组中*/
-                                    if (messages != ""){
-                                        messageIndex = i;
-                                        for (var j in messages){
-                                            var m = messages[j];
-                                            var message = "<div class='newMessage' " +
-                                                "messageName='" + m.user.uName + "' " +
-                                                "mUid='" + m.user.uId + "' " +
-                                                "mCid='" + m.mCid + "' " +
-                                                "mId='" + m.mId + "'>" +
-                                                "<a class='aName'>" + m.user.uName + "</a>" + " : " + messages[j].mContent + " " +
-                                                "<a class='deleteMessage' style='float: right;font-size: small;margin-right: 15px''>删除 </a>" +
-                                                "<a class='replyMessage'  data-toggle='modal' data-target='#exampleModa2' style='float: right;font-size: small;margin-right: 5px''>回复</a>" +
-                                                "</div>";
-                                            messageArray[j] = message;
-                                            if (m.mFid == userId){
-                                                messageDeleteArray[j] = true;
-                                            } else {
-                                                messageDeleteArray[j] = false;
-                                            }
+                                /*判定当前评论是否存在子评论，是则遍历，将评论存放在数组中*/
+                                if (messages != ""){
+                                    messageIndex = i;
+                                    for (var j in messages){
+                                        var m = messages[j];
+                                        var message = "<div class='newMessage' " +
+                                            "messageName='" + m.user.uName + "' " +
+                                            "mUid='" + m.user.uId + "' " +
+                                            "mCid='" + m.mCid + "' " +
+                                            "mId='" + m.mId + "'>" +
+                                            "<a class='aName'>" + m.user.uName + "</a>" + " : " + messages[j].mContent + " " +
+                                            "<a class='deleteMessage' style='float: right;font-size: small;margin-right: 15px''>删除 </a>" +
+                                            "<a class='replyMessage'  data-toggle='modal' data-target='#exampleModa2' style='float: right;font-size: small;margin-right: 5px''>回复</a>" +
+                                            "</div>";
+                                        messageArray[j] = message;
+                                        if (m.mFid == userId){
+                                            messageDeleteArray[j] = true;
+                                        } else {
+                                            messageDeleteArray[j] = false;
                                         }
                                     }
+                                }
                                 /*插入评论*/
                                 $(".comments").append(temp);
                                 /*判定评论是否由用户发出，true则允许删除评论*/
@@ -382,16 +591,23 @@
             if (commentCount == 0){
                 getPageCount();
             }
-            //加载
-            getArticle();
-            getAuthor
-            doAjax();
-            wangEditor();
+            //加载所有方法
+            $(document).ready(function () {
+                getArticle();
+                getAuthor();
+                getArticleTime();
+                doAjax();
+                wangEditor();
+                checkUserMoney();
+            })
 
 
             //发表评论
             $(".enter").click(function () {
                 var str = editor.txt.html();
+                if (str == "<p><br></p>"){
+                    return;
+                }
                 $.ajax({
                     url:"/acgInformation/comment/addComment",
                     type:"POST",
@@ -411,9 +627,12 @@
                 })
             })
 
-            /*模态框点击提交*/
+            //模态框点击提交
             $("#reply").click(function () {
                 var data = $("#data").val() + ",'mContent':'" + $("#replyText").val() + "'}";
+                if ($("#replyText").val() == ""){
+                    return;
+                }
                 $.ajax({
                     url:"/acgInformation/message/add",
                     type:"POST",
@@ -430,9 +649,12 @@
                 })
             })
 
-            /*子评论模态框点击提交*/
+            //子评论模态框点击提交
             $("#reply2").click(function () {
                 var data = $("#data2").val() + ",'mContent':'" + $("#modalTitle2").text() + $("#replyText2").val() + "'}";
+                if($("#replyText2").val() == ""){
+                    return;
+                }
                 $.ajax({
                     url:"/acgInformation/message/add",
                     type:"POST",
@@ -449,18 +671,57 @@
                 })
             })
 
+            //点赞 打赏
             $(".giveMoney").click(function () {
-                $(this).removeClass("giveMoney btn btn-default");
-                $(this).addClass("giveMoney btn btn-danger")
-                $(this).attr("disabled","disabled");
-                $(this).text("已打赏");
+                $.ajax({
+                    url:"/acgInformation/RewardController/reward",
+                    data:{
+                        author:author
+                    },
+                    success:function (flag) {
+                        if (flag == 2){
+                            alert("不好意思，您的余额不足，请充值");
+                        } else if (flag == 0){
+                            alert("失败");
+                        } else {
+                            $.ajax({
+                                url:"/acgInformation/collection/add",
+                                data:{
+                                    userId:userId,
+                                    articleId:articleId,
+                                    type:"money"
+                                }
+                            });
+                            $(this).attr("class", "giveMoney btn btn-danger");
+                            $(this).attr("disabled","disabled");
+                            $(this).text("已打赏");
+                        }
+                    }
+
+                });
             })
             $(".giveLike").click(function () {
-                $(this).removeClass("giveLike btn btn-default");
-                $(this).addClass("giveLike btn btn-danger")
-                $(this).attr("disabled","disabled");
-                $(this).text("已点赞");
+                $.ajax({
+                    url:"/acgInformatuion/article/addLike",
+                    data:{
+                        aId:articleId
+                    },
+                    success:function () {
+                        $.ajax({
+                            url:"/acgInformation/collection/add",
+                            data:{
+                                userId:userId,
+                                articleId:articleId,
+                                type:"like"
+                            }
+                        });
+                        $(this).attr("class", "giveLike btn btn-danger")
+                        $(this).attr("disabled","disabled");
+                        $(this).text("已点赞");
+                    }
+                })
             })
+
             //上一页
             $("#up").click(function () {
                 if (thisPage == 1){
@@ -480,150 +741,36 @@
                 }
             });
 
+            //获取时间文章
+            var getArticleTime = function () {
+                $.ajax({
+                    url:"/acgInformation/article/load",
+                    async:false,
+                    success:function (data) {
+                        data = JSON.parse(data);
+                        for(var i = 0;i < 10;i++){
+                            var temp = "" +
+                                "<div class='new col-lg-12'>" +
+                                "   <div class='col-lg-12' style='font-size: 16px'><a class='go'>" + data[i].title + "</a></div>" +
+                                "   <div class='col-lg-12' style='text-align: right;margin-bottom: 5px;color: #dddddd'>" + data[i].aDate + "</div>" +
+                                "</div>";
+                            $(".nContent").append(temp);
+                        }
+                        $(".new").each(function (index) {
+                            $(this).hover(function () {
+                                $(".go:eq(" + index + ")").css("color","#00b0ff");
+                            }, function () {
+                                $(".go:eq(" + index + ")").css("color","#404040");
+                            })
+                            $(this).click(function () {
+                                location.href = "ArticleComment.html?aId=" + data[index].aId;
+                            })
+                        })
+                    }
+                })
+            }
         })
     </script>
-</head>
-<body>
-    <div class="top container-fluid">
-        <div class="container">
-            <div class="titleLogo">
-                <img src="https://wx3.sinaimg.cn/mw690/a8a5aaf4gy1ga6hmhw0y9j209203udfu.jpg" height="78" width="197">
-            </div>
-            <div class="menu-fix-box col-lg-7">
-                <ul id="menu-navigation" class="menu">
-                    <li><a href="index.html">首页</a></li>
-                    <li><a class="type" name="动画">动画</a></li>
-                    <li><a class="type" name="游戏">游戏</a></li>
-                    <li><a class="type" name="音乐">音乐</a></li>
-                    <li><a class="type" name="电影">电影</a></li>
-                    <li><a class="type" name="cosplay">cosplay</a></li>
-                </ul>
-            </div>
-            <div class="menu-message col-lg-2" style="text-align: right;float: right">
-                <a href="messageBox.html" style="line-height: 80px">我的消息</a>
-            </div>
-        </div>
-    </div>
-    <div class="container" >
-        <!-- 左边模块 -->
-        <div class="left col-lg-8">
-            <!-- 文章模块 -->
-            <div class="article">
-                <div class="catalog col-lg-12"></div>
-                <div class="type col-lg-12">
-                    <button type="button" class="btnType btn btn-primary">游戏</button>
-                    <button type="button" class="btnType btn btn-success">动漫</button>
-                    <button type="button" class="btnType btn btn-info">二次元</button>
-                    <button type="button" class="btnType btn btn-warning">另类</button>
-                    <button type="button" class="btnType btn btn-danger">十八禁</button>
-                </div>
-                <div class="title col-lg-12"></div>
-                <div class="logo col-lg-12">
-                    <span class="ico glyphicon glyphicon-time"></span><span class="time"></span>
-                    <span class="ico glyphicon glyphicon-eye-open"></span><span class="read"></span>
-                    <span class="ico glyphicon glyphicon-comment"></span><span class="commentCount"></span>
-                    <span class="ico glyphicon glyphicon-heart"></span><span class="like"></span>
-                </div>
-                <hr style="border: #eeeeee solid 0.5px">
-                <div class="articleContent">
-                    <p class='articleP' style="text-indent: 30px;font-size: large;line-height:40px;color: #4a535b"></p>
-                    <img src="https://www.menfuli.org/wp-content/uploads/2019/10/0001-1.jpg" class="contentImg">
-                </div>
-
-                <div class="row" style="text-align: center;margin-top: 20px">
-                    <button class="giveMoney btn btn-default" type="submit">打赏文章</button>
-                    <button class="giveLike btn btn-default" type="submit">我喜欢</button>
-                </div>
-            </div>
-
-            <a href="#" name="pageHead"></a>
-
-            <!-- 评论模块 -->
-            <div class="comments"></div>
-
-            <!-- 分页模块 -->
-            <div class="other">
-                <!--分页-->
-                <div style="text-align: center" class="upDownPage">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination">
-                            <li>
-                                <a href="#pageHead" aria-label="Previous" id="up">
-                                    <span aria-hidden="true">上一页</span>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="pages pagination"></ul>
-                        <ul class="pagination">
-                            <li>
-                                <a href="#pageHead" aria-label="Next" id="down">
-                                    <span aria-hidden="true">下一页</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-
-                <div class="eee col-lg-9" style="padding: 0">
-                    <div>
-                        <div id="editor"></div>
-                    </div>
-                </div>
-                <div class="col-lg-3" style="text-align: right;margin-top: 10px;padding: 0;">
-                    <div class="enter iconfont icon-huabanfuben1" ></div>
-                </div>
-
-            </div>
-        </div>
-        <!-- 右边模块 -->
-
-        <div class="right col-lg-4">
-            <div class="home col-lg-12">
-
-            </div>
-        </div>
-    </div>
-    <div class="foot container-fluid">
-
-    </div>
-
-    <!-- 模态框 -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle"></h5>
-                    <input type="hidden" name="data" id="data">
-                </div>
-                <div class="modal-body">
-                    <input type="text" class="form-control" placeholder="请输入内容.." id="replyText">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="reply">回复</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 子评论回复模态框 -->
-    <div class="modal fade" id="exampleModa2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle2"></h5>
-                    <input type="hidden" name="data" id="data2">
-                </div>
-                <div class="modal-body">
-                    <input type="text" class="form-control" placeholder="请输入内容.." id="replyText2">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="reply2">回复</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 </body>
 </html>

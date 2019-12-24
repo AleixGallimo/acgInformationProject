@@ -29,5 +29,5 @@ public interface ICommentService {
     String getArticleTitleById(@Param("articleId") Integer articleId);
 
     //管理员专用 -- 获取所有文章评论
-    List<Comment> getAllComment();
+    List<Comment> getAllComment(Integer offset, Integer pageSize);
 }

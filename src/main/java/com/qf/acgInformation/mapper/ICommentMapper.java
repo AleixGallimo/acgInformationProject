@@ -29,6 +29,12 @@ public interface ICommentMapper {
     String getArticleTitleById(@Param("articleId") Integer articleId);
 
     //管理员专用 -- 获取所有文章评论
-    List<Comment> getAllComment();
+    List<Comment> getAllComment(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+
+    //管理员专用 -- 还原删除评论
+    void restoreComment(@Param("commentId") Integer commentId);
+
+    //管理员专用 -- 查看所有已删除评论
+    List<Comment> getDeleteComment(@Param("commentId") Integer commentId, @Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 }
 
