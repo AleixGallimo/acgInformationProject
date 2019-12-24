@@ -18,13 +18,45 @@ body{
     background-color: white;
     width: 540px;
 }
+/*导航*/
+.menu-fix-box ul {width:600px;}
+.menu-fix-box ul>li {
+    width:30px;
+    height: 80px;
+    float:left;
+    margin-left: 10px;
+    margin-right: 10px;
+    list-style:none;
+}
+.menu-fix-box ul>li>a {
+    color: #404040;
+    font-size: 15px;
+    display: block;
+    position: relative;
+    line-height: 80px;
+    height: 80px;
+}
+.menu-fix-box ul>li>a:hover{
+    color: #00b0ff;
+}
+.titleLogo{
+    float: left;
+    width: 220px;
+    margin: 0px 20px 0px 0px;
+}
+.menu-fix-box{
+    padding:0px;
+}
+
+
 
 .w-e-text-container {
     height: 150px !important;
 }
 .top{
-    height: 81px;
+    height: 80px;
     background-color: white;
+    border: #d7d7d7 solid 1px;
 }
 .foot{
     margin-top: 50px;
@@ -34,11 +66,6 @@ body{
 .left{
     margin-top: 30px;
     /*background-color: white;*/
-}
-.right{
-    margin-top: 30px;
-    height: 280px;
-    background-color: #666666;
 }
 .articleContent img{
     /*width: 650px;
@@ -80,7 +107,11 @@ body{
     font-size: 12px;
     text-indent: 1px;
 }
-
+.articleP{
+    text-indent:50px;
+    font-size: small;
+    color: red;
+}
 
 /*评论模块样式*/
 .comments{
@@ -132,4 +163,27 @@ body{
 }
 .content{
     padding-top: 20px;
+}
+.giveMoney{
+    margin-right: 10px;
+}
+.giveMoney:hover,.giveLike:hover{
+    border-color:#cccccc;
+    background-color: white;
+}
+/*作者模块*/
+.right{
+    margin-top: 30px;
+    height: 280px;
+}
+.home{
+    height: 280px;
+    background-color: white;
+    border: #d7d7d7 solid 1px;
+}
+.upDownPage{
+    margin-bottom: 20px;
+}
+.eee{
+    margin-top: 20px;
 }
