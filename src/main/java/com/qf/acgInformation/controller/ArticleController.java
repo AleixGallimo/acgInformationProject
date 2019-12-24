@@ -13,6 +13,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -85,15 +88,18 @@ public class ArticleController {
         return imgSrc;
     }
 
-    @RequestMapping("/add" )
-    public void addArticle(Article article){
-
-//        LocalDate date = LocalDate.now();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        Article article = new Article("明星","王宝强、贾乃亮、陈羽凡桃园三结义",
-//                "这是假新闻","https://ww1.sinaimg.cn/bmiddle/8a7b160cgy1g9v7kotkzvj20nf0akgm8.jpg"
-//                ,2,date.format(formatter));
-//        log.debug(articleService.addArticle(article).toString());
+    @RequestMapping( value = "/add" ,method = RequestMethod.POST)
+    public Integer addArticle(@RequestBody Article article){
+        article.setAState(2);
+        log.debug("aaaa " + article);
+        //获取提交日期
+         LocalDate date = LocalDate.now();
+         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+         article.setADate(formatter.format(LocalDateTime.now() ));
+         article.setAAuthor(1);
+         //存入文章对象进数据库
+        Integer row = articleService.addArticle(article);
+        return row;
     }
     @RequestMapping("/delete")
     public void deleteArticle(){

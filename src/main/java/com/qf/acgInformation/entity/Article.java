@@ -34,13 +34,11 @@ public class Article {
     public Article() {
     }
 
-    public Article(String aType, String title, String aText, String aPic, Integer aAuthor, String aDate) {
+    public Article(String title, String aText, String aType, String aPic) {
         this.aType = aType;
         this.title = title;
         this.aText = aText;
         this.aPic = aPic;
-        this.aAuthor = aAuthor;
-        this.aDate = aDate;
     }
 
     public Article(Integer aId , Integer aState) {

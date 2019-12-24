@@ -29,12 +29,13 @@
 				location.href='type.html';
 			});
 			$(".btn-primary").bind("click",function () {
-				sessionStorage.setItem("keyWords", JSON.stringify($(".form-control").val()));
+				sessionStorage.setItem("keyWords", JSON.stringify($("#keyWords").val()));
 				location.href='searchResult.html';
 			});
 			$(".contribute-cat li").bind("click",function () {
 				$(".contribute-cat li").attr("class","")
 				$(this).toggleClass('is-visible');
+				$("#aType").val($(".is-visible").attr("data-id"))
 			})
 			$("#upload").bind("click",function () {
 
@@ -51,11 +52,25 @@
 					success:function (imgSrc) {
 						let pic = document.querySelector(".uploadPic")
 						pic.src=imgSrc.substring(1,imgSrc.length-1)
+						$("#aPic").val(imgSrc.substring(1,imgSrc.length-1))
 					}
 				})
-				$("#nice-check-contribute").bind("click",function () {
-					$.ajax({
-					})
+			})
+			$("#nice-check-contribute").bind("click",function () {
+				console.log($("#title").val())
+				console.log($("#post_content").val())
+				console.log($("#aType").val())
+				console.log($("#aPic").val())
+				$.ajax({
+					url:"/acgInformation/article/add",
+					data:"{'title':'" + $("#title").val() + "','aText':'" + $("#post_content").val() + "','aType':'" + $("#aType").val() + "','aPic':'" + $("#aPic").val() + "',}",
+					type:"POST",
+					contentType:"application/json;charset=UTF-8",
+					dataType:'JSON',
+					success:function () {
+						alert("上传成功，请等待审核")
+						window.location.reload() ;
+					}
 				})
 			})
 		})
@@ -128,7 +143,8 @@
 	          			<span><i class="icon-picture"></i>添加图片&nbsp;</span>
 		          		<input id="upimg" type="file" name="upload">
 		          		</form>
-					</div>
+					</div><input type="hidden" id="aPic"><input type="hidden" id="aType">
+
 					<div style="width: 28px;height: 20px;position:absolute;right: 36px;top:39px;z-index: 10"><a id="upload" style="display: block;box-sizing: border-box">上传</a></div>
 					<div style="width: 80px;height: 80px;position:absolute;right: 96px;top:0px;z-index: 10;border: 1px solid black;padding: 2px"><img src="" class="uploadPic" style="width: 76px"></div>
 	          		<div id="wp-post_content-wrap" class="wp-core-ui wp-editor-wrap html-active">
@@ -138,16 +154,13 @@
 </div>
 
 	          		<div class="form-control-border"></div>
-	          		<div class="tips-error">
-                    	<i class="icon-info-circled-2"></i>请输入不少于200字的文章内容！
-                    </div>
 	          	</div>
 			</div>
 			<div class="contribute-item contribute-meta">
 				<h3><span>文章分类</span></h3>
 				<p>选择本文的分类，不可多选 </p>
 				<ul class="contribute-cat" id="contribute-cat">
-					<li data-id="1">游戏</li><li data-id="4">动画</li><li data-id="5">电影</li><li data-id="6">音乐</li><li data-id="7">cosplay</li></ul>
+					<li data-id="游戏" >游戏</li><li data-id="动画" >动画</li><li data-id="电影" >电影</li><li data-id="音乐" >音乐</li><li data-id="cosplay">cosplay</li></ul>
 				<div class="tips-error">
                 	<i class="icon-info-circled-2"></i>请输入符合文章类型的分类！
                 </div>
@@ -184,7 +197,7 @@
 			<div class="modal-body">
 				<div class="input-group">
 					<span class="input-group-addon">關鍵字:</span>
-					<input type="text" class="form-control">
+					<input type="text" class="form-control" id="keyWords">
 				</div>
 			</div>
 			<div class="modal-footer">

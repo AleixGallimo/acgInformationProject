@@ -35,14 +35,19 @@
                 contentType:"application/json;charset=UTF-8",
                 dataType:"JSON",
                 success:function (data) {
+                    //先加载标签区下方的文章
                     let bbox=document.querySelectorAll(".content-box")
                     for(let i = 0 ,len=bbox.length;i<len;i++){
+                        let a0=bbox[i].querySelectorAll("a")[0]
+                        let a1=bbox[i].querySelectorAll("a")[1]
                         let srcImg=bbox[i].querySelector("img")
                         let Title=bbox[i].querySelector(".posts-gallery-content-title")
                         let Text=bbox[i].querySelector(".posts-gallery-text")
                         let time=bbox[i].querySelector(".ico-time").querySelector("i")
                         let like=bbox[i].querySelector(".ico-like").querySelector("i")
                         let read=bbox[i].querySelector(".ico-eye").querySelector("i")
+                        a0.href="ArticleComment.html?aId="+data[i].aId
+                        a1.href="ArticleComment.html?aId="+data[i].aId
                         Title.innerText=data[i].title
                         Text.innerText=data[i].aText
                         srcImg.src=data[i].aPic
@@ -51,6 +56,7 @@
                         like.innerText=data[i].aLike
 
                     }
+                    //第一步加载成功后继续加载热门区文章
                     $.ajax({
                         url:"/acgInformation/article/read",
                         type:"GET",
@@ -60,15 +66,18 @@
                         success:function (data) {
                             let bbox=document.querySelector(".widget_suxingme_post").querySelectorAll("li")
                             for(let i = 0 ;i<3;i++){
+                                let a=bbox[i].querySelector("a")
                                 let srcImg=bbox[i].querySelector("img")
                                 let Title=bbox[i].querySelector("h4")
                                 let time=bbox[i].querySelector(".entry-meta").querySelectorAll("span")[0]
                                 let read=bbox[i].querySelector(".entry-meta").querySelectorAll("span")[1]
+                                a.href="ArticleComment.html?aId="+data[i].aId
                                 Title.innerText=data[i].title
                                 srcImg.src=data[i].aPic
                                 $(read).append(data[i].aRead)
                                 time.innerText=data[i].aDate
                             }
+                            //热门区加载成功后加载cosplay区
                             $.ajax({
                                 url:"/acgInformation/article/type",
                                 type:"GET",
@@ -78,9 +87,11 @@
                                 success:function (data) {
                                     let bbox=document.querySelector(".widget_suxingme_postlist").querySelectorAll("li")
                                     for(let i = 0 ;i<3;i++){
+                                        let a=bbox[i].querySelector("a")
                                         let srcImg=bbox[i].querySelector("img")
                                         let Title=bbox[i].querySelector("h4")
                                         let time=bbox[i].querySelector(".title").querySelectorAll("span")[0]
+                                        a.href="ArticleComment.html?aId="+data[i].aId
                                         Title.innerText=data[i].title
                                         srcImg.src=data[i].aPic
                                         time.innerText=data[i].aDate
@@ -91,10 +102,12 @@
                     })
                 }
             });
+            //上方分类导航
             $(".type").bind("click",function () {
                 sessionStorage.setItem("type", JSON.stringify($(this).attr("name")));
                 location.href='type.html';
             });
+            //搜索事件
             $(".btn-primary").bind("click",function () {
                 sessionStorage.setItem("keyWords", JSON.stringify($(".form-control").val()));
                 location.href='searchResult.html';

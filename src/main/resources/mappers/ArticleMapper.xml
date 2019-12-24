@@ -15,25 +15,25 @@
         <result property="aState" column="a_state"/>
     </resultMap>
     <select id="getArticleByKeyWords" resultMap="ArticleMap">
-      select * from article where a_title like concat('%',#{keyWords},'%') order by a_date desc;
+      select * from article where  a_state=2 AND  a_title like concat('%',#{keyWords},'%') order by a_date desc;
     </select>
     <select id="getArticleByType" resultMap="ArticleMap">
-      select * from article where a_type = #{type} order by a_date desc;
+      select * from article where  a_state=2 AND a_type = #{type} order by a_date desc;
     </select>
     <select id="getArticleByTime" resultMap="ArticleMap">
-      select * from article order by a_date desc;
+      select * from article where  a_state=2  order by a_date desc;
     </select>
     <select id="getArticleOrderByRead" resultMap="ArticleMap">
-      select * from article order by a_read desc;
+      select * from article where  a_state=2 order by a_read desc;
     </select>
     <select id="getArticleByUser" resultMap="ArticleMap">
-      select * from article where a_author = #{userID} order by a_date desc;
+      select * from article where  a_state=2  and a_author = #{userID} order by a_date desc;
     </select>
     <select id="getArticleByUserSubscribe" resultMap="ArticleMap">
-        SELECT * FROM article WHERE a_author IN (SELECT uf_id FROM userfollow WHERE uf_fid = #{subscribeUserID}) ORDER BY a_date DESC;
+        SELECT * FROM article WHERE  a_state=2  and a_author IN (SELECT uf_id FROM userfollow WHERE uf_fid = #{subscribeUserID}) ORDER BY a_date DESC;
     </select>
     <select id="getArticleById" resultMap="ArticleMap">
-      select * from article where a_id = #{articleID};
+      select * from article where a_state=2  and a_id = #{articleID};
     </select>
 
     <insert id="addArticle" parameterType="Article">
