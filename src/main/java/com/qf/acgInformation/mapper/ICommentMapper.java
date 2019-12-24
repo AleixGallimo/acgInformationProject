@@ -22,6 +22,12 @@ public interface ICommentMapper {
     //获取文章评论总条数
     Integer getAllCommentCountByArticleId(@Param("articleId") Integer articleId);
 
+    //根据用户 id 获取所有评论
+    List<Comment> getCommentByUserId(@Param("userId") Integer userId);
+
+    //根据文章 id 获取文章标题
+    String getArticleTitleById(@Param("articleId") Integer articleId);
+
     //管理员专用 -- 获取所有文章评论
     List<Comment> getAllComment();
 }

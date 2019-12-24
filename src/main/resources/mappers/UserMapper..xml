@@ -20,9 +20,9 @@
         select * from user where u_id = #{uId};
     </select>
 
-    <update id="updateUser" parameterType="user">
+    <update id="updateUser" parameterType="com.qf.acgInformation.entity.User">
         update user set u_account=#{uAccount},u_password=#{uPassword},u_name=#{uName},u_pic=#{uPic},
-        u_email=#{uEmail},u_birth=#{uBirth},u_sex=#{uSex},u_brief=#{uBrief},u_money=#{uMoney};
+        u_email=#{uEmail},u_birth=#{uBirth},u_sex=#{uSex},u_brief=#{uBrief} where u_id=#{uId};
     </update>
 
     <select id="findNameAndPic" resultMap="userMap">

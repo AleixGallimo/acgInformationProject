@@ -15,6 +15,12 @@
                 column="c_uid"
                 select="com.qf.acgInformation.mapper.IUserMapper.findUserById"
         />
+        <collection
+                property="messages"
+                ofType="Message"
+                column="c_id"
+                select="com.qf.acgInformation.mapper.IMessageMapper.getMessageByCid"
+        />
     </resultMap>
 
     <select id="getCommentByArticleId" resultMap="commentMap">
@@ -36,4 +42,12 @@
     <insert id="addComment" parameterType="Comment">
         insert into comment(c_text, c_uid, c_aid) values(#{comment.cText}, #{comment.cUid}, #{comment.cAid});
     </insert>
+
+    <select id="getCommentByUserId" resultMap="commentMap">
+         select * from comment where c_uid = #{userId} and is_delete = 1;
+    </select>
+
+    <select id="getArticleTitleById" resultType="String">
+        select a_title from article where a_id = #{articleId} and is_delete = 1;
+    </select>
 </mapper>

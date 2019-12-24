@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.acgInformation.mapper.IMessageMapper">
+    <resultMap id="messageMap" type="Message">
+        <id property="mId" column="m_id"/>
+        <result property="mUid" column="m_uid" />
+        <result property="mCid" column="m_cid" />
+        <result property="mFid" column="m_fid" />
+        <result property="mContent" column="m_content" />
+        <result property="mStatus" column="m_status" />
+        <result property="isRead" column="is_read" />
+
+        <collection
+                property="user"
+                ofType="User"
+                column="m_fid"
+                select="com.qf.acgInformation.mapper.IUserMapper.findUserById"
+        />
+    </resultMap>
+    <select id="getMessageByUid" resultMap="messageMap">
+        select * from message where m_uid = #{userId} and m_status = 'message' and is_delete = 1;
+    </select>
+
+    <select id="getMessageByFid" resultMap="messageMap">
+        select * from message
+        where
+        m_fid = #{fUserId} and m_uid = #{userId} and m_status = 'message' and is_delete = 1
+        or
+        m_fid = #{userId} and m_uid = #{fUserId} and m_status = 'message' and is_delete = 1
+    </select>
+
+    <select id="getMessageByCid" resultMap="messageMap">
+        select * from message where m_cid = #{commentId} and m_status = 'comment' and is_delete = 1;
+    </select>
+
+    <insert id="addMessage">
+        insert into message(m_uid, m_cid, m_fid, m_content, m_status)
+        values(#{message.mUid}, #{message.mCid}, #{message.mFid}, #{message.mContent}, #{message.mStatus});
+    </insert>
+
+    <update id="deleteMessage">
+        update message set is_delete = 0 where m_id = #{messageId};
+    </update>
+
+</mapper>

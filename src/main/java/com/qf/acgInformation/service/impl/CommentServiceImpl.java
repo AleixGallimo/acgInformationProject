@@ -34,7 +34,7 @@ public class CommentServiceImpl implements ICommentService {
      */
     @Override
     public Integer deleteCommentByCommentId(Integer commentId) {
-        return null;
+        return commentMapper.deleteCommentByCommentId(commentId);
     }
 
     /**
@@ -50,6 +50,26 @@ public class CommentServiceImpl implements ICommentService {
     @Override
     public Integer getAllCommentCountByArticleId(Integer articleId) {
         return commentMapper.getAllCommentCountByArticleId(articleId);
+    }
+
+    /**
+     * 根据用户id获取评论
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Comment> getCommentByUserId(Integer userId) {
+        return commentMapper.getCommentByUserId(userId);
+    }
+
+    /**
+     * 根据文章id获取文章标题
+     * @param articleId
+     * @return
+     */
+    @Override
+    public String getArticleTitleById(Integer articleId) {
+        return commentMapper.getArticleTitleById(articleId);
     }
 
     /**

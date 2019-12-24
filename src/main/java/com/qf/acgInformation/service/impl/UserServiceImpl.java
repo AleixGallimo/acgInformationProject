@@ -18,8 +18,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void updateUser(User user) {
-       userMapper.updateUser(user);
+    public Integer updateUser(User user) {
+        return userMapper.updateUser(user);
     }
 
     @Override

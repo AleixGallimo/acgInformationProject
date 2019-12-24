@@ -19,8 +19,18 @@ public class UserRightServiceImpl implements IUserRightService {
     }
 
     @Override
+    public User CheckMoney(Integer uid) {
+       return userRightMapper.CheckMoney(uid);
+    }
+
+    @Override
     public Integer BuyVIP(Integer uid) {
         return  userRightMapper.BuyVIP(uid);
+    }
+
+    @Override
+    public User checkPassword(Integer uid) {
+       return userRightMapper.checkPassword(uid);
     }
 
     @Override

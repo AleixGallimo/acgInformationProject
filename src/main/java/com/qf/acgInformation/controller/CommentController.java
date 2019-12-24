@@ -33,6 +33,27 @@ public class CommentController {
     }
 
     /**
+     * 根据用户id获取所有评论
+     * @param userId        用户id
+     * @return
+     */
+    @RequestMapping(value = "/getCommentByUid")
+    private String getCommentByUserId(Integer userId){
+        List<Comment> list = commentService.getCommentByUserId(userId);
+        return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
+    }
+
+    /**
+     * 根据文章id获取文章标题
+     * @param articleId
+     * @return
+     */
+    @RequestMapping(value = "/getArticleTitle")
+    private String getArticleTitleByAid(Integer articleId){
+        return commentService.getArticleTitleById(articleId);
+    }
+
+    /**
      * 评论的添加(发送评论)
      * @param comment       评论对象
      * @return              影响行数
@@ -49,9 +70,15 @@ public class CommentController {
     }
 
     //管理员专用 -- 获取所有评论
-    @RequestMapping(value = "/getAllComment", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    private List<Comment> getAllComment(){
-        return commentService.getAllComment();
+    @RequestMapping(value = "/getAllComment")
+    private String getAllComment(){
+        List<Comment> list = commentService.getAllComment();
+        return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
     }
 
+    //删除评论
+    @RequestMapping(value = "/deleteComment", method = RequestMethod.GET)
+    private Integer deleteComment(Integer commentId){
+        return commentService.deleteCommentByCommentId(commentId);
+    }
 }
