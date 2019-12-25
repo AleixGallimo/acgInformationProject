@@ -21,5 +21,4 @@ public interface IUserMapper {
     //根据account用户名查找ID
     Integer findUserIDByAccount(@Param("account") String account);
 
-
 }

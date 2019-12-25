@@ -1,63 +1,165 @@
 <!DOCTYPE html>
-	<!--[if IE 8]>
-		<html xmlns="http://www.w3.org/1999/xhtml" class="ie8" lang="zh-CN">
-	<![endif]-->
-	<!--[if !(IE 8) ]><!-->
-		<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
-	<!--<![endif]-->
-	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>注册表单 &lsaquo; ACG资讯 &#8212; WordPress</title>
-<link rel='stylesheet' href="asserts/css/load-styles.php-c=0&dir=ltr&load[]=dashicons,buttons,forms,l10n,login&ver=4.9.13.css" type='text/css' media='all' />
-<style type="text/css">#login form {-webkit-box-shadow:0 2px 5px 0 rgba(146,146,146,.1);-moz-box-shadow:0 2px 5px 0 rgba(146,146,146,.1);box-shadow:0 8px 25px 0 rgba(146,146,146,0.21);}#login form .forgetmenot{float:none}
-#login form p.submit{padding: 20px 0 0;}#login form p.submit .button-primary{float:none;background-color: #494949;font-weight: bold;color: #fff;width: 100%;height: 40px;border-width: 0;border-color:white}#login form input{box-shadow:none!important;outline:none!important}</style><style type="text/css">
-       .login h1 a { background-image:url("https://www.dongmanzx.com/wp-content/uploads/2018/07/2018070622335413.png")/*tpa=https://www.dongmanzx.com/wp-content/uploads/2018/07/2018070622335413.png*/;background-size: 100%;width: 280px;height: 84px;margin: 20px auto 15px; }
-        </style><meta name='robots' content='noindex,noarchive' />
-	<meta name='referrer' content='strict-origin-when-cross-origin' />
-		<meta name="viewport" content="width=device-width" />
-		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
-		<script type="text/javascript">
-			$(function () {
-				$("#wp-submit").bind("click",function () {
-					$.ajax({
-						type: "POST",//方法类型
-						dataType: "json",//预期服务器返回的数据类型
-						url: "/acgInformation/UserController/register" ,//url
-						data: $('#registerform').serialize(),
-						success: function (data) {
-							alert("注册成功");
-							location.href='login.html'
-						}
-					})
-				})
-			})
-		</script>
-		</head>
-	<body class="login login-action-register wp-core-ui  locale-zh-cn">
-		<div id="login">
-		<h1><a href="index.html"  title="点一下这里试试" >点一下这里试试</a></h1>
-	<p class="message register">有道无术 术尚可求</p>
+<!--[if IE 8]>
+<html xmlns="http://www.w3.org/1999/xhtml" class="ie8" lang="zh-CN">
+<![endif]-->
+<!--[if !(IE 8) ]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<!--<![endif]-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>注册表单 &lsaquo; ACG资讯 &#8212; WordPress</title>
+    <link rel='stylesheet'
+          href="asserts/css/load-styles.php-c=0&dir=ltr&load[]=dashicons,buttons,forms,l10n,login&ver=4.9.13.css"
+          type='text/css' media='all'/>
+    <style type="text/css">#login form {
+        -webkit-box-shadow: 0 2px 5px 0 rgba(146, 146, 146, .1);
+        -moz-box-shadow: 0 2px 5px 0 rgba(146, 146, 146, .1);
+        box-shadow: 0 8px 25px 0 rgba(146, 146, 146, 0.21);
+    }
 
-<div class="form-group">
-	<form  id="registerform" action="/acgInformation/UserController/register" method="POST">
-	<p>
-		<label for="user_login">用户名<br/>
-			<input type="text" name="username" id="user_login" class="input form-control"  size="20" /></label>
-	</p>
-	<p>
-		<label for="user_email">密码<br />
-			<input type="password" name="password" id="user_email" class="input form-control " size="25" /></label>
-	</p>
-	<p id="reg_passmail">注册后将返回登录页面</p>
-	<p class="submit"><input type="submit"  id="wp-submit" class="button  btn button-primary button-large" value="注册" /></p>
-</form>
+    #login form .forgetmenot {
+        float: none
+    }
+
+    #login form p.submit {
+        padding: 20px 0 0;
+    }
+
+    #login form p.submit .button-primary {
+        float: none;
+        background-color: #494949;
+        font-weight: bold;
+        color: #fff;
+        width: 100%;
+        height: 40px;
+        border-width: 0;
+        border-color: white
+    }
+
+    #login form input {
+        box-shadow: none !important;
+        outline: none !important
+    }</style>
+    <style type="text/css">
+        .login h1 a {
+            background-image: url("https://www.dongmanzx.com/wp-content/uploads/2018/07/2018070622335413.png") /*tpa=https://www.dongmanzx.com/wp-content/uploads/2018/07/2018070622335413.png*/;
+            background-size: 100%;
+            width: 280px;
+            height: 84px;
+            margin: 20px auto 15px;
+        }
+        .help-block{
+            color: #00b0ff;
+        }
+        #username, #password, #rePassword{
+            margin-bottom: 5px;
+        }
+    </style>
+    <meta name='robots' content='noindex,noarchive'/>
+    <meta name='referrer' content='strict-origin-when-cross-origin'/>
+    <meta name="viewport" content="width=device-width"/>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <link href="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/language/zh_CN.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#registerform").bootstrapValidator({
+                fields: {
+                    account: {
+                        validators: {
+                            remote: {//ajax验证。server result:{"valid",true or false}
+                                url: "/acgInformation/UserController/checkAccount",
+                                message: '已存在重复账号',
+                                delay: 1000,//ajax刷新的时间是1秒一次
+                                type: 'GET',
+                                //自定义提交数据，默认值提交当前input value
+                                data: function(validator) {
+                                    return {
+                                        account : $("#username").val(),
+                                    };
+                                }
+                            },
+                            notEmpty: {
+                                message: '账号不能为空'
+                            }
+                        }
+                    },
+                    password: {
+                        validators: {
+                            notEmpty: {
+                                message: '密码不能为空'
+                            }
+                        }
+                    },
+                    rePassword:{
+                        validators:{
+                            identical: {
+                                field: 'password',
+                                message: '两次输入的密码不相符'
+                            }
+                        }
+                    },
+                }
+            })
+            $("#wp-submit").click(function () {
+                debugger
+                //手动验证表单，当是普通按钮时
+                $('#registerform').data('bootstrapValidator').validate();//启用验证
+                var flag = $('#registerform').data('bootstrapValidator').isValid()//验证是否通过true/false
+                if (flag){
+                    alert("success");
+                    $.ajax({
+                        type: "GET",//方法类型
+                        dataType: "json",//预期服务器返回的数据类型
+                        url: "/acgInformation/UserController/register",//url
+                        data: $('#registerform').serialize(),
+                        success: function (data) {
+                            alert("注册成功");
+                            location.href = 'login.html'
+                        }
+                    })
+                } else {
+                    return false;
+                }
+            })
+        })
+    </script>
+</head>
+<body class="login login-action-register wp-core-ui  locale-zh-cn">
+<div id="login">
+    <h1><a href="index.html" title="点一下这里试试">点一下这里试试</a></h1>
+    <p class="message register">有道无术 术尚可求</p>
+
+    <div class="register">
+        <form id="registerform" action="/acgInformation/UserController/register" method="POST">
+            <div class="form-group">
+                <label for="username">账号<br/>
+                    <input type="text" name="account" id="username" class="input form-control" size="20"/>
+                </label>
+            </div>
+            <div class="form-group" style="margin-top: 15px">
+                <label for="password">密码<br/>
+                    <input type="password" name="password" id="password" class="input form-control " size="25"/>
+                </label>
+            </div>
+            <div class="form-group" style="margin-top: 15px">
+                <label for="rePassword">确认密码<br/>
+                    <input type="password" name="rePassword" id="rePassword" class="input form-control " size="25"/>
+                </label>
+            </div>
+            <p id="reg_passmail" style="margin-top: 15px">注册登录后，请及时完善个人资料</p>
+            <p class="submit">
+                <button type="button" name="wp-submit" id="wp-submit" class="button button-primary button-large">注册</button>
+            </p>
+        </form>
+    </div>
+    <p id="nav">
+        <a href="login.html">&larr; 返回到登录</a>
+    </p>
+    <p id="backtoblog" style="margin-bottom: 50px"><a href="index.html">&larr; 返回到ACG资讯</a></p>
 </div>
-<p id="nav">
-<a href="login.html" >登录</a>
-</p>
-	<p id="backtoblog"><a href="index.html">&larr; 返回到ACG资讯</a></p>
-	</div>
-		<div class="clear"></div>
-	</body>
-	</html>
+<div class="clear"></div>
+</body>
+</html>
 	

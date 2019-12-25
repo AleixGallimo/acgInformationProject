@@ -1,8 +1,10 @@
 package com.qf.acgInformation.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.qf.acgInformation.entity.User;
 import com.qf.acgInformation.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +12,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -61,10 +65,24 @@ public class UserController {
     //注册
     @RequestMapping(value = "/register" ,method = RequestMethod.POST)
     public void addUser(@RequestParam("username") String username ,@RequestParam("password") String password ,HttpServletResponse response) throws IOException {
-        Integer uid = userService.findUserIDByAccount(username);
-        if (uid == null){ userService.addUser(new User(username,password));}
+        userService.addUser(new User(username,password));
         response.sendRedirect("/acgInformation/login.html");
     }
+
+    //检查用户名是否存在
+    @RequestMapping(value = "/checkAccount")
+    public HashMap<String, Boolean> checkAccount(String account){
+        HashMap<String, Boolean> map = new HashMap<>();
+        if (userService.findUserIDByAccount(account) != 0){
+            map.put("valid",false);
+            //账号存在
+            return map;
+        } else {
+            map.put("valid", true);
+            return map;
+        }
+    }
+
     //用户登录
     @RequestMapping(value = "/login" ,method = RequestMethod.POST)
     public String userLogin(@RequestParam("uAccount") String uAccount ,@RequestParam("uPassword") String uPassword,HttpServletRequest request){
@@ -121,4 +139,5 @@ public class UserController {
         log.debug("用户" + ser);
         return userService.findUserById(uid);
     }
+
 }

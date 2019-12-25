@@ -1,67 +1,148 @@
 <!DOCTYPE html>
-	<!--[if IE 8]>
-		<html xmlns="http://www.w3.org/1999/xhtml" class="ie8" lang="zh-CN">
-	<![endif]-->
-	<!--[if !(IE 8) ]><!-->
-		<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
-	<!--<![endif]-->
-	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>登录 &lsaquo; ACG资讯 &#8212; WordPress</title>
-<link rel='stylesheet' href="https://www.dongmanzx.com/wp-admin/load-styles.php?c=0&dir=ltr&load%5B%5D=dashicons,buttons,forms,l10n,login&ver=4.9.13" type='text/css' media='all' />
-<style type="text/css">#login form {-webkit-box-shadow:0 2px 5px 0 rgba(146,146,146,.1);-moz-box-shadow:0 2px 5px 0 rgba(146,146,146,.1);box-shadow:0 8px 25px 0 rgba(146,146,146,0.21);}#login form .forgetmenot{float:none}
-#login form p.submit{padding: 20px 0 0;}#login form p.submit .button-primary{float:none;background-color: #494949;font-weight: bold;color: #fff;width: 100%;height: 40px;border-width: 0;border-color:white}#login form input{box-shadow:none!important;outline:none!important}</style><style type="text/css">
-       .login h1 a { background-image:url("https://www.dongmanzx.com/wp-content/uploads/2018/07/2018070622335413.png")/*tpa=https://www.dongmanzx.com/wp-content/uploads/2018/07/2018070622335413.png*/;background-size: 100%;width: 280px;height: 84px;margin: 20px auto 15px; }
-        </style>	<meta name='robots' content='noindex,noarchive' />
-	<meta name='referrer' content='strict-origin-when-cross-origin' />
-		<meta name="viewport" content="width=device-width" />
-		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
-		<script type="text/javascript">
-		$(function () {
-			$("#wp-submit").bind("click",function () {
-				$.ajax({
-					type: "POST",//方法类型
-					dataType: "json",//预期服务器返回的数据类型
-					url: "/acgInformation/UserController/login" ,//url
-					data: $('#loginform').serialize(),
-					success: function (data) {
-							alert(data);
-							location.href='index.html'
-					}
-				})
-			})
-		})
-		</script>
+<!--[if IE 8]>
+<html xmlns="http://www.w3.org/1999/xhtml" class="ie8" lang="zh-CN">
+<![endif]-->
+<!--[if !(IE 8) ]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<!--<![endif]-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>登录 &lsaquo; ACG资讯 &#8212; WordPress</title>
+    <link rel='stylesheet'
+          href="https://www.dongmanzx.com/wp-admin/load-styles.php?c=0&dir=ltr&load%5B%5D=dashicons,buttons,forms,l10n,login&ver=4.9.13"
+          type='text/css' media='all'/>
+    <style type="text/css">
+        #login form {
+            -webkit-box-shadow: 0 2px 5px 0 rgba(146, 146, 146, .1);
+            -moz-box-shadow: 0 2px 5px 0 rgba(146, 146, 146, .1);
+            box-shadow: 0 8px 25px 0 rgba(146, 146, 146, 0.21);
+        }
 
-		</head>
-	<body class="login login-action-login wp-core-ui  locale-zh-cn">
-		<div id="login">
-		<h1><a href="index.html" title="你动我一下试试？" tabindex="-1">你动我一下试试？</a></h1>
-	
-   <form  id="loginform"  method="post" action="/acgInformation/UserController/login">
-	<p>
-		<label for="user_login">用户名<br />
-		<input type="text" name="uAccount" id="user_login" class="input" value="" size="20" /></label>
-	</p>
-	<p>
-		<label for="user_pass">密码<br />
-		<input type="password" name="uPassword" id="user_pass" class="input" value="" size="20" /></label>
-	</p>
-	<a href="register.html">注册</a>
-	<p class="submit">
-		<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="登录" />
-	</p>
-</form>
+        #login form .forgetmenot {
+            float: none
+        }
 
-<p id="nav">
-</p>
+        #login form p.submit {
+            padding: 20px 0 0;
+        }
+
+        #login form p.submit .button-primary {
+            float: none;
+            background-color: #494949;
+            font-weight: bold;
+            color: #fff;
+            width: 100%;
+            height: 40px;
+            border-width: 0;
+            border-color: white
+        }
+
+        #login form input {
+            box-shadow: none !important;
+            outline: none !important
+        }
+
+        .login h1 a {
+            background-image: url("https://www.dongmanzx.com/wp-content/uploads/2018/07/2018070622335413.png") /*tpa=https://www.dongmanzx.com/wp-content/uploads/2018/07/2018070622335413.png*/;
+            background-size: 100%;
+            width: 280px;
+            height: 84px;
+            margin: 20px auto 15px;
+        }
+
+        .help-block{
+            color: #00b0ff;
+        }
+        #user_login, #user_pass{
+            margin-bottom: 5px;
+        }
+        p.submit{
+            margin-top: 15px;
+        }
+    </style>
+    <meta name='robots' content='noindex,noarchive'/>
+    <meta name='referrer' content='strict-origin-when-cross-origin'/>
+    <meta name="viewport" content="width=device-width"/>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <link href="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/language/zh_CN.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#loginform").bootstrapValidator({
+                fields: {
+                    uAccount: {
+                        validators: {
+                            notEmpty: {
+                                message: '账号不能为空'
+                            }
+                        }
+                    },
+                    uPassword: {
+                        validators: {
+                            notEmpty: {
+                                message: '密码不能为空'
+                            }
+                        }
+                    }
+                }
+            })
+            $("#wp-submit").click(function () {
+                //手动验证表单，当是普通按钮时
+                $('#loginform').data('bootstrapValidator').validate();//启用验证
+                var flag = $('#loginform').data('bootstrapValidator').isValid()//验证是否通过true/false
+                if (flag){
+                    $.ajax({
+                        type: "POST",//方法类型
+                        dataType: "json",//预期服务器返回的数据类型
+                        url: "/acgInformation/UserController/login",//url
+                        data: $('#loginform').serialize(),
+                        async: false,
+                        success: function (data) {
+                            alert(data);
+                            location.href = 'index.html'
+                        }
+                    });
+                } else {
+                    return false;
+                }
+            })
+        })
+    </script>
+</head>
+<body class="login login-action-login wp-core-ui  locale-zh-cn">
+<div id="login">
+    <h1>
+        <a href="index.html" title="你动我一下试试？" tabindex="-1">你动我一下试试？</a>
+    </h1>
+    <form id="loginform" method="post" action="/acgInformation/UserController/login" onsubmit="return false">
+        <div class="form-group">
+            <label for="user_login">您的账号<br/>
+                <input type="text" name="uAccount" id="user_login" class="input" value="" size="20"/>
+            </label>
+        </div>
 
 
-	<p id="backtoblog"><a href="index.html">&larr; 返回到ACG资讯</a></p>
-		
-	</div>
+        <div class="form-group" style="margin-top: 15px">
+            <label for="user_pass" >密码<br/>
+                <input type="password" name="uPassword" id="user_pass" class="input" value="" size="20"/>
+            </label>
+        </div>
 
-		<div class="clear"></div>
-	</body>
-	</html>
+        <p class="submit">
+            <button type="button" name="wp-submit" id="wp-submit" class="button button-primary button-large">登录</button>
+        </p>
+    </form>
+
+    <p id="nav">
+    </p>
+
+
+    <p id="backtoblog"><a href="index.html">&larr; 返回到ACG资讯</a><a href="register.html" style="float: right">点击这里注册 →</a></p>
+
+</div>
+
+<div class="clear"></div>
+</body>
+</html>
 	
