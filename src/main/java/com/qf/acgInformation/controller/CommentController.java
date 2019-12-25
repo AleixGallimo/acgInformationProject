@@ -77,10 +77,10 @@ public class CommentController {
 
     //管理员专用 -- 获取所有评论
     @RequestMapping(value = "/getAllComment")
-    private List<Comment> getAllComment(Integer offset, Integer pageSize){
+    private String getAllComment(Integer offset, Integer pageSize){
         List<Comment> list = commentService.getAllComment(offset, pageSize);
 //        return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
-    return list;
+    return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
     }
 
 
