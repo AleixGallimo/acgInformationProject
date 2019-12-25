@@ -77,7 +77,7 @@ public class CommentServiceImpl implements ICommentService {
      * @return
      */
     @Override
-    public List<Comment> getAllComment() {
-        return commentMapper.getAllComment().isEmpty() ? null : commentMapper.getAllComment();
+    public List<Comment> getAllComment(Integer offset, Integer pageSize) {
+        return commentMapper.getAllComment(offset, pageSize).isEmpty() ? null : commentMapper.getAllComment(offset, pageSize);
     }
 }

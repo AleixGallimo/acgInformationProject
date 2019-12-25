@@ -16,7 +16,9 @@ body{
 }
 #editor{
     background-color: white;
-    width: 540px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+
 }
 /*导航*/
 .menu-fix-box ul {width:600px;}
@@ -177,13 +179,45 @@ body{
     height: 280px;
 }
 .home{
+    text-align: center;
     height: 280px;
     background-color: white;
     border: #d7d7d7 solid 1px;
+    background-image: url("../../asserts/images/userbg.jpg");
+    background-repeat:no-repeat;
+}
+.rHeadPic{
+    margin-top: 90px;
+    text-align: center;
+}
+.news{
+    margin-top: 30px;
+    background-color: white;
+    border: #d7d7d7 solid 1px;
+    padding-bottom: 5px;
+}
+.nTitle{
+    margin: 15px 3px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.setting{
+    font-size: 15px;
+    color: #858585;
+}
+.rUserName{
+    margin-top: 10px;
+    font-size: 17px;
 }
 .upDownPage{
     margin-bottom: 20px;
 }
-.eee{
-    margin-top: 20px;
+
+.new{
+    border-bottom: #d7d7d7 solid 1px;
+    margin-bottom: 20px;
+    padding: 0;
+}
+.new>div{
+    padding: 0;
 }

@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Slf4j
@@ -17,6 +18,11 @@ import java.util.List;
 public class CommentController {
     @Resource
     private ICommentService commentService;
+
+    @RequestMapping(value = "/check")
+    private Integer checkLogin(HttpServletRequest request){
+        return (Integer) request.getSession().getAttribute("uid");
+    }
 
     /**
      * 获取文章中的评论
@@ -71,10 +77,12 @@ public class CommentController {
 
     //管理员专用 -- 获取所有评论
     @RequestMapping(value = "/getAllComment")
-    private String getAllComment(){
-        List<Comment> list = commentService.getAllComment();
-        return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
+    private List<Comment> getAllComment(Integer offset, Integer pageSize){
+        List<Comment> list = commentService.getAllComment(offset, pageSize);
+//        return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
+    return list;
     }
+
 
     //删除评论
     @RequestMapping(value = "/deleteComment", method = RequestMethod.GET)

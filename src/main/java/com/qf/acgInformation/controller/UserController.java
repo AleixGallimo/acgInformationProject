@@ -58,7 +58,7 @@ public class UserController {
         if (uid == null){ userService.addUser(new User(uAccount,uPassword));}
        return true;
     }
-    //登录
+    //用户登录
     @RequestMapping(value = "/login" ,method = RequestMethod.POST)
     public String userLogin(@RequestParam("uAccount") String uAccount ,@RequestParam("uPassword") String uPassword,HttpServletRequest request){
         Integer uid = userService.findUserIDByAccount(uAccount);
@@ -71,17 +71,38 @@ public class UserController {
         return "登录成功";
     }
 
-    //获取Session中的id并传到前端
+    //管理员登录
+    @RequestMapping(value = "/adminLogin" ,method = RequestMethod.POST)
+    public String adminLogin(@RequestParam("uAccount") String uAccount ,@RequestParam("uPassword") String uPassword,HttpServletRequest request){
+        Integer uid = userService.findUserIDByAccount(uAccount);
+        if (uid!=null){
+            User  user = userService.findUserById(uid);
+            if (uPassword.equals(user.getUPassword())&&user.getUAuthority()==3){
+                request.getSession().setAttribute("adminId", uid);
+                return "登录成功";
+            }
+        }
+        return "登录失败";
+    }
+
+    //获取Session中的uid并传到前端
     @RequestMapping("/getSessionId")
     public Object getSessionId(HttpServletRequest request){
         Object uid = request.getSession().getAttribute("uid");
         return uid;
     }
 
-    //注销
+    //登出
     @RequestMapping("/logout")
     public void logOut(HttpServletRequest request , HttpServletResponse response) throws IOException {
         request.getSession().removeAttribute("uid");
         response.sendRedirect("/acgInformation/index.html");
+    }
+
+    //管理员登出
+    @RequestMapping("/adminLogOut")
+    public void adminLogOut(HttpServletRequest request , HttpServletResponse response) throws IOException {
+        request.getSession().removeAttribute("adminId");
+        response.sendRedirect("/acgInformation/adminLogin.html");
     }
 }

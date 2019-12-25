@@ -3,8 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>管理员登录</title>
-
-
         <style type="text/css">
 
             div, dl, dt, dd {
@@ -21,8 +19,6 @@
 
 
         </style>
-
-
         <style type="text/css">
             * {
                 margin: 0;
@@ -30,21 +26,39 @@
                 list-style: none;
             }
         </style>
-        <link rel="stylesheet" type="text/css" href="//cdn.51img1.com/v6/gt1/css/login.css?bust=201912029119b">
+    <link rel="stylesheet" type="text/css" href="//cdn.51img1.com/v6/gt1/css/login.css?bust=201912029119b">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#submit").bind("click",function () {
+                $.ajax({
+                    type: "POST",//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: "/acgInformation/UserController/adminLogin" ,//url
+                    data: $('#loginform').serialize(),
+                    success: function (data) {
+                        alert(data);
+                        location.href='admin/index.html'
+                    }
+                })
+            })
+        })
+    </script>
 </head>
 <body>
 <div class="q-reg-pop" id="qregpop">
     <div style="height: 108px"></div>
     <div class="reg-pop-c">
+        <form id="loginform">
         <div class="error_tip" id="error_tips"></div>
         <ul>
             <li>
                 <label for="login_account">帐号:</label>
-                <input type="text" class="inp_user inp" id="login_account" name="login_account">
+                <input type="text" class="inp_user inp" id="login_account" name="uAccount">
             </li>
             <li>
                 <label for="password">密码:</label>
-                <input id="password" type="password" name="password" class="inp_user inp" >
+                <input id="password" type="password" name="uPassword" class="inp_user inp" >
             </li>
         </ul>
         <a  class="start-game-btn" style=" background: url(asserts/images/1.png)-6px -10px no-repeat;
@@ -57,8 +71,8 @@
             /*text-indent: -9999px;*/
             height: 73px;
              display: block;
-             overflow: hidden;" >开始登录</a>
-    </div>
+             overflow: hidden;" id="submit" >开始登录</a>
+        </form></div>
 </div>
 </body>
 </html>

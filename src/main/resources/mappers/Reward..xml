@@ -30,18 +30,25 @@
     </resultMap>
     
     <select id="userAccount" resultMap="userMap">
-        select user from user where u_id = #{uId};
+        select * from user where u_id = #{uId};
     </select>
 
-    <select id="" resultMap="userMap">
-       SELECT `user`.* FROM `user` LEFT JOIN article ON  #{aAuthor} = u_id;
+    <select id="findAuthorByAid" resultMap="userMap">
+       SELECT `user`.* FROM `user` LEFT JOIN article ON `user`.u_id = article.a_author
+        WHERE article.a_author = #{aAuthor};
     </select>
-    
-    <update id="updateMoney" parameterType="INTEGER">
-        UPDATE `user` SET u_money = u_money - 6 WHERE u_id = #{uId};
+
+    <update id="addMoney" parameterType="INTEGER">
+        update user set u_money = u_money + 6 where u_id = #{uId};
     </update>
 
-    <update id="updateMoney2" parameterType="INTEGER">
-        UPDATE `user` SET u_money = u_money + 6 WHERE u_id = #{uId};
+    <update id="deductMoney" parameterType="INTEGER">
+        update user set u_money = u_money - 6 where u_id = #{uId};
     </update>
+
+
+    <select id="updateUser" resultMap="userMap">
+        select * from user where u_id = #{uId};
+    </select>
+
 </mapper>
