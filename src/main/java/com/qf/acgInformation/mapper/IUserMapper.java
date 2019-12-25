@@ -14,4 +14,7 @@ public interface IUserMapper {
     //根据id查询自己的昵称和头像
     User findNameAndPic(Integer uid);
 
+    //把图片url存入数据库
+    void insertUrl(String url);
+
 }

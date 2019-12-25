@@ -28,4 +28,8 @@
     <select id="findNameAndPic" resultMap="userMap">
         select u_name,u_pic from user where u_id = #{uId};
     </select>
+
+    <insert id="insertUrl" parameterType="String">
+        insert user into u_pic values #{uPic};
+    </insert>
 </mapper>
