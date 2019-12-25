@@ -35,6 +35,6 @@ public interface ICommentMapper {
     void restoreComment(@Param("commentId") Integer commentId);
 
     //管理员专用 -- 查看所有已删除评论
-    List<Comment> getDeleteComment(@Param("commentId") Integer commentId, @Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+    List<Comment> getDeleteComment(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 }
 
