@@ -14,4 +14,10 @@ public interface IUserService {
 
     //显示用户昵称和头像
     User findNameAndPic(Integer uid);
+
+    //注册用户
+    Integer addUser(User user);
+
+    //根据account用户名查找ID
+    Integer findUserIDByAccount( String account);
 }

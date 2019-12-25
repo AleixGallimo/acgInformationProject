@@ -1,6 +1,7 @@
 package com.qf.acgInformation.mapper;
 
 import com.qf.acgInformation.entity.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,7 +15,11 @@ public interface IUserMapper {
     //根据id查询自己的昵称和头像
     User findNameAndPic(Integer uid);
 
-    //把图片url存入数据库
-    void insertUrl(String url);
+    //注册用户
+    Integer addUser(User user);
+
+    //根据account用户名查找ID
+    Integer findUserIDByAccount(@Param("account") String account);
+
 
 }

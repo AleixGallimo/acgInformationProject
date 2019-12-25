@@ -15,16 +15,16 @@
         <result property="aState" column="a_state"/>
     </resultMap>
     <select id="getArticleByKeyWords" resultMap="ArticleMap">
-      select * from article where  a_state=2 AND  a_title like concat('%',#{keyWords},'%') order by a_date desc;
+      select * from article where  a_state=2 and  is_delete=1 AND  a_title like concat('%',#{keyWords},'%') order by a_date desc;
     </select>
     <select id="getArticleByType" resultMap="ArticleMap">
-      select * from article where  a_state=2 AND a_type = #{type} order by a_date desc;
+      select * from article where  a_state=2  and is_delete=1  AND a_type = #{type} order by a_date desc;
     </select>
     <select id="getArticleByTime" resultMap="ArticleMap">
-      select * from article where  a_state=2  order by a_date desc;
+      select * from article where  a_state=2 and is_delete=1  order by a_date desc;
     </select>
     <select id="getArticleOrderByRead" resultMap="ArticleMap">
-      select * from article where  a_state=2 order by a_read desc;
+      select * from article where  a_state=2  order by a_read desc;
     </select>
     <select id="getArticleByUser" resultMap="ArticleMap">
       select * from article where  a_state=2  and a_author = #{userID} order by a_date desc;
@@ -36,6 +36,9 @@
       select * from article where a_state=2  and a_id = #{articleID};
     </select>
 
+     <select id="getAllArticle" resultMap="ArticleMap">
+        SELECT * FROM article WHERE is_delete=1  ORDER BY a_date DESC LIMIT #{offset},#{pageSize};
+     </select>
     <insert id="addArticle" parameterType="Article">
          insert into article(a_type,a_title,a_text,a_pic,a_author,a_date)
          values(#{article.aType},#{article.title},#{article.aText},#{article.aPic},#{article.aAuthor},#{article.aDate})
@@ -44,7 +47,7 @@
     <update id="deleteArticle">
         update article
         <set>
-            <if test="articleIsDelete!=null"> a_state = #{articleIsDelete}</if>
+            <if test="articleIsDelete!=null"> is_delete = #{articleIsDelete}</if>
         </set>
         where a_id = #{articleDeleteID}
     </update>

@@ -20,6 +20,10 @@
         select * from user where u_id = #{uId};
     </select>
 
+    <select id="findUserIDByAccount" resultType="Integer">
+        select u_id from user where u_account = #{account};
+    </select>
+
     <update id="updateUser" parameterType="com.qf.acgInformation.entity.User">
         update user set u_account=#{uAccount},u_password=#{uPassword},u_name=#{uName},u_pic=#{uPic},
         u_email=#{uEmail},u_birth=#{uBirth},u_sex=#{uSex},u_brief=#{uBrief} where u_id=#{uId};
@@ -29,7 +33,7 @@
         select u_name,u_pic from user where u_id = #{uId};
     </select>
 
-    <insert id="insertUrl" parameterType="String">
-        insert user into u_pic values #{uPic};
+    <insert id="addUser" parameterType="com.qf.acgInformation.entity.User">
+        insert into  user(u_account,u_password) values (#{uAccount},#{uPassword})
     </insert>
 </mapper>
