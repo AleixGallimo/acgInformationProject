@@ -3,49 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <title>消息盒子</title>
-    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script src="asserts/plugins/jquery/jquery-2.1.1.min.js"></script>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="asserts/plugins/bootstrap/css/bootstrap.css">
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-    <link href="asserts/css/privateMessage.css" rel="stylesheet">
-
+    <script src="asserts/plugins/bootstrap/js/bootstrap.js"></script>
+    <!-- 引用本地 css 样式 -->
+    <link href="asserts/css/myMessages.css" rel="stylesheet">
+    <!-- 图标 -->
+    <link href="https://at.alicdn.com/t/font_1546900_y8hdaf5oyp.css" rel="stylesheet">
     <script type="text/javascript">
         $(function () {
-            var content = "<p>好好学习</p><p>天天向上</p><p>有道无术</p><p>术尚可求</p><p><img src=\"http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/19/heia_thumb.gif\" alt=\"[偷笑]\" data-w-e=\"1\"><br></p>";
-            /*html标签格式化*/
-            content = JSON.parse(JSON.stringify(content).replace(/<\/?.+?\/?>/g,""));
-            console.log(content);
-
-            var doAjax = function () {
+            //加载当前用户
+            var user = null;
+            if(user == null){
                 $.ajax({
-                    url:"/acgInformation/comment/getCommentByUid",
+                    url:"/acgInformation/UserController/findUserById",
                     type:"GET",
-                    sync:false,
+                    async:false,
+                    data:{},
+                    success:function (data) {
+                        user = JSON.parse(data);
+                    }
+                })
+            }
+
+            //获取未读消息
+            var doAjax = function () {
+                $(".fu").remove();
+                $.ajax({
+                    url:"/acgInformation/message/getNoRead",
                     data:{
-                        userId:sessionStorage.getItem("userId")
+                      userId:user.uId
                     },
-                    success:function (comment) {
-                        comment = eval('(' + JSON.parse(comment) + ')');
-                        console.log(comment);
-                        for (var i in comment){
-                            var articleTitle = "title";
-                            $.ajax({
-                                url:"/acgInformation/comment/getArticleTitle",
-                                type:"GET",
-                                sync:false,
-                                data:{
-                                    articleId:comment[i].cAid
-                                },
-                                success:function (str) {
-                                    console.log(str);
-                                }
-                            })
+                    async:false,
+                    success:function (data) {
+                        var data = eval('(' + JSON.parse(data) + ')');
+                        if (data.length == 0){
+                            var temp = "<div class='noNewMessage col-lg-12'>\n" +
+                                "           <img src='asserts/images/noNewMessage.jpg'>\n" +
+                                "       </div>"
+                            $(".messageUser").append(temp);
+                        }
+                        for (var i in data){
+                            var uName =  data[i].user.uName;
+                            var temp = "<div class='fu col-lg-2' fid='" + data[i].user.uId + "'>\n" +
+                                "            <div class='rHeadPic'>\n" +
+                                "                <img class='img-circle' src='" + data[i].user.uPic + "' width='85' height='85'>\n" +
+                                "            </div>\n" +
+                                "            <div class='rUserName' userName='" + uName + "'>\n" +
+                                "                <span>" + uName + " </span><span class='badge'>0</span>\n" +
+                                "            </div>\n" +
+                                "        </div>";
+                            var flag = true;
+                            //判定用户重合
+                            if($(".rUserName").length != 0){
+                               $(".rUserName").each(function () {
+                                   var n = $(this).attr("userName");
+                                   if (n == uName){
+                                       flag = false;
+                                   }
+                               })
+                            }
+                            //插入html
+                            if (flag){
+                                $(".messageUser").append(temp);
+                                $.ajax({
+                                    url:"/acgInformation/message/getThisNoReadCount",
+                                    data:{
+                                        fUserId: data[i].user.uId,
+                                        userId:user.uId
+                                    },
+                                    async:false,
+                                    success:function (count) {
+                                        $(".badge:last").text(count);
+                                    }
+                                })
+                            }
                         }
                     }
                 })
             }
             doAjax();
+            $(".fu").each(function () {
+                $(this).click(function () {
+                    location.href = "privateMessage.html?fId=" + $(this).attr("fid");
+                })
+                $(this).hover(function () {
+                    $(this).css("color","#00b0ff");
+                },function () {
+                    $(this).css("color","#404040");
+                })
+            });
+
+            //获取已读消息
+            var getAjax = function () {
+                $(".cj").remove();
+                $.ajax({
+                    url:"/acgInformation/message/getMessage",
+                    data:{
+                        userId:user.uId
+                    },
+                    async:false,
+                    success:function (data) {
+                        var data = eval('(' + JSON.parse(data) + ')');
+                        for (var i in data){
+                            var uName =  data[i].user.uName;
+                            var temp = "<div class='ck col-lg-1' fid='" + data[i].user.uId + "'>\n" +
+                                "            <div class='cHeadPic'>\n" +
+                                "                <img class='img-circle' src='" + data[i].user.uPic + "' width='40' height='40'>\n" +
+                                "            </div>\n" +
+                                "            <div class='cUserName' cuserName='" + uName + "'>\n" +
+                                "            </div>\n" +
+                                "        </div>";
+                            var flag = true;
+                            //判定用户重合
+                            if($(".cUserName").length != 0){
+                                $(".cUserName").each(function () {
+                                    var n = $(this).attr("cuserName");
+                                    if (n == uName){
+                                        flag = false;
+                                    }
+                                })
+                            }
+                            if($(".rUserName").length != 0){
+                                $(".rUserName").each(function () {
+                                    var n = $(this).attr("userName");
+                                    if (n == uName){
+                                        flag = false;
+                                    }
+                                })
+                            }
+                            //插入html
+                            if (flag){
+                                $(".historyMessage").append(temp);
+                            }
+                        }
+                        if ($(".ck").length == ""){
+                            var temp = "<div class='noMessage col-lg-12'>\n" +
+                                "           <img src='asserts/images/noMessage.jpg'>\n" +
+                                "       </div>"
+                            $(".historyMessage").append(temp);
+                        }
+                        return;
+                    }
+                })
+            }
+            getAjax();
+            $(".ck").each(function () {
+                $(this).click(function () {
+                    location.href = "privateMessage.html?fId=" + $(this).attr("fid");
+                })
+                $(this).hover(function () {
+                    $(this).css("color","#00b0ff");
+                },function () {
+                    $(this).css("color","#404040");
+                })
+            });
+
+            //获取评论
+            var getArticleCommentForMe = function () {
+                $.ajax({
+                    url:"/acgInformation/article/getArticleById",
+                    data:{
+
+                    }
+                })
+            }
         })
 
     </script>
@@ -55,73 +179,22 @@
 
     </div>
     <div class="container" >
-        <!-- 左边模块 -->
-        <div class="left col-lg-8">
-            <!-- 导航栏 -->
-            <div class="title col-lg-12">
-                <div class="t1 col-lg-4">评论我的</div>
-                <div class="t2 col-lg-4">@我的</div>
-                <div class="t3 col-lg-4">私聊我的</div>
-            </div>
-
-            <div class="type">
-                <a>已读</a>
-                <a>未读</a>
-                <a>已删除</a>
-            </div>
-
-            <div class="show col-lg-12">
-                <div class="messages col-lg-12">
-                    <div class="message col-lg-12">
-                        <div class="articleTitle col-lg-10">兽娘在线科普 萌妹花江夏树 A站一月新番挺有趣</div>
-                        <div class="articleTitle col-lg-2">已读</div>
-                        <div class="commentUser col-lg-3">千锋讲师江达然</div>
-                        <div class="commentContent col-lg-9">好好学习天天向上有道无术术尚可求</div>
-                        <div class="option col-lg-12"><a>删除 </a><a>举报 </a></div>
-                    </div>
-
-                    <div class="message col-lg-12">
-                        <div class="articleTitle col-lg-10">兽娘在线科普 萌妹花江夏树 A站一月新番挺有趣</div>
-                        <div class="articleTitle col-lg-2">已读</div>
-                        <div class="commentUser col-lg-3">千锋讲师江达然</div>
-                        <div class="commentContent col-lg-9">好好学习天天向上有道无术术尚可求</div>
-                        <div class="option col-lg-12"><a>删除 </a><a>举报 </a></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 评论模块 -->
-            <div class="comments"></div>
-
-            <!-- 分页模块 -->
-            <div class="other">
-                <!--分页-->
-                <div style="text-align: center">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination">
-                            <li>
-                                <a href="#pageHead" aria-label="Previous" id="up">
-                                    <span aria-hidden="true">上一页</span>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="pages pagination"></ul>
-                        <ul class="pagination">
-                            <li>
-                                <a href="#pageHead" aria-label="Next" id="down">
-                                    <span aria-hidden="true">下一页</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+        <div class="new col-lg-12">
+            新消息
         </div>
-        <!-- 右边模块 -->
-        <div class="right col-lg-4">
+        <div class="messageUser">
 
+        </div>
+        <div class="old col-lg-12">
+            历史消息
+        </div>
+        <div class="historyMessage">
+
+        </div>
+        <div class="article col-lg-12">
+            回复我的
         </div>
     </div>
-    <div class="foot container-fluid">
+    <div class="foot container-fluid"></div>
 </body>
 </html>

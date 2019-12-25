@@ -22,6 +22,9 @@ public interface ICommentService {
     //获取文章评论总条数
     Integer getAllCommentCountByArticleId(Integer articleId);
 
+    //获取所有评论总数
+    Integer getAllCommentCount();
+
     //根据用户 id 获取所有评论
     List<Comment> getCommentByUserId(@Param("userId") Integer userId);
 

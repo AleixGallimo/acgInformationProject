@@ -9,32 +9,24 @@
         <link rel="stylesheet" href="../asserts/admin/css/styles.css" />
         <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
         <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+
         <script type="text/javascript">
             $(function () {
-                var offset = 0;
+                var thisPage = 1;
                 var pageSize = 10;
 
-                var commentCount = function () {
-
-                }
-
                 var doAjax = function () {
+                    var offset = (thisPage - 1) * pageSize
                     $("tbody tr").remove();
                     $.ajax({
-                        url:"/acgInformation/comment/getAllComment",
+                        url:"/acgInformation/comment/getAllComment/" + offset + "/" + pageSize,
                         type:"GET",
-                        data:{
-                            offset:0,
-                            pageSize:10
-                        },
                         async:false,
                         success:function (data) {
                             var data = eval('(' + JSON.parse(data) + ')');
-                            console.log(data)
                             for (var i in data){
                                 var aTitle = "";
                                 var cName = data[i].user.uName;
-                                console.log(cName)
                                 $.ajax({
                                     url:"/acgInformation/comment/getArticleTitle",
                                     data:{
@@ -65,11 +57,24 @@
                                         doAjax();
                                     }
                                 })
-                            })
+                            });
                         }
                     });
                 }
-                doAjax();
+                $(".document").ready(function () {
+                    doAjax();
+                })
+
+
+
+                $(".up").click(function () {
+                    thisPage = Number(thisPage) - 1;
+                    doAjax();
+                })
+                $(".down").click(function () {
+                    thisPage = Number(thisPage) + 1;
+                    doAjax();
+                })
             })
         </script>
 
@@ -130,6 +135,10 @@
                         </tbody>
                         <tfoot></tfoot>
                     </table>
+                    </div>
+                    <div class="col-lg-12" style="text-align: right">
+                        <a class="up" href="">上一页</a>
+                        <a class="down" href="">下一页</a>
                     </div>
 
             </div>

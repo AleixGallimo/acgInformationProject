@@ -32,18 +32,39 @@ public class MessageServiceImpl implements IMessageService {
         return messageMapper.addMessage(message);
     }
 
-    /**
-     * 删除消息 / 删除子评论
-     * @param messageId
-     * @return
-     */
+    //删除消息 / 删除子评论
     @Override
     public Integer deleteMessage(Integer messageId) {
         return messageMapper.deleteMessage(messageId);
     }
 
+    //根据他 id 获取回复消息
     @Override
     public List<Message> getMessageByFid(Integer fUserId, Integer userId) {
         return messageMapper.getMessageByFid(fUserId, userId);
+    }
+
+    //通过用户id 获取所有未读消息
+    @Override
+    public List<Message> getNoReadMessageByUid(Integer userId) {
+        return messageMapper.getNoReadMessageByUid(userId);
+    }
+
+    //通过用户id 获取所有未读消息总数
+    @Override
+    public Integer getNoReadMessageCountByUid(Integer userId) {
+        return messageMapper.getNoReadMessageCountByUid(userId);
+    }
+
+    //获取他回复用户消息未读总数
+    @Override
+    public Integer getThisMessageCount(Integer fUserId, Integer userId) {
+        return messageMapper.getThisMessageCount(fUserId, userId);
+    }
+
+    //更改消息状态为已读
+    @Override
+    public void readMessage(Integer fUserId, Integer userId) {
+        messageMapper.readMessage(fUserId, userId);
     }
 }

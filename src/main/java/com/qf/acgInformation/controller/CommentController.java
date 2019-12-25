@@ -21,7 +21,12 @@ public class CommentController {
 
     @RequestMapping(value = "/check")
     private Integer checkLogin(HttpServletRequest request){
-        return (Integer) request.getSession().getAttribute("uid");
+        Integer uid = (Integer) request.getSession().getAttribute("uid");
+        Integer adminId = (Integer)request.getSession().getAttribute("adminId");
+        if(adminId != 0 || uid !=0 ){
+            return 1;
+        }
+        return 0;
     }
 
     /**
@@ -76,13 +81,18 @@ public class CommentController {
     }
 
     //管理员专用 -- 获取所有评论
-    @RequestMapping(value = "/getAllComment")
-    private String getAllComment(Integer offset, Integer pageSize){
+    @RequestMapping(value = "/getAllComment/{offset}/{pageSize}")
+    private String getAllComment(@PathVariable Integer offset, @PathVariable Integer pageSize){
         List<Comment> list = commentService.getAllComment(offset, pageSize);
 //        return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
     return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
     }
 
+    //获取所有评论总数
+    @RequestMapping(value = "/count")
+    private Integer getAllCommentCount(){
+        return commentService.getAllCommentCount();
+    }
 
     //删除评论
     @RequestMapping(value = "/deleteComment", method = RequestMethod.GET)

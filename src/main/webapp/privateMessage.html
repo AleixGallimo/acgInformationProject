@@ -16,6 +16,9 @@
     <link href="asserts/css/privateMessage.css" rel="stylesheet">
     <script type="text/javascript">
         $(function () {
+            $(document).ready(function () {
+
+            })
             //编辑框方法
             var editor;
             var wangEditor = function (){
@@ -24,24 +27,57 @@
                 editor.customConfig.menus = ['undo', 'redo', 'qgs'];
                 editor.create();
             }
-            wangEditor();
-
             function getParams(key) {
                 var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
                 var r = window.location.search.substr(1).match(reg);
-                console.log(r)
                 if (r != null) {
                     return unescape(r[2]);
                 }
                 return null;
             };
 
-            //当前用户id，回复用户id，回复用户名
-            var userId = getParams("uId");
-            var fid = getParams("fId");
-            var fName = sessionStorage.getItem("uName");
-            $("h4").text(fName);
+            //加载当前用户
+            var user = null;
+            if(user == null){
+                $.ajax({
+                    url:"/acgInformation/UserController/findUserById",
+                    type:"GET",
+                    async:false,
+                    data:{},
+                    success:function (data) {
+                        user = JSON.parse(data);
+                    }
+                })
+            }
+            //加载对方用户
+            var fUser = null;
+            $.ajax({
+                url:"/acgInformation/UserController/findUser",
+                data:{
+                    uid:getParams("fId")
+                },
+                async:false,
+                success:function (data) {
+                    fUser = JSON.parse(data);
+                    console.log(fUser)
+                }
+            });
 
+            //当前用户id，回复用户id，回复用户名
+            var userId = user.uId;
+            var fid = fUser.uId;
+            $("h4").text(fUser.uName);
+
+            var readMessage = function () {
+                $.ajax({
+                    url:"/acgInformation/message/readMessage",
+                    data:{
+                        userId:user.uId,
+                        fUserId:fid
+                    },
+                    async:false,
+                });
+            }
             var start = function () {
                 $(".window div").remove();
                 $.ajax({
@@ -102,13 +138,14 @@
                     }
                 });
             }
-            start();
-
             function add() {
                 var r = document.getElementById("myRight");
                 r.scrollTop = r.scrollHeight;
             }
 
+            wangEditor();
+            start();
+            readMessage();
         })
     </script>
 </head>

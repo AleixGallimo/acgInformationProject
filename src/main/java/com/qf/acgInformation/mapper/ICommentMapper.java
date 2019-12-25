@@ -36,5 +36,8 @@ public interface ICommentMapper {
 
     //管理员专用 -- 查看所有已删除评论
     List<Comment> getDeleteComment(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+
+    //管理员 -- 获取所有评论总数
+    Integer getAllCommentCount();
 }
 

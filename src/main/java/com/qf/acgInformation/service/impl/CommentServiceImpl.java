@@ -52,6 +52,11 @@ public class CommentServiceImpl implements ICommentService {
         return commentMapper.getAllCommentCountByArticleId(articleId);
     }
 
+    @Override
+    public Integer getAllCommentCount() {
+        return commentMapper.getAllCommentCount();
+    }
+
     /**
      * 根据用户id获取评论
      * @param userId

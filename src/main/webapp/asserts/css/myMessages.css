@@ -1,0 +1,25 @@
+.fu{
+    padding-top: 10px;
+    height: 140px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.rHeadPic{
+    width: 85px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.ck{
+    padding-top: 10px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.new, .old{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.noNewMessage, .noMessage{
+    text-align: center;
+}

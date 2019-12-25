@@ -43,4 +43,22 @@
         update message set is_delete = 0 where m_id = #{messageId};
     </update>
 
+    <!-- 获取所有未读消息 by 用户id -->
+    <select id="getNoReadMessageByUid" resultMap="messageMap">
+        select * from message where m_uid = #{userId} and m_status = 'message' and is_read = 0 and is_delete = 1;
+    </select>
+    <!-- 获取所有未读消息总数 by 用户id -->
+    <select id="getNoReadMessageCountByUid" resultType="Integer">
+        select count(*) from message where m_uid = #{userId} and is_read = 0 and m_status = 'message' and is_delete = 1;
+    </select>
+
+    <!-- 获取他对用户发送的所有未读消息总数 -->
+    <select id="getThisMessageCount" resultType="Integer">
+        select count(*) from message where m_uid = #{userId} and m_fid = #{fUserId} and is_read = 0 and m_status = 'message' and is_delete = 1;
+    </select>
+
+    <!-- 消息已读 -->
+    <update id="readMessage">
+        update message set is_read = 1 where m_uid = #{userId} and m_fid = #{fUserId} and is_delete = 1
+    </update>
 </mapper>

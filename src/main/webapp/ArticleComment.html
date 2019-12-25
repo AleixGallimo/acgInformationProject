@@ -44,7 +44,7 @@
                 </ul>
             </div>
             <div class="menu-message col-lg-2" style="text-align: right;float: right">
-                <a class="myMessages" href="myMessages.html" style="line-height: 80px;padding-right: 15px">我的消息</a>
+                <a class="myMessages" href="myMessages.html" style="line-height: 80px;padding-right: 15px">我的消息 <span class="badge">42</span></a>
             </div>
         </div>
     </div>
@@ -126,10 +126,10 @@
         <div class="right col-lg-4">
             <div class="home col-lg-12"><!--authorObj-->
                 <div class="rHeadPic">
-                    <img class="img-circle" src="asserts/images/headPicture/hcx.jpg" width="85" height="85">
+                    <img class="img-circle" src="" width="85" height="85">
                 </div>
                 <div class="rUserName">
-                    <span>胡纯霞姐姐 </span><span class="setting iconfont icon-V"></span>
+                    <span> </span><span class="setting iconfont icon-V"></span>
                 </div>
                 <div class="uType">
                     <div class='iconfont icon icon-huiyuanjulebu' style='text-align: center;color: #f6c214;font-size: small;margin-top: 5px;'> 超级会员</div>
@@ -221,6 +221,20 @@
                 })
             }
 
+            //获取用户新未读消息
+            var getRead = function () {
+                $.ajax({
+                    url:"/acgInformation/message/getNoReadCount",
+                    data:{
+                        userId:user.uId
+                    },
+                    async:false,
+                    success:function (count) {
+                        $(".badge").text(count);
+                    }
+                })
+            }
+            getRead();
             //当前文章id
             var articleId = getParams("aId");
             //当前用户权限
@@ -266,6 +280,7 @@
                         var article = JSON.parse(data);
                         $("title").text(article.title);
                         author = article.aAuthor;
+                        console.log("作者id" + author)
                         $(".catalog").text("首页 > " +  article.aType);
                         $(".title").text(article.title);
                         $(".time").text(article.aDate);
@@ -278,17 +293,34 @@
             }
             //获取文章作者对象方法
             var getAuthor = function () {
+                console.log("作者编号"+ author);
                 $.ajax({
-                    url:"/acgInformation/UserController/findUserById",
+                    url:"/acgInformation/UserController/findUser",
                     data:{
-                        id:author
+                        uid:author
                     },
                     async:false,
                     success:function (data) {
-                        authorObj = data;
+                        authorObj = JSON.parse(data);
                     }
                 })
             }
+            //设置文章作者
+            var setAuthor = function () {
+                console.log(authorObj);
+                $(".rHeadPic img").attr("src",authorObj.uPic);
+                $(".rUserName span:first").text(authorObj.uName + " ");
+                /*判定用户权限*/
+                var uAuthority = authorObj.uAuthority;
+                if (uAuthority == 2){
+                    $(".uType").html("<div class='iconfont icon-huiyuanjulebu' style='text-align: center;color: #f6c214;font-size: small;margin-top: 5px;'> 超级会员</div>");
+                } else if (uAuthority == 3) {+
+                    $(".uType").html("<div class='iconfont icon-guanliyuan' style='text-align: center;color: #005dac;font-size: small;margin-top: 5px;'> 管理员</div>");
+                } else {
+                    $(".uType").html("<div class='iconfont icon-yonghu' style='text-align: center;color: #898989;font-size: small;margin-top: 5px;'> 普通用户</div>");
+                }
+            }
+
             //检查文章是否已被用户赞赏
             var checkUserMoney = function () {
                 $.ajax({
@@ -557,8 +589,10 @@
                 editor = new E('#editor');
                 //权限
                 //工具栏权限判定
-                if(authority == 1){
-                    editor.customConfig.menus = ['head', 'bold', 'fontSize', 'fontName', 'italic', 'underline', 'strikeThrough', 'foreColor', 'backColor', 'list', 'justify', 'emoticon', 'image', 'code', 'undo', 'redo','qgs'];
+                if(authority == 1 || authority == 3){
+                    /*                    editor.customConfig.menus = ['head', 'bold', 'fontSize', 'fontName', 'italic', 'underline', 'strikeThrough', 'foreColor', 'backColor', 'list', 'justify', 'emoticon', 'image', 'code', 'undo', 'redo','qgs'];
+*/
+                    editor.customConfig.menus = ['bold', 'fontName', 'italic', 'underline', 'strikeThrough', 'foreColor', 'backColor', 'justify', 'emoticon', 'image', 'code', 'undo', 'redo','qgs'];
                 } else {
                     editor.customConfig.menus = ['emoticon', 'image', 'code', 'undo', 'redo', 'qgs'];
                 }
@@ -583,7 +617,8 @@
                     success:function (data) {
                         commentCount = data;
                         pageCount = Math.ceil(commentCount / pageSize);
-                    }});
+                    }
+                });
                 $(".commentCount").text(commentCount);
             }
 
@@ -599,9 +634,8 @@
                 doAjax();
                 wangEditor();
                 checkUserMoney();
+                setAuthor();
             })
-
-
             //发表评论
             $(".enter").click(function () {
                 var str = editor.txt.html();

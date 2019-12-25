@@ -53,4 +53,28 @@ public class MessageController {
         List<Message> list = messageService.getMessageByFid(fUserId, userId);
         return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
     }
+
+    //获取用户所有未读消息
+    @RequestMapping(value = "/getNoRead")
+    private String getNoReadMessageByUid(Integer userId){
+        List<Message> list = messageService.getNoReadMessageByUid(userId);
+        return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
+    }
+    //获取用户所有未读消息总数
+    @RequestMapping(value = "/getNoReadCount")
+    private Integer getNoReadMessageCountByUid(Integer userId){
+        return messageService.getNoReadMessageCountByUid(userId);
+    }
+
+    //获取他对用户所有未读消息总数
+    @RequestMapping(value = "/getThisNoReadCount")
+    private Integer getThisMessageCount(Integer fUserId, Integer userId){
+        return messageService.getThisMessageCount(fUserId, userId);
+    }
+
+    //消息已读
+    @RequestMapping(value = "/readMessage")
+    private void readMessage(Integer fUserId, Integer userId){
+        messageService.readMessage(fUserId, userId);
+    }
 }
