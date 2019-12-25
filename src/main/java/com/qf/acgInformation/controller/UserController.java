@@ -51,12 +51,19 @@ public class UserController {
         return userService.findNameAndPic(uid);
     }
 
+    //获得单个用户的信息
+    @RequestMapping(value = "/findSingleUserById",method = RequestMethod.GET)
+    public User findSingleUserById(@RequestParam("id") Integer id){
+        User user = userService.findUserById(id);
+        return user;
+    }
+
     //注册
     @RequestMapping(value = "/register" ,method = RequestMethod.POST)
-    public boolean addUser(@RequestParam("uAccount") String uAccount ,@RequestParam("uPassword") String uPassword){
-        Integer uid = userService.findUserIDByAccount(uAccount);
-        if (uid == null){ userService.addUser(new User(uAccount,uPassword));}
-       return true;
+    public void addUser(@RequestParam("username") String username ,@RequestParam("password") String password ,HttpServletResponse response) throws IOException {
+        Integer uid = userService.findUserIDByAccount(username);
+        if (uid == null){ userService.addUser(new User(username,password));}
+        response.sendRedirect("/acgInformation/login.html");
     }
     //用户登录
     @RequestMapping(value = "/login" ,method = RequestMethod.POST)

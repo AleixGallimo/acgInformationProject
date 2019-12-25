@@ -37,19 +37,21 @@
 		<div id="login">
 		<h1><a href="index.html"  title="点一下这里试试" >点一下这里试试</a></h1>
 	<p class="message register">有道无术 术尚可求</p>
-<form  id="registerform" action="/acgInformation/UserController/register" method="POST">
+
+<div class="form-group">
+	<form  id="registerform" action="/acgInformation/UserController/register" method="POST">
 	<p>
 		<label for="user_login">用户名<br/>
-		<input type="text" name="uAccount" id="user_login" class="input" value="" size="20" /></label>
+			<input type="text" name="username" id="user_login" class="input form-control"  size="20" /></label>
 	</p>
 	<p>
 		<label for="user_email">密码<br />
-		<input type="password" name="uPassword" id="user_email" class="input" value="" size="25" /></label>
+			<input type="password" name="password" id="user_email" class="input form-control " size="25" /></label>
 	</p>
-		<p id="reg_passmail">注册后将返回登录页面</p>
-	<p class="submit"><input type="submit"  id="wp-submit" class="button button-primary button-large" value="注册" /></p>
+	<p id="reg_passmail">注册后将返回登录页面</p>
+	<p class="submit"><input type="submit"  id="wp-submit" class="button  btn button-primary button-large" value="注册" /></p>
 </form>
-
+</div>
 <p id="nav">
 <a href="login.html" >登录</a>
 </p>

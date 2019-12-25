@@ -3,6 +3,7 @@ package com.qf.acgInformation.controller;
 import com.qf.acgInformation.entity.Article;
 import com.qf.acgInformation.service.IArticleService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -37,6 +39,7 @@ public class ArticleController {
     @RequestMapping("/getArticleById")
     public Article getArticleById(Integer id){
         Article article = articleService.getArticleById(id);
+        articleService.updateRead(id);
         return article;
     }
 
@@ -51,6 +54,12 @@ public class ArticleController {
     @RequestMapping("/load")
     public List<Article> getArticleByTime(){
         List<Article> list = articleService.getArticleByTime();
+        return list;
+    }
+
+    @RequestMapping("/getAllArticle")
+    public List<Article> getAllArticle( Integer offset, Integer pageSize){
+        List<Article> list = articleService.getAllArticle(offset, pageSize);
         return list;
     }
 
@@ -110,15 +119,17 @@ public class ArticleController {
 
     //删除文章
     @RequestMapping("/delete")
-    public void deleteArticle(){
-         articleService.deleteArticle(2, 0);
+    public String deleteArticle(Integer aId){
+         articleService.deleteArticle(aId, 0);
+         return "删除成功";
     }
 
     //审核通过文章（默认为1、2为通过）
     @RequestMapping("/state")
-    public void updateArticleState(){
-        Article article = new Article(1,2);
-        articleService.updateArticleState(article);
+    public String updateArticleState(Integer aId , HttpServletResponse response) throws IOException {
+        articleService.updateArticleState(new Article(aId,2));
+        response.sendRedirect("/acgInformation/admin/article.html");
+        return "审核通过";
     }
 
     //点赞

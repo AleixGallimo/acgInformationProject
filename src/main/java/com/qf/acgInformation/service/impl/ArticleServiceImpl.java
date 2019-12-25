@@ -73,4 +73,9 @@ public class ArticleServiceImpl implements IArticleService {
     public Integer updateRead(Integer readID) {
         return articleMapper.updateRead(readID);
     }
+
+    @Override
+    public List<Article> getAllArticle(Integer offset, Integer pageSize) {
+        return articleMapper.getAllArticle(offset,pageSize);
+    }
 }

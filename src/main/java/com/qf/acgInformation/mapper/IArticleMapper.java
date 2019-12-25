@@ -43,4 +43,7 @@ public interface IArticleMapper {
 
     //文章增加阅读量
     Integer updateRead(@Param("readID") Integer readID);
+
+    //显示所有文章文章
+    List<Article> getAllArticle(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 }
