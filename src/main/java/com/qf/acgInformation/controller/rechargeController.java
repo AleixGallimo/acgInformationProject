@@ -31,7 +31,7 @@ public class rechargeController {
         User user = userService.findUserById(uid);
         //判断输入的密码和数据库的密码是否一致
         if (user.getUPassword().equals(password)){
-            int money1 = Integer.parseInt(money);
+            Integer money1 = Integer.parseInt(money);
             //充值，用户的余额加上输入的金额
             rechargeService.addMoney(money1,uid);
             //更新用户的信息

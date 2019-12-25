@@ -43,4 +43,6 @@ public interface IArticleService {
 
     //文章增加阅读量
      Integer updateRead(Integer readID);
+    //显示所有文章文章
+    List<Article> getAllArticle( Integer offset,  Integer pageSize);
 }

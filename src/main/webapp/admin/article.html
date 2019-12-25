@@ -12,13 +12,75 @@
 
   <script type="text/javascript">
     $(function () {
+      var offset=0
+      var pageSize=10
+      var author
+      var state
+      $("tbody tr").remove();
       $.ajax({
-        url:"acgInformation/comment/getAllComment",
+        url:"/acgInformation/article/getAllArticle",
+        type:"GET",
+        data:{
+          offset:offset,
+          pageSize: pageSize
+        },
+        contentType:"application/json;charset=UTF-8",
+        dataType:"JSON",
         async:false,
-        data:{},
         success:function (data) {
-          console.log(data);
+          for (var i=0;i<pageSize;i++){
+            console.log(data[i].aAuthor)
+            $.ajax({
+              url:"/acgInformation/UserController/findSingleUserById",
+              data:{
+                id:data[i].aAuthor,
+              },
+              async:false,
+              contentType:"application/json;charset=UTF-8",
+              dataType:"JSON",
+              success:function (value) {
+               author=value.uName
+              }
+            })
+            if (data[i].aState==2) { state="已通过"}else{state="待审核"}
+            var temp = "<tr>" +
+                    "           <td>" + (Number(i)+1) + "</td>" +
+                    "           <td><a href='../ArticleComment.html?aId=" + data[i].aId + "' >" + data[i].title + "</a></td>" +
+                    "           <td>" + data[i].aType + "</td>" +
+                    "           <td>" + author + "</td>" +
+                    "           <td  class='aState'>" +state+ "</td>" +
+                    "           <td>" +
+                    "               <button type='button' class='banArticle btn btn-danger' name='" + data[i].aId + "'>审核通过</button>" +
+                    "               <button type='button' class='delete btn btn-warning' name='" + data[i].aId + "'>删除文章</button>" +
+                    "           </td>" +
+                    "       </tr>";
+            $("tbody").append(temp);
+          }
         }
+      });
+      $(".banArticle").bind("click",function () {
+            $.ajax({
+              url:"/acgInformation/article/state",
+              data:{
+                aId:$(this).attr("name"),
+              },
+              async:false,
+              success:function (data) {
+                 location.reload();
+              }
+            })
+      })
+      $(".delete").bind("click",function () {
+        $.ajax({
+          url:"/acgInformation/article/delete",
+          data:{
+            aId:$(this).attr("name"),
+          },
+          async:false,
+          success:function (data) {
+            location.reload();
+          }
+        })
       })
     })
   </script>
@@ -47,8 +109,8 @@
       <div class="span12">
         <ul>
           <li><a href="index.html"><i class="batch home"></i><br />主页</a></li>
-          <li><a href="messages.html" class="active"><i class="batch plane"></i><br />评论管理</a></li>
-          <li><a href="article.html"><i class="batch forms" class="active"></i><br />文章管理</a></li>
+          <li><a href="messages.html" ><i class="batch plane"></i><br />评论管理</a></li>
+          <li><a href="article.html" class="active"><i class="batch forms"></i><br />文章管理</a></li>
           <li><a href="users.html"><i class="batch users"></i><br />用户管理</a></li>
           <li><a href="settings.html"><i class="batch settings"></i><br />资料更改</a></li>
         </ul>
@@ -61,9 +123,25 @@
 <div class="page">
   <div class="page-container">
     <div class="container">
-      <div class="row">
+      <div class="col-lg-12">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>编号</th>
+            <th>文章标题</th>
+            <th>类型</th>
+            <th>作者</th>
+            <th>审核状态</th>
+            <th>后台操作</th>
+          </tr>
+          </thead>
+          <tbody>
 
+          </tbody>
+          <tfoot></tfoot>
+        </table>
       </div>
+
     </div>
   </div>
 </div>

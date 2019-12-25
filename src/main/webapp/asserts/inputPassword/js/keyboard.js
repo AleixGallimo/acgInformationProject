@@ -172,7 +172,7 @@ function getParams(key) {
 //检查输入的密码是否正确
 function checkPassword(money1) {
     $.ajax({
-        url: "/luntan/rechargeController/recharge",
+        url: "/acgInformation/rechargeController/recharge",
         Type: "GET",
         dataType: "JSON",
         contentType: "application/json;charset=UTF-8",
@@ -180,8 +180,8 @@ function checkPassword(money1) {
             password:$(".input_").val()},
         success:function (data) {
             if (data==1){
-                alert("充值成功！！")
-                location.href = "../views/finuser.html";
+                alert("充值成功！！");
+                // location.href = "../views/finduser.html";
             }else if (data==0){
                 alert("充值失败，请重新充值！")
             }else {

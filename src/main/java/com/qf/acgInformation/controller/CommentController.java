@@ -23,7 +23,7 @@ public class CommentController {
     private Integer checkLogin(HttpServletRequest request){
         Integer uid = (Integer) request.getSession().getAttribute("uid");
         Integer adminId = (Integer)request.getSession().getAttribute("adminId");
-        if(adminId != 0 || uid !=0 ){
+        if(adminId != null || uid != null){
             return 1;
         }
         return 0;

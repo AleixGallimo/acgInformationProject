@@ -18,4 +18,8 @@
     <update id="addMoney" parameterType="INTEGER">
         update user set u_money = u_money + #{uMoney} where u_id = #{uId};
     </update>
+
+<!--    <select id="updateUser1" resultMap="userMap">-->
+<!--        select * from user where u_id = #{uId};-->
+<!--    </select>-->
 </mapper>

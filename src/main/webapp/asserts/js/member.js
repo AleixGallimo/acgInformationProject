@@ -3,7 +3,7 @@
 //判断用户的权限
 var userRight = function () {
     $.ajax({
-        url:"/luntan/UserRightController/isVIP",
+        url:"/acgInformation/UserRightController/isVIP",
         Type: "GET",
         dataType: "JSON",
         contentType: "application/json;charset=UTF-8",
@@ -36,7 +36,7 @@ var pay=function (password1) {
 	console.log(password1);
 	debugger;
     $.ajax({
-        url:"/luntan/UserRightController/BuyVIP",
+        url:"/acgInformation/UserRightController/BuyVIP",
         Type: "GET",
         dataType: "JSON",
         contentType: "application/json;charset=UTF-8",

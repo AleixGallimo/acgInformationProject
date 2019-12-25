@@ -16,7 +16,7 @@
         $(function () {
             $("#reward").click(function () {
                 $.ajax({
-                    url: "/luntan/RewardController/reward",
+                    url: "/acgInformation/RewardController/reward",
                     Type: "GET",
                     dataType: "JSON",
                     // contentType: "application/json;charset=UTF-8",
@@ -41,7 +41,7 @@
 
             $("#user").click(function () {
                 $.ajax({
-                    url: "/luntan/UserController/findUser",
+                    url: "/acgInformation/UserController/findUser",
                     Type: "GET",
                     dataType: "JSON",
                     // contentType: "application/json;charset=UTF-8",
@@ -51,8 +51,50 @@
                     }
                 })
             });
-        })
+        });
+//-------上传头像---------------------------
+        $(function() {
+            $("#pic").click(function () {
+                $("#upload").click(); //隐藏了input:file样式后，点击头像就可以本地上传
+                $("#upload").on("change",function(){
+                    var objUrl = getObjectURL(this.files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+                    if (objUrl) {
+                        $("#pic").attr("src", objUrl) ; //将图片路径存入src中，显示出图片
+                    }
+                });
+
+
+            });
+        });
+
+        //建立一個可存取到該file的url
+        function getObjectURL(file) {
+            var url = null ;
+            if (window.createObjectURL!=undefined) { // basic
+                url = window.createObjectURL(file) ;
+                console.log("url:"+url);
+            } else if (window.URL!=undefined) { // mozilla(firefox)
+                url = window.URL.createObjectURL(file) ;
+                console.log("url:"+url);
+            } else if (window.webkitURL!=undefined) { // webkit or chrome
+                url = window.webkitURL.createObjectURL(file) ;
+                console.log("url:"+url);
+            }
+            console.log("url:"+url);
+            return url ;
+
+        }
     </script>
+
+    <style>
+        #pic{
+            width:100px;
+            height:100px;
+            border-radius:50% ;
+            margin:20px auto;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <a href="finduser.html" id="update">点我</a>
@@ -60,5 +102,10 @@
 <button id="user">测试查找用户</button>
 
 <button id="reward">测试打赏功能</button>
+
+
+
+
+
 </body>
 </html>

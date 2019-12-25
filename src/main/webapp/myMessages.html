@@ -164,12 +164,16 @@
             //获取评论
             var getArticleCommentForMe = function () {
                 $.ajax({
-                    url:"/acgInformation/article/getArticleById",
+                    url:"/acgInformation/article/author",
                     data:{
-
+                        userID:user.uId
+                    },
+                    success:function (data) {
+                        console.log(data);
                     }
                 })
             }
+            getArticleCommentForMe();
         })
 
     </script>

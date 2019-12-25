@@ -7,60 +7,56 @@
 	<!--<![endif]-->
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>登录 &lsaquo; ACG资讯 &#8212; WordPress</title>
-<link rel='stylesheet' href="https://www.dongmanzx.com/wp-admin/load-styles.php?c=0&dir=ltr&load%5B%5D=dashicons,buttons,forms,l10n,login&ver=4.9.13" type='text/css' media='all' />
+	<title>注册表单 &lsaquo; ACG资讯 &#8212; WordPress</title>
+<link rel='stylesheet' href="asserts/css/load-styles.php-c=0&dir=ltr&load[]=dashicons,buttons,forms,l10n,login&ver=4.9.13.css" type='text/css' media='all' />
 <style type="text/css">#login form {-webkit-box-shadow:0 2px 5px 0 rgba(146,146,146,.1);-moz-box-shadow:0 2px 5px 0 rgba(146,146,146,.1);box-shadow:0 8px 25px 0 rgba(146,146,146,0.21);}#login form .forgetmenot{float:none}
 #login form p.submit{padding: 20px 0 0;}#login form p.submit .button-primary{float:none;background-color: #494949;font-weight: bold;color: #fff;width: 100%;height: 40px;border-width: 0;border-color:white}#login form input{box-shadow:none!important;outline:none!important}</style><style type="text/css">
        .login h1 a { background-image:url("https://www.dongmanzx.com/wp-content/uploads/2018/07/2018070622335413.png")/*tpa=https://www.dongmanzx.com/wp-content/uploads/2018/07/2018070622335413.png*/;background-size: 100%;width: 280px;height: 84px;margin: 20px auto 15px; }
-        </style>	<meta name='robots' content='noindex,noarchive' />
+        </style><meta name='robots' content='noindex,noarchive' />
 	<meta name='referrer' content='strict-origin-when-cross-origin' />
 		<meta name="viewport" content="width=device-width" />
 		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 		<script type="text/javascript">
-		$(function () {
-			$("#wp-submit").bind("click",function () {
-				$.ajax({
-					type: "POST",//方法类型
-					dataType: "json",//预期服务器返回的数据类型
-					url: "/acgInformation/UserController/login" ,//url
-					data: $('#loginform').serialize(),
-					success: function (data) {
-							alert(data);
-							location.href='index.html'
-					}
+			$(function () {
+				$("#wp-submit").bind("click",function () {
+					$.ajax({
+						type: "POST",//方法类型
+						dataType: "json",//预期服务器返回的数据类型
+						url: "/acgInformation/UserController/register" ,//url
+						data: $('#registerform').serialize(),
+						success: function (data) {
+							alert("注册成功");
+							location.href='login.html'
+						}
+					})
 				})
 			})
-		})
 		</script>
-
 		</head>
-	<body class="login login-action-login wp-core-ui  locale-zh-cn">
+	<body class="login login-action-register wp-core-ui  locale-zh-cn">
 		<div id="login">
-		<h1><a href="index.html" title="你动我一下试试？" tabindex="-1">你动我一下试试？</a></h1>
-	
-   <form  id="loginform"  method="post" action="/acgInformation/UserController/login">
+		<h1><a href="index.html"  title="点一下这里试试" >点一下这里试试</a></h1>
+	<p class="message register">有道无术 术尚可求</p>
+
+<div class="form-group">
+	<form  id="registerform" action="/acgInformation/UserController/register" method="POST">
 	<p>
-		<label for="user_login">用户名<br />
-		<input type="text" name="uAccount" id="user_login" class="input" value="" size="20" /></label>
+		<label for="user_login">用户名<br/>
+			<input type="text" name="username" id="user_login" class="input form-control"  size="20" /></label>
 	</p>
 	<p>
-		<label for="user_pass">密码<br />
-		<input type="password" name="uPassword" id="user_pass" class="input" value="" size="20" /></label>
+		<label for="user_email">密码<br />
+			<input type="password" name="password" id="user_email" class="input form-control " size="25" /></label>
 	</p>
-	<a href="register.html">注册</a>
-	<p class="submit">
-		<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="登录" />
-	</p>
+	<p id="reg_passmail">注册后将返回登录页面</p>
+	<p class="submit"><input type="submit"  id="wp-submit" class="button  btn button-primary button-large" value="注册" /></p>
 </form>
-
+</div>
 <p id="nav">
+<a href="login.html" >登录</a>
 </p>
-
-
 	<p id="backtoblog"><a href="index.html">&larr; 返回到ACG资讯</a></p>
-		
 	</div>
-
 		<div class="clear"></div>
 	</body>
 	</html>
