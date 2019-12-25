@@ -27,4 +27,14 @@ public class UserServiceImpl implements IUserService {
        return userMapper.findNameAndPic(uid);
 
     }
+
+    @Override
+    public Integer addUser(User user) {
+        return userMapper.addUser(user);
+    }
+
+    @Override
+    public Integer findUserIDByAccount(String account) {
+        return userMapper.findUserIDByAccount(account);
+    }
 }

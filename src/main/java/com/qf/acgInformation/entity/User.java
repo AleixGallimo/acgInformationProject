@@ -36,4 +36,12 @@ public class User {
     private Integer uAuthority;
     //用户关注列表
     private List<User> users;
+
+    public User() {
+    }
+
+    public User(String uAccount, String uPassword) {
+        this.uAccount = uAccount;
+        this.uPassword = uPassword;
+    }
 }

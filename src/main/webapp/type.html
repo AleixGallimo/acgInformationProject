@@ -96,6 +96,22 @@
                                         srcImg.src=data[i].aPic
                                         time.innerText=data[i].aDate
                                     }
+                                    $.ajax({
+                                        url:"/acgInformation/UserController/getSessionId",
+                                        type:"GET",
+                                        data:{},
+                                        contentType:"application/json;charset=UTF-8",
+                                        dataType:"JSON",
+                                        success:function (uid) {
+                                            if (uid!=null) {
+                                                let aTag = document.querySelector(".right-nav").querySelectorAll("a")
+                                                aTag[1].href='views/finduser.html'
+                                                aTag[1].innerText='个人资料'
+                                                aTag[2].href='/acgInformation/UserController/logout'
+                                                aTag[2].innerText='注销'
+                                            }
+                                        }
+                                    })
                                 }
                             })
                         }
@@ -143,10 +159,10 @@
             <button type="button" class="js-toggle-search" data-toggle="modal" data-target="#exampleModal"><i class=" icon-search"></i></button>
             <a href="contribute .html"
                class="toggle-tougao  hidden-xs hidden-sm">投稿</a>
-            <a href=""
+            <a href="login.html"
                class="toggle-login hidden-xs hidden-sm">登录</a>
             <span class="line  hidden-xs hidden-sm"></span>
-            <a href=""
+            <a href="register.html"
                class="toggle-login hidden-xs hidden-sm">注册</a>
 
 

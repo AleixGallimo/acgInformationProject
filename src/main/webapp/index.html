@@ -92,12 +92,29 @@
 										srcImg.src=data[i].aPic
 										time.innerText=data[i].aDate
 									}
+									$.ajax({
+										url:"/acgInformation/UserController/getSessionId",
+										type:"GET",
+										data:{},
+										contentType:"application/json;charset=UTF-8",
+										dataType:"JSON",
+										success:function (uid) {
+											if (uid!=null) {
+												let aTag = document.querySelector(".right-nav").querySelectorAll("a")
+												aTag[1].href='views/finduser.html'
+												aTag[1].innerText='个人资料'
+												aTag[2].href='/acgInformation/UserController/logout'
+												aTag[2].innerText='注销'
+											}
+										}
+									})
 								}
 							})
 						}
 					})
 			}
 			});
+			//index页面下方的分类点击触发局部刷新
 			$(".cat-post").bind("click",function () {
 				$.ajax({
 					url:"/acgInformation/article/type",
@@ -128,14 +145,17 @@
 					}
 				})
 			});
+			//进入上方导航栏的分类页面
 			$(".type").bind("click",function () {
 				sessionStorage.setItem("type", JSON.stringify($(this).attr("name")));
 				location.href='type.html';
 			});
+			//搜索
 			$(".btn-primary").bind("click",function () {
 				sessionStorage.setItem("keyWords", JSON.stringify($(".form-control").val()));
 				location.href='searchResult.html';
 			});
+
 		})
 	</script>
 </head>
@@ -170,8 +190,8 @@
 				<a href="login.html"
 				   class="toggle-login hidden-xs hidden-sm">登录</a>
 				<span class="line  hidden-xs hidden-sm"></span>
-				<a href=""
-					class="toggle-login hidden-xs hidden-sm">注册</a>
+				<a href="register.html"
+					class="toggle-login">注册</a>
 
 
 			</div>
