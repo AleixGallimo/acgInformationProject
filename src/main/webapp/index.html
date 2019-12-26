@@ -81,33 +81,37 @@
 								contentType:"application/json;charset=UTF-8",
 								dataType:"JSON",
 								success:function (data) {
-									let bbox=document.querySelector(".widget_suxingme_postlist").querySelectorAll("li")
-									for(let i = 0 ;i<3;i++){
-										let a=bbox[i].querySelector("a")
-										let srcImg=bbox[i].querySelector("img")
-										let Title=bbox[i].querySelector("h4")
-										let time=bbox[i].querySelector(".title").querySelectorAll("span")[0]
-										a.href="ArticleComment.html?aId="+data[i].aId
-										Title.innerText=data[i].title
-										srcImg.src=data[i].aPic
-										time.innerText=data[i].aDate
-									}
-									$.ajax({
-										url:"/acgInformation/UserController/getSessionId",
-										type:"GET",
-										data:{},
-										contentType:"application/json;charset=UTF-8",
-										dataType:"JSON",
-										success:function (uid) {
-											if (uid!=null) {
-												let aTag = document.querySelector(".right-nav").querySelectorAll("a")
-												aTag[1].href='views/finduser.html'
-												aTag[1].innerText='个人资料'
-												aTag[2].href='/acgInformation/UserController/logout'
-												aTag[2].innerText='注销'
-											}
+									console.log(data != "")
+									if (data != null){
+										let bbox=document.querySelector(".widget_suxingme_postlist").querySelectorAll("li")
+										for(let i = 0 ;i<3;i++){
+											let a=bbox[i].querySelector("a")
+											let srcImg=bbox[i].querySelector("img")
+											let Title=bbox[i].querySelector("h4")
+											let time=bbox[i].querySelector(".title").querySelectorAll("span")[0]
+											a.href="ArticleComment.html?aId="+data[i].aId
+											Title.innerText=data[i].title
+											srcImg.src=data[i].aPic
+											time.innerText=data[i].aDate
 										}
-									})
+										$.ajax({
+											url:"/acgInformation/UserController/getSessionId",
+											type:"GET",
+											data:{},
+											contentType:"application/json;charset=UTF-8",
+											dataType:"JSON",
+											success:function (uid) {
+												console.log(uid)
+												if (uid!=null) {
+													let aTag = document.querySelector(".right-nav").querySelectorAll("a")
+													aTag[1].href='views/finduser.html'
+													aTag[1].innerText='个人资料'
+													aTag[2].href='/acgInformation/UserController/logout'
+													aTag[2].innerText='注销'
+												}
+											}
+										})
+									}
 								}
 							})
 						}

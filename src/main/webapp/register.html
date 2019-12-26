@@ -103,10 +103,14 @@
                 }
             })
             $("#wp-submit").click(function () {
-                debugger
+
                 //手动验证表单，当是普通按钮时
                 $('#registerform').data('bootstrapValidator').validate();//启用验证
                 var flag = $('#registerform').data('bootstrapValidator').isValid()//验证是否通过true/false
+                console.log($(".help-block"))
+                if ($(".help-block") == undefined){
+                    flag = true;
+                }
                 if (flag){
                     alert("success");
                     $.ajax({
