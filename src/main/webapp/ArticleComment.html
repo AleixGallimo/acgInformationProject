@@ -16,15 +16,15 @@
     <link href="https://at.alicdn.com/t/font_1546900_y8hdaf5oyp.css" rel="stylesheet">
     <style type="text/css">
         *:hover{cursor:default;}
-        a{cursor:default;text-decoration:none;color: #404040;}
+        a{cursor:pointer;text-decoration:none;color: #404040;}
         a:link { color: #404040; text-decoration: none; }/* 未访问 */
         a:visited { color: #404040; text-decoration: none; }/*以访问*/
-        a:hover { color: #00b0ff; text-decoration: none; }
+        a:hover {cursor:pointer; color: #00b0ff; text-decoration: none; }
         .aName{color: #0e90d2}
         .option a{color: #cecece}
         .option a:hover{color: #00b0ff}
         .replyMessage,.deleteMessage{color: #cecece}
-        .go:hover{color: #00b0ff}
+        .go:hover{color: #00b0ff;}
     </style>
 </head>
 <body>
@@ -33,7 +33,7 @@
             <div class="titleLogo">
                 <img src="https://wx3.sinaimg.cn/mw690/a8a5aaf4gy1ga6hmhw0y9j209203udfu.jpg" height="78" width="197">
             </div>
-            <div class="menu-fix-box col-lg-7">
+            <div class="menu-fix-box col-lg-6">
                 <ul id="menu-navigation" class="menu">
                     <li><a href="index.html">首页</a></li>
                     <li><a class="type" name="动画">动画</a></li>
@@ -43,8 +43,10 @@
                     <li><a class="type" name="cosplay">cosplay</a></li>
                 </ul>
             </div>
-            <div class="menu-message col-lg-2" style="text-align: right;float: right">
-                <a class="myMessages" href="myMessages.html" style="line-height: 80px;padding-right: 15px">我的消息 <span class="badge">42</span></a>
+            <div class="menu-message col-lg-3" style="text-align: right;float: right">
+                <a class="myUserName" style="margin-right: 15px" href="views/finduser.html"> </a>
+                <a class="myMessages" href="myMessages.html" style="line-height: 80px;padding-right: 15px">消息 <span class="badge">42</span></a>
+                <a href="/acgInformation/UserController/logout">注销</a>
             </div>
         </div>
     </div>
@@ -71,7 +73,7 @@
                 <hr style="border: #eeeeee solid 0.5px">
                 <div class="articleContent">
                     <p class='articleP' style="text-indent: 30px;font-size: large;line-height:40px;color: #4a535b"></p>
-                    <img src="" class="contentImg">
+                    <img src="asserts/images/undefined.jpg" class="contentImg">
                 </div>
 
                 <div class="myButton row" style="text-align: center;margin-top: 100px">
@@ -116,7 +118,7 @@
                 </div>
                 <div class="row" style="text-align: right">
                     <div class="col-lg-12">
-                        <button type="button" class="enter btn btn-default">回复文章</button>
+                        <button type="button" class="enter btn btn-default">发表评论</button>
                     </div>
                 </div>
             </div>
@@ -126,7 +128,7 @@
         <div class="right col-lg-4">
             <div class="home col-lg-12"><!--authorObj-->
                 <div class="rHeadPic">
-                    <img class="img-circle" src="" width="85" height="85">
+                    <img class="img-circle" src="asserts/images/undefined.jpg" width="85" height="85">
                 </div>
                 <div class="rUserName">
                     <span> </span><span class="setting iconfont icon-V"></span>
@@ -224,6 +226,7 @@
                 })
             }
 
+            $(".myUserName").text(user.uName);
             //获取用户新未读消息
             var getRead = function () {
                 $.ajax({
@@ -281,6 +284,7 @@
                     async:false,
                     success:function (data) {
                         var article = JSON.parse(data);
+                        console.log("a" + article)
                         $("title").text(article.title);
                         author = article.aAuthor;
                         console.log("作者id" + author)
@@ -305,12 +309,13 @@
                     async:false,
                     success:function (data) {
                         authorObj = JSON.parse(data);
+                        console.log("a" + authorObj)
                     }
                 })
             }
             //设置文章作者
             var setAuthor = function () {
-                console.log(authorObj);
+                console.log(authorObj)
                 $(".rHeadPic img").attr("src",authorObj.uPic);
                 $(".rUserName span:first").text(authorObj.uName + " ");
                 /*判定用户权限*/
@@ -333,8 +338,10 @@
                         type:"money",
                     },
                     async:false,
+                    dataTpye:"JSON",
                     success:function (value) {
-                        console.log("内容为:" + value)
+                        console.log(value);
+                        console.log(userId);
                         if (value == userId){
                             $(".giveMoney").attr("disabled","disabled");
                             $(".giveMoney").text("已打赏");
@@ -371,8 +378,10 @@
                     data:{articleId:articleId},
                     async:false,
                     success:function (data) {
-                        if (data != null){
-                            data = eval('(' + JSON.parse(data) + ')');
+                        var data = JSON.parse(data);
+                        console.log(data != "null")
+                        if (data != "null"){
+                            data = eval('(' + data + ')');
                             for (var i in data) {
                                 fuser = data;
                                 var comment = data[i];
@@ -466,7 +475,9 @@
                             /*加载分页数字*/
                             pages();
                         } else {
-                            alert("评论获取失败,网络异常");
+                            var temp = "<div class='comment container-fluid' style='text-align: center'><img src='asserts/images/noComment.jpg'></div>";
+                            $(".comments").append(temp);
+                            pages();
                         }
 
                         //回复评论
@@ -538,7 +549,7 @@
                                 }
                                 if(confirm('即将进入会话') == true){
                                     sessionStorage.setItem("uName", fuser[index].user.uName);
-                                    location.href = "privateMessage.html?fId=" + fuser[index].user.uId + "&uId=" + userId;
+                                    location.href = "privateMessage.html?fId=" + fuser[index].user.uId;
                                 }
                             })
                         })
@@ -592,9 +603,7 @@
                 editor = new E('#editor');
                 //权限
                 //工具栏权限判定
-                if(authority == 1 || authority == 3){
-                    /*                    editor.customConfig.menus = ['head', 'bold', 'fontSize', 'fontName', 'italic', 'underline', 'strikeThrough', 'foreColor', 'backColor', 'list', 'justify', 'emoticon', 'image', 'code', 'undo', 'redo','qgs'];
-*/
+                if(authority == 2 || authority == 3){
                     editor.customConfig.menus = ['bold', 'fontName', 'italic', 'underline', 'strikeThrough', 'foreColor', 'backColor', 'justify', 'emoticon', 'image', 'code', 'undo', 'redo','qgs'];
                 } else {
                     editor.customConfig.menus = ['emoticon', 'image', 'code', 'undo', 'redo', 'qgs'];
@@ -639,6 +648,7 @@
                 checkUserMoney();
                 setAuthor();
             })
+            sessionStorage.setItem("url",window.location.pathname + "?aId=" + articleId);
             //发表评论
             $(".enter").click(function () {
                 var str = editor.txt.html();
@@ -713,25 +723,34 @@
                 $.ajax({
                     url:"/acgInformation/RewardController/reward",
                     data:{
-                        author:author
+                        aAuthor:author
                     },
+                    async:false,
+                    dataType:"JSON",
                     success:function (flag) {
                         if (flag == 2){
-                            alert("不好意思，您的余额不足，请充值");
+                            alert("抱歉，您不能给自己打赏");
                         } else if (flag == 0){
                             alert("失败");
+                        } else if(flag == -1){
+                            if (confirm("'抱歉，您的余额不足,是否充值？'") == true){
+                                location.href = "views/recharge.html";
+                            }
                         } else {
+                            debugger
+                            $(".giveMoney").attr("class", "giveMoney btn btn-danger");
+                            $(".giveMoney").attr("disabled","disabled");
+                            $(".giveMoney").text("已打赏");
                             $.ajax({
                                 url:"/acgInformation/collection/add",
                                 data:{
                                     userId:userId,
                                     articleId:articleId,
                                     type:"money"
-                                }
+                                },
+                                async:false
                             });
-                            $(this).attr("class", "giveMoney btn btn-danger");
-                            $(this).attr("disabled","disabled");
-                            $(this).text("已打赏");
+
                         }
                     }
 
@@ -739,11 +758,14 @@
             })
             $(".giveLike").click(function () {
                 $.ajax({
-                    url:"/acgInformatuion/article/addLike",
+                    url:"/acgInformation/article/addLike",
                     data:{
                         aId:articleId
                     },
                     success:function () {
+                        $(".giveLike").attr("class", "giveLike btn btn-danger")
+                        $(".giveLike").attr("disabled","disabled");
+                        $(".giveLike").text("已点赞");
                         $.ajax({
                             url:"/acgInformation/collection/add",
                             data:{
@@ -752,9 +774,6 @@
                                 type:"like"
                             }
                         });
-                        $(this).attr("class", "giveLike btn btn-danger")
-                        $(this).attr("disabled","disabled");
-                        $(this).text("已点赞");
                     }
                 })
             })
@@ -806,6 +825,14 @@
                     }
                 })
             }
+
+            //导航栏跳转
+            $(".type").each(function () {
+                $(this).click(function () {
+                    sessionStorage.setItem("type", JSON.stringify($(this).attr("name")));
+                    location.href='type.html';
+                })
+            })
         })
     </script>
 

@@ -21,7 +21,6 @@ public class UserRightController {
 
     @RequestMapping(value = "/isVIP", method = RequestMethod.GET)
     public Integer isVIP(HttpServletRequest request) {
-        request.getSession().setAttribute("uid", 1);
         Integer uid = (Integer) request.getSession().getAttribute("uid");
         User isVip = userRightService.isVIP(uid);
         log.debug(String.valueOf("isVip:" + isVip));
@@ -32,7 +31,6 @@ public class UserRightController {
     @RequestMapping(value = "/BuyVIP", method = RequestMethod.GET)
     public String BuyVIP(String password1, HttpServletRequest request) {
         log.debug("password1:" + password1);
-        request.getSession().setAttribute("uid", 1);
         Integer uid = (Integer) request.getSession().getAttribute("uid");
         //检查用户的余额是否足够购买VIP
         User user = userRightService.CheckMoney(uid);

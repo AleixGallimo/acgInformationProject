@@ -19,7 +19,6 @@ public class RewardController {
 
     @RequestMapping(value = "/reward", method = RequestMethod.GET)
     public String reward(String aAuthor, HttpServletRequest request) {
-        request.getSession().setAttribute("uid", 1);
         Integer uid = (Integer) request.getSession().getAttribute("uid");
         Integer aAuthor1 = Integer.parseInt(aAuthor);
         String result = rewardService.reward(uid, aAuthor1);

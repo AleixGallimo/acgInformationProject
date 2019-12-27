@@ -46,7 +46,8 @@ var pay=function (password1) {
                 alert("您的余额不足，请先充值。")
             }
             if (data==1){
-                alert("充值成功！，您已经是超级会员啦！")
+                alert("充值成功！，您已经是超级会员啦！");
+                location.href = "/acgInformation/views/finduser.html";
 
             }
             if (data == 2) {

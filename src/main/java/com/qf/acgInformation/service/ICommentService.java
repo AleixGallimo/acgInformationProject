@@ -12,6 +12,8 @@ import java.util.List;
 public interface ICommentService {
     //通过文章 id 获取所有评论
     List<Comment> getCommentByArticleId(Integer articleId, Integer offset, Integer pageSize);
+    List<Comment> getCommentByArticleIdDESC(Integer articleId, Integer offset, Integer pageSize);
+
 
     //根据评论 id 删除当条评论
     Integer deleteCommentByCommentId(Integer commentId);

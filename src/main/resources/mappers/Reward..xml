@@ -35,7 +35,7 @@
 
     <select id="findAuthorByAid" resultMap="userMap">
        SELECT `user`.* FROM `user` LEFT JOIN article ON `user`.u_id = article.a_author
-        WHERE article.a_author = #{aAuthor};
+        WHERE article.a_author = #{aAuthor} group by user.u_id;
     </select>
 
     <update id="addMoney" parameterType="INTEGER">

@@ -4,20 +4,15 @@
 <meta charset="UTF-8">
 <title>管理员登录</title>
         <style type="text/css">
-
             div, dl, dt, dd {
                 margin: 0 auto;
                 padding: 0;
             }
-
-
             body {
-                background-image: url(asserts/images/传奇.jpg);
-                background-size: 1670px 900px;
+                background-image: url(asserts/images/cq.jpg);
+                background-size: 100%;
                 background-position: 0px 0px;
             }
-
-
         </style>
         <style type="text/css">
             * {
@@ -37,8 +32,12 @@
                     url: "/acgInformation/UserController/adminLogin" ,//url
                     data: $('#loginform').serialize(),
                     success: function (data) {
-                        alert(data);
-                        location.href='admin/index.html'
+                        if(data != "登录失败"){
+                            alert(data);
+                            location.href='admin/index.html'
+                        } else {
+                            alert(data);
+                        }
                     }
                 })
             })

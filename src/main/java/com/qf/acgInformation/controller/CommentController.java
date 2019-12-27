@@ -42,6 +42,12 @@ public class CommentController {
         //确保集合中的 user 对象不被循环引用
         return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
     }
+    @RequestMapping(value = "/getCommentDESC/{offset}/{pageSize}")
+    private String getCommentByArticleIdDESC(@PathVariable Integer offset, @PathVariable Integer pageSize, Integer articleId){
+        List<Comment> list = commentService.getCommentByArticleIdDESC(articleId, offset, pageSize);
+        //确保集合中的 user 对象不被循环引用
+        return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
+    }
 
     /**
      * 根据用户id获取所有评论

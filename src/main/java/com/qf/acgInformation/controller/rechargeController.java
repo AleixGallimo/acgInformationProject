@@ -25,7 +25,6 @@ public class rechargeController {
 
     @RequestMapping("/recharge")
     public String recharge(String money, String password,HttpServletRequest request){
-        request.getSession().setAttribute("uid",1);
         Integer uid = (Integer) request.getSession().getAttribute("uid");
         //检查密码
         User user = userService.findUserById(uid);

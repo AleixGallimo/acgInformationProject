@@ -9,7 +9,7 @@ var Global_type, Global_show, Global_safe, Global_count = 0;
             random: true, // 随机键盘
             type: "money", // 密码 password or 金额 money
             show: "", // 展示区域
-            safe: false // 加密显示
+            safe: true // 加密显示
         };
         options = $.extend(defaults, options);
 
@@ -56,8 +56,6 @@ var Global_type, Global_show, Global_safe, Global_count = 0;
                     }
                     $(this).find(".keyboard-numBtn").find(".row_4").append(btn_list);
                 }
-
-
             }
 
             // 生成删除和确定按钮
@@ -178,12 +176,14 @@ function checkPassword(money1) {
         contentType: "application/json;charset=UTF-8",
         data: {money:money1,
             password:$(".input_").val()},
+        async:false,
         success:function (data) {
+            console.log(data);
             if (data==1){
                 alert("充值成功！！");
-                // location.href = "../views/finduser.html";
+                location.href = "/acgInformation/views/finduser.html";
             }else if (data==0){
-                alert("充值失败，请重新充值！")
+                alert("充值失败，请重新充值！");
             }else {
                 alert("密码不正确！！！")
             }

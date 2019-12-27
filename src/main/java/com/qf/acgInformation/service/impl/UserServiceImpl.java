@@ -6,6 +6,7 @@ import com.qf.acgInformation.service.IUserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -36,5 +37,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Integer findUserIDByAccount(String account) {
         return userMapper.findUserIDByAccount(account);
+    }
+
+    @Override
+    public List<User> getAllUser() {
+        return null;
     }
 }

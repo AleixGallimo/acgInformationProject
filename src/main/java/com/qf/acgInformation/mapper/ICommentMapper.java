@@ -12,6 +12,7 @@ import java.util.List;
 public interface ICommentMapper {
     //通过 articleId 获取评论
     List<Comment> getCommentByArticleId(@Param("articleId") Integer articleId, @Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+    List<Comment> getCommentByArticleIdDESC(@Param("articleId") Integer articleId, @Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
     //添加评论
     Integer addComment(@Param("comment") Comment comment);

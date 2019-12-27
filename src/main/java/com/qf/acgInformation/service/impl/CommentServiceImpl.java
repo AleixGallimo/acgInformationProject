@@ -27,6 +27,11 @@ public class CommentServiceImpl implements ICommentService {
         return commentMapper.getCommentByArticleId(articleId, offset, pageSize).isEmpty() ? null : commentMapper.getCommentByArticleId(articleId, offset, pageSize);
     }
 
+    @Override
+    public List<Comment> getCommentByArticleIdDESC(Integer articleId, Integer offset, Integer pageSize) {
+        return commentMapper.getCommentByArticleIdDESC(articleId, offset, pageSize).isEmpty() ? null : commentMapper.getCommentByArticleIdDESC(articleId, offset, pageSize);
+    }
+
     /**
      * 根据评论id删除当条评论
      * @param commentId

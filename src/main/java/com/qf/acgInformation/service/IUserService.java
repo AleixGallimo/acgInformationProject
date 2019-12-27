@@ -20,4 +20,7 @@ public interface IUserService {
 
     //根据account用户名查找ID
     Integer findUserIDByAccount( String account);
+
+    //获得所有用户
+    List<User> getAllUser();
 }

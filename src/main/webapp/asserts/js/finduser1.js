@@ -1,3 +1,11 @@
+//检查
+/*uAccount:$("#uAccount").val(),uPassword:$("#uPassword").val(),uBirth:$("#uBirth").val(),
+            uBrief:$("#uBrief").val(), uEmail:$("#uEmail").val(),uName:$("#uName").val(),
+            uPic:$("#head").val(),uSex:$("#uSex").val()
+
+            placeholder="Email"
+
+            */
 
 //
 $(function () {
@@ -14,9 +22,8 @@ $(function () {
                 '<nav class="navbar navbar-default">' +
                 '<div class="container-fluid">' +
                 '<div class="navbar-header">' +
-                '<a class="navbar-brand" href="#">' +
                 //首页的入口
-                '<a href="../views/Demo.html">'+
+                '<a href="/acgInformation/index.html" >'+
                 '<img alt="Brand" src="../asserts/images/logo.png"' +
                 'style="width: 100px;height: 100px; border-radius:80%; overflow:hidden;background-color: #00b9eb"></a>' +
                 //充值的入口
@@ -30,11 +37,11 @@ $(function () {
                 /*'<img id="crown" src="../asserts/images/crown.jpg"  alt="皇冠图标" style="width: 200px; height:200px; border-radius:40%; overflow:hidden;hidden>'+*/
                 '<div id="pic" style="text-align: center">' +
                 '<input id="upload" name="file" accept="image/*" type="file" style="display: none">' +
-                '<img id="head" src="../asserts/images/Icon.jpg" alt="头像" style="width: 200px; height:200px; border-radius:80%; overflow:hidden;>' +
+                '<img id="head" src="../' + data.uPic + '" alt="头像" style="width: 200px; height:200px; border-radius:80%; overflow:hidden;>' +
                 '</div>' +
                 '<div style="text-align: right"><img src="../asserts/images/member.jpg" id="member" alt="升级会员入口" style="width: 200px; height:200px; border-radius:80%; overflow:hidden;position: absolute;right: 100px;top: 100px;></div>' +
                 '<div class="><form  class="cbp-mc-form" enctype="multipart/form-data"><div class="cbp-mc-column"><label for="uAccount">用户名</label>' +
-                '<input type="text"  name="uAccount"id="uAccount" value=' + data.uAccount + ' >' +
+                '<input type="text"  name="uAccount"id="uAccount" value=' + data.uAccount + ' readonly>' +
                 '<label for="uPassword">密码</label>' +
                 '<input type="text" name="uPassword"id="uPassword" value=' + data.uPassword + ' >' +
                 '<label for="uEmail">电子邮箱</label>' +
@@ -52,14 +59,27 @@ $(function () {
                 // '<label for="uPic">上传头像</label>' +
                 // '<input type="file" id="uPic" name="uPic" />' +
                 //上传按钮
-                '<input type="button" value="上传" id="upimg" name="upimg"/>'+'</div>' +
-                '<div class="cbp-mc-column">' +
+               /* '<input type="button" value="上传" id="upimg" name="upimg"/>'+'</div>' +*/
+                '<div class="cbp-mc-column" style="width: 310px">' +
                 '<label>性别</label>' +
-                '<select id="uSex" name="uSex">' +
-                '<option>男</option>' +
-                '<option>女</option>' +
-                '</select></div><div class="cbp-mc-submit-wrap"><input class="cbp-mc-submit" id="submit" type="button" value="Send your data"/></div></form></div></div></div>';
+                // '<select id="uSex" name="uSex">' +
+                // '<option>男</option>' +
+                // '<option>女</option>' + '</select>' +
+                '<input type="text"  name="uSex" id="uSex" value='+data.uSex+'>'+
+                '</div><div class="cbp-mc-submit-wrap"><input class="cbp-mc-submit" id="submit" type="button" value="Send your data"/></div></form></div></div></div>';
             $("#div").append(html);
+            $("input").each(function () {
+                if($(this).val() == 'undefined' || $(this).val() == "" ||  $(this).val() == null){
+                    $(this).val("");
+                    $(this).attr("placeholder", "请更改资料..");
+                }
+            })
+            if($("#uBrief").val() == 'undefined' || $("#uBrief").val() == "" ||  $("#uBrief").val() == null){
+                $("#uBrief").text("请输入个人简介..");
+
+            }
+
+
 
 
             //点击上传头像
@@ -166,7 +186,7 @@ var update = function () {
         data:{
             uAccount:$("#uAccount").val(),uPassword:$("#uPassword").val(),uBirth:$("#uBirth").val(),
             uBrief:$("#uBrief").val(), uEmail:$("#uEmail").val(),uName:$("#uName").val(),
-            uPic:$("#uPic").val(),uSex:$("#uSex").val()
+            uPic:$("#head").val(),uSex:$("#uSex").val()
         },
         success:function (data) {
             if (data==1){
@@ -202,3 +222,6 @@ var removeHidden = function (data) {
         $("#crown").removeAttribute("hidden");
     }
 };
+
+
+

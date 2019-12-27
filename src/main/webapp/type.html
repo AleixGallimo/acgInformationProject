@@ -35,26 +35,42 @@
                 contentType:"application/json;charset=UTF-8",
                 dataType:"JSON",
                 success:function (data) {
-                    //先加载标签区下方的文章
-                    let bbox=document.querySelectorAll(".content-box")
-                    for(let i = 0 ,len=bbox.length;i<len;i++){
-                        let a0=bbox[i].querySelectorAll("a")[0]
-                        let a1=bbox[i].querySelectorAll("a")[1]
-                        let srcImg=bbox[i].querySelector("img")
-                        let Title=bbox[i].querySelector(".posts-gallery-content-title")
-                        let Text=bbox[i].querySelector(".posts-gallery-text")
-                        let time=bbox[i].querySelector(".ico-time").querySelector("i")
-                        let like=bbox[i].querySelector(".ico-like").querySelector("i")
-                        let read=bbox[i].querySelector(".ico-eye").querySelector("i")
-                        a0.href="ArticleComment.html?aId="+data[i].aId
-                        a1.href="ArticleComment.html?aId="+data[i].aId
-                        Title.innerText=data[i].title
-                        Text.innerText=data[i].aText
-                        srcImg.src=data[i].aPic
-                        read.innerText=data[i].aRead
-                        time.innerText=data[i].aDate
-                        like.innerText=data[i].aLike
-
+                    // //先加载标签区下方的文章
+                    // let bbox=document.querySelectorAll(".content-box")
+                    // for(let i = 0 ,len=bbox.length;i<len;i++){
+                    //     let a0=bbox[i].querySelectorAll("a")[0]
+                    //     let a1=bbox[i].querySelectorAll("a")[1]
+                    //     let srcImg=bbox[i].querySelector("img")
+                    //     let Title=bbox[i].querySelector(".posts-gallery-content-title")
+                    //     let Text=bbox[i].querySelector(".posts-gallery-text")
+                    //     let time=bbox[i].querySelector(".ico-time").querySelector("i")
+                    //     let like=bbox[i].querySelector(".ico-like").querySelector("i")
+                    //     let read=bbox[i].querySelector(".ico-eye").querySelector("i")
+                    //     a0.href="ArticleComment.html?aId="+data[i].aId
+                    //     a1.href="ArticleComment.html?aId="+data[i].aId
+                    //     Title.innerText=data[i].title
+                    //     Text.innerText=data[i].aText
+                    //     srcImg.src=data[i].aPic
+                    //     read.innerText=data[i].aRead
+                    //     time.innerText=data[i].aDate
+                    //     like.innerText=data[i].aLike
+                    for (let i = 0 ;i<data.length;i++){
+                        var  temp="<div class='content-box posts-gallery-box'>"+
+                            "<div class='posts-gallery-img'>"
+                            +"<a href=ArticleComment.html?aId=" + data[i].aId+ ">"
+                            + "<img src='"+data[i].aPic+"' class='lazy thumbnail'/>"
+                            +"</a>"+"</div>"
+                            +"<div class='posts-gallery-content'>"
+                            +"<h2>"+"<a href=ArticleComment.html?aId="+ data[i].aId+" target='_blank' class='posts-gallery-content-title' >"
+                            +data[i].title+"</a></h2>"
+                            +"<div class='posts-gallery-text'>"+data[i].aText+"&hellip;</div>"
+                            +"<div class='posts-default-info posts-gallery-info'>"
+                            +"<ul>"
+                            +"<li class='ico-time'><i class='icon-clock-1'></i>"+data[i].aDate+"</li>"
+                            +"<li class='ico-eye hidden-xs hidden-sm'><i class='icon-eye-4'></i>"+data[i].aRead+"</li>"
+                            +"<li class='ico-like hidden-xs hidden-sm'><i class='icon-heart'></i>"+data[i].aLike+"</li>"
+                            +"</ul></div></div></div>";
+                        $(".ajax-load-con").append(temp);
                     }
                     //第一步加载成功后继续加载热门区文章
                     $.ajax({
@@ -186,49 +202,6 @@
 <div id="page-content">
     <div class="top-content">
         <div class="container">
-<!--            <div class="row">-->
-<!--                <div class="owl-carousel top-slide-two">-->
-<!--                </div>-->
-<!--                <div class="top-singles hidden-xs hidden-sm">-->
-<!--                    <div class="single-item">-->
-<!--                        <div class="image"-->
-<!--                             style="background-image:url(https://www.dongmanzx.com/wp-content/uploads/2019/12/2019121908443129.jpg)">-->
-<!--                            <a href="" >-->
-<!--                                <div class="overlay"></div>-->
-<!--                                <div class="title"><span>动画</span>-->
-<!--                                    <h3>《数码宝贝》20周年剧场版新剧照 奥米加兽帅气登场</h3>-->
-<!--                                </div>-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="top-singles hidden-xs hidden-sm">-->
-<!--                    <div class="single-item">-->
-<!--                        <div class="image"-->
-<!--                             style="background-image:url(https://www.dongmanzx.com/wp-content/uploads/2019/11/2019110510323687.png)">-->
-<!--                            <a href="" >-->
-<!--                                <div class="overlay"></div>-->
-<!--                                <div class="title"><span>游戏</span>-->
-<!--                                    <h3>唱响希望之声 《魂器学院》联合源音塘开启琉璃角色曲翻唱大赛</h3>-->
-<!--                                </div>-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="top-singles hidden-xs hidden-sm">-->
-<!--                    <div class="single-item">-->
-<!--                        <div class="image"-->
-<!--                             style="background-image:url(http://img5.mtime.cn/CMS/News/2019/12/20/095621.10078157_620X620.jpg)">-->
-<!--                            <a href="" >-->
-<!--                                <div class="overlay"></div>-->
-<!--                                <div class="title"><span>电影</span>-->
-<!--                                    <h3>神仙打架！"封神三部曲"首曝预告  姜子牙献上封神榜 苏妲己与纣王共浴</h3>-->
-<!--                                </div>-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
         </div>
     </div>
 
@@ -240,150 +213,6 @@
                     <div class="ajax-load-box posts-con">
 
                         <div class="ajax-load-con content wow fadeInUp">
-                            <div class="content-box posts-gallery-box">
-                                <div class="posts-gallery-img">
-                                    <a href="https://www.baidu.com/"  target="_blank">
-                                        <img src=""  class="lazy thumbnail" />
-                                    </a>
-                                </div>
-                                <div class="posts-gallery-content">
-                                    <h2><a href="" target="_blank" class="posts-gallery-content-title"></a></h2>
-                                    <div class="posts-gallery-text">&hellip;</div>
-                                    <div class="posts-default-info posts-gallery-info">
-                                        <ul>
-                                            <li class="ico-time"><i class="icon-clock-1"></i></li>
-                                            <li class="ico-eye hidden-xs hidden-sm"><i class="icon-eye-4"></i></li>
-                                            <li class="ico-like hidden-xs hidden-sm"><i class="icon-heart"></i></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="content-box posts-gallery-box">
-                                <div class="posts-gallery-img">
-                                    <a href=""  target="_blank">
-                                        <img src="" data-original="" class="lazy thumbnail" />
-                                    </a>
-                                </div>
-                                <div class="posts-gallery-content">
-                                    <h2><a href="" target="_blank" class="posts-gallery-content-title"></a></h2>
-                                    <div class="posts-gallery-text">&hellip;</div>
-                                    <div class="posts-default-info posts-gallery-info">
-                                        <ul>
-                                            <li class="ico-time"><i class="icon-clock-1"></i> </li>
-                                            <li class="ico-eye hidden-xs hidden-sm"><i class="icon-eye-4"></i></li>
-                                            <li class="ico-like hidden-xs hidden-sm"><i class="icon-heart"></i></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="content-box posts-gallery-box">
-                                <div class="posts-gallery-img">
-                                    <a href=""  target="_blank">
-                                        <img src="" data-original="" class="lazy thumbnail" />
-                                    </a>
-                                </div>
-                                <div class="posts-gallery-content">
-                                    <h2><a href="" target="_blank" class="posts-gallery-content-title"></a></h2>
-                                    <div class="posts-gallery-text">&hellip;</div>
-                                    <div class="posts-default-info posts-gallery-info">
-                                        <ul>
-                                            <li class="ico-time"><i class="icon-clock-1"></i> </li>
-                                            <li class="ico-eye hidden-xs hidden-sm"><i class="icon-eye-4"></i> </li>
-                                            <li class="ico-like hidden-xs hidden-sm"><i class="icon-heart"></i> </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="content-box posts-gallery-box">
-                                <div class="posts-gallery-img">
-                                    <a href=""  target="_blank">
-                                        <img src="" data-original="" class="lazy thumbnail" />
-                                    </a>
-                                </div>
-                                <div class="posts-gallery-content">
-                                    <h2><a href="" target="_blank" class="posts-gallery-content-title"></a></h2>
-                                    <div class="posts-gallery-text">&hellip;</div>
-                                    <div class="posts-default-info posts-gallery-info">
-                                        <ul>
-                                            <li class="ico-time"><i class="icon-clock-1"></i> </li>
-                                            <li class="ico-eye hidden-xs hidden-sm"><i class="icon-eye-4"></i> </li>
-                                            <li class="ico-like hidden-xs hidden-sm"><i class="icon-heart"></i> </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="content-box posts-gallery-box">
-                                <div class="posts-gallery-img">
-                                    <a href=""  target="_blank">
-                                        <img src="" data-original="" class="lazy thumbnail" />
-                                    </a>
-                                </div>
-                                <div class="posts-gallery-content">
-                                    <h2><a href="" target="_blank" class="posts-gallery-content-title"></a></h2>
-                                    <div class="posts-gallery-text">&hellip;</div>
-                                    <div class="posts-default-info posts-gallery-info">
-                                        <ul>
-                                            <li class="ico-time"><i class="icon-clock-1"></i> </li>
-                                            <li class="ico-eye hidden-xs hidden-sm"><i class="icon-eye-4"></i> </li>
-                                            <li class="ico-like hidden-xs hidden-sm"><i class="icon-heart"></i> </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="content-box posts-gallery-box">
-                                <div class="posts-gallery-img">
-                                    <a href=""  target="_blank">
-                                        <img src="" data-original="" class="lazy thumbnail" />
-                                    </a>
-                                </div>
-                                <div class="posts-gallery-content">
-                                    <h2><a href="" target="_blank" class="posts-gallery-content-title"></a></h2>
-                                    <div class="posts-gallery-text">&hellip;</div>
-                                    <div class="posts-default-info posts-gallery-info">
-                                        <ul>
-                                            <li class="ico-time"><i class="icon-clock-1"></i> </li>
-                                            <li class="ico-eye hidden-xs hidden-sm"><i class="icon-eye-4"></i></li>
-                                            <li class="ico-like hidden-xs hidden-sm"><i class="icon-heart"></i> </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="content-box posts-gallery-box">
-                                <div class="posts-gallery-img">
-                                    <a href=""  target="_blank">
-                                        <img src="" data-original="" class="lazy thumbnail" />
-                                    </a>
-                                </div>
-                                <div class="posts-gallery-content">
-                                    <h2><a href="" target="_blank" class="posts-gallery-content-title"></a></h2>
-                                    <div class="posts-gallery-text">&hellip;</div>
-                                    <div class="posts-default-info posts-gallery-info">
-                                        <ul>
-                                            <li class="ico-time"><i class="icon-clock-1"></i> </li>
-                                            <li class="ico-eye hidden-xs hidden-sm"><i class="icon-eye-4"></i> </li>
-                                            <li class="ico-like hidden-xs hidden-sm"><i class="icon-heart"></i> </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="content-box posts-gallery-box">
-                                <div class="posts-gallery-img">
-                                    <a href=""  target="_blank">
-                                        <img src="" data-original="" class="lazy thumbnail" />
-                                    </a>
-                                </div>
-                                <div class="posts-gallery-content">
-                                    <h2><a href="" target="_blank" class="posts-gallery-content-title"></a></h2>
-                                    <div class="posts-gallery-text">&hellip;</div>
-                                    <div class="posts-default-info posts-gallery-info">
-                                        <ul>
-                                            <li class="ico-time"><i class="icon-clock-1"></i> </li>
-                                            <li class="ico-eye hidden-xs hidden-sm"><i class="icon-eye-4"></i></li>
-                                            <li class="ico-like hidden-xs hidden-sm"><i class="icon-heart"></i> </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                     </div>

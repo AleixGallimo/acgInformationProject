@@ -99,8 +99,13 @@
                         data: $('#loginform').serialize(),
                         async: false,
                         success: function (data) {
-                            alert(data);
-                            location.href = 'index.html'
+                            if (data == "true"){
+                                alert("登录成功");
+                                location.href = 'index.html';
+                            } else {
+                                alert("登录失败，请检查用户名或者密码是否正确");
+                            }
+
                         }
                     });
                 } else {

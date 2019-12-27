@@ -1,11 +1,8 @@
 package com.qf.acgInformation.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.qf.acgInformation.entity.User;
 import com.qf.acgInformation.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -13,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.Random;
 
 @Slf4j
 @RestController
@@ -63,45 +61,53 @@ public class UserController {
     }
 
     //注册
-    @RequestMapping(value = "/register" ,method = RequestMethod.POST)
-    public void addUser(@RequestParam("username") String username ,@RequestParam("password") String password ,HttpServletResponse response) throws IOException {
-        userService.addUser(new User(username,password));
-        response.sendRedirect("/acgInformation/login.html");
+    @RequestMapping(value = "/register")
+    public Integer addUser(String username, String password) {
+        Random random = new Random();
+
+        Integer integer = userService.addUser(new User(username, password, "用户" + random.nextInt(999999) + 1));
+
+        return integer;
     }
 
     //检查用户名是否存在
     @RequestMapping(value = "/checkAccount")
     public HashMap<String, Boolean> checkAccount(String account){
         HashMap<String, Boolean> map = new HashMap<>();
-        if (userService.findUserIDByAccount(account) != 0){
-            map.put("valid",false);
-            //账号存在
-            return map;
-        } else {
+        try {
+            if (userService.findUserIDByAccount(account) != 0){
+                map.put("valid",false);
+                //账号存在
+                return map;
+            }
+        } catch (Exception e){
             map.put("valid", true);
             return map;
         }
+        return null;
     }
 
     //用户登录
     @RequestMapping(value = "/login" ,method = RequestMethod.POST)
     public String userLogin(@RequestParam("uAccount") String uAccount ,@RequestParam("uPassword") String uPassword,HttpServletRequest request){
         Integer uid = userService.findUserIDByAccount(uAccount);
-        if (uid!=null){
-            User  user = userService.findUserById(uid);
-            if (uPassword.equals(user.getUPassword())){
-                request.getSession().setAttribute("uid", uid);
-            }
+        if (uid == null){
+            return "false";
         }
-        return "登录成功";
+        User  user = userService.findUserById(uid);
+        if (uPassword.equals(user.getUPassword())){
+            request.getSession().setAttribute("uid", uid);
+            return "true";
+        }
+        return "false";
     }
 
     //管理员登录
     @RequestMapping(value = "/adminLogin" ,method = RequestMethod.POST)
     public String adminLogin(@RequestParam("uAccount") String uAccount ,@RequestParam("uPassword") String uPassword,HttpServletRequest request){
         Integer uid = userService.findUserIDByAccount(uAccount);
-        if (uid!=null){
-            User  user = userService.findUserById(uid);
+        if (uid != null){
+            User user = userService.findUserById(uid);
             if (uPassword.equals(user.getUPassword())&&user.getUAuthority()==3){
                 request.getSession().setAttribute("adminId", uid);
                 return "登录成功";
@@ -138,6 +144,13 @@ public class UserController {
         User ser = userService.findUserById(uid);
         log.debug("用户" + ser);
         return userService.findUserById(uid);
+    }
+
+    //获得所有用户
+    @RequestMapping("/getAllUser")
+    public List<User> getAllUser(){
+        List<User> list = userService.getAllUser();
+        return list;
     }
 
 }

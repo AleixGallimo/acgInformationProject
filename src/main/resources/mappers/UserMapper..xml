@@ -24,8 +24,12 @@
         select u_id from user where u_account = #{account};
     </select>
 
+    <select id="getAllUser" resultMap="userMap">
+        select * from  user ;
+    </select>
+
     <update id="updateUser" parameterType="com.qf.acgInformation.entity.User">
-        update user set u_account=#{uAccount},u_password=#{uPassword},u_name=#{uName},u_pic=#{uPic},
+        update user set u_account=#{uAccount},u_password=#{uPassword},u_name=#{uName},
         u_email=#{uEmail},u_birth=#{uBirth},u_sex=#{uSex},u_brief=#{uBrief} where u_id=#{uId};
     </update>
 
@@ -34,6 +38,6 @@
     </select>
 
     <insert id="addUser" parameterType="com.qf.acgInformation.entity.User">
-        insert into  user(u_account,u_password) values (#{uAccount},#{uPassword})
+       insert  into  user(u_account,u_password,u_name) values (#{uAccount},#{uPassword},#{uName})
     </insert>
 </mapper>

@@ -82,6 +82,10 @@
                             },
                             notEmpty: {
                                 message: '账号不能为空'
+                            },
+                            regexp:{
+                                regexp:"^[a-zA-Z][a-zA-Z0-9]{4,16}$",
+                                message:"账号格式有误"
                             }
                         }
                     },
@@ -89,6 +93,10 @@
                         validators: {
                             notEmpty: {
                                 message: '密码不能为空'
+                            },
+                            regexp:{
+                                regexp:"^\\d{6}$",
+                                message:"密码格式有误"
                             }
                         }
                     },
@@ -99,25 +107,19 @@
                                 message: '两次输入的密码不相符'
                             }
                         }
-                    },
+                    }
                 }
             })
             $("#wp-submit").click(function () {
-
                 //手动验证表单，当是普通按钮时
                 $('#registerform').data('bootstrapValidator').validate();//启用验证
                 var flag = $('#registerform').data('bootstrapValidator').isValid()//验证是否通过true/false
-                console.log($(".help-block"))
-                if ($(".help-block") == undefined){
-                    flag = true;
-                }
                 if (flag){
-                    alert("success");
                     $.ajax({
-                        type: "GET",//方法类型
-                        dataType: "json",//预期服务器返回的数据类型
                         url: "/acgInformation/UserController/register",//url
-                        data: $('#registerform').serialize(),
+                        type: "GET",//方法类型
+                        data: {username:$("#username").val(), password:$("#password").val()},
+                        async:false,
                         success: function (data) {
                             alert("注册成功");
                             location.href = 'login.html'
@@ -138,21 +140,24 @@
     <div class="register">
         <form id="registerform" action="/acgInformation/UserController/register" method="POST">
             <div class="form-group">
-                <label for="username">账号<br/>
+                <label for="username">账号(4到16位字母数组)<br/>
                     <input type="text" name="account" id="username" class="input form-control" size="20"/>
                 </label>
             </div>
+
             <div class="form-group" style="margin-top: 15px">
-                <label for="password">密码<br/>
+                <label for="password">密码(六位数字)<br/>
                     <input type="password" name="password" id="password" class="input form-control " size="25"/>
                 </label>
             </div>
+
             <div class="form-group" style="margin-top: 15px">
                 <label for="rePassword">确认密码<br/>
                     <input type="password" name="rePassword" id="rePassword" class="input form-control " size="25"/>
                 </label>
             </div>
-            <p id="reg_passmail" style="margin-top: 15px">注册登录后，请及时完善个人资料</p>
+
+            <p style="margin-top: 15px">注册登录后，请及时完善个人资料</p>
             <p class="submit">
                 <button type="button" name="wp-submit" id="wp-submit" class="button button-primary button-large">注册</button>
             </p>

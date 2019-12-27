@@ -73,6 +73,8 @@ public class ArticleController {
     //返回指定作者的文章
     @RequestMapping("/author")
     public List<Article> getArticleByUser(Integer userID){
+        List<Article> list = articleService.getArticleByUser(userID);
+        log.debug("列表：" + list);
         return articleService.getArticleByUser(userID);
     }
 

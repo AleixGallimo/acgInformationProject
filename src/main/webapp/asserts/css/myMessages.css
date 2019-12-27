@@ -1,3 +1,9 @@
+.this{
+    margin-top: 30px;
+    background-color: white;
+    padding-top: 15px;
+    padding-bottom: 30px;
+}
 .fu{
     padding-top: 10px;
     height: 140px;
@@ -22,4 +28,17 @@
 }
 .noNewMessage, .noMessage{
     text-align: center;
+}
+.article{
+    font-size: 20px;
+}
+.comment{
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-top: 40px;
+}
+.fromArticle{
+    color: #9c9c9c;
+    font-size: 15px;
+    margin-bottom: 40px;
 }

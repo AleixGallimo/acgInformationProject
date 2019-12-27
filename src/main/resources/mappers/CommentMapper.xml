@@ -27,6 +27,11 @@
         select * from comment where c_aid = #{articleId} and is_delete = 1 limit #{offset},#{pageSize};
     </select>
 
+    <!--    获取文章id所有评论 倒序 -->
+    <select id="getCommentByArticleIdDESC" resultMap="commentMap">
+        select * from comment where c_aid = #{articleId} and is_delete = 1 order by c_id DESC limit #{offset},#{pageSize};
+    </select>
+
 <!--    添加评论-->
 <insert id="addComment" parameterType="Comment">
     insert into comment(c_text, c_uid, c_aid) values(#{comment.cText}, #{comment.cUid}, #{comment.cAid});

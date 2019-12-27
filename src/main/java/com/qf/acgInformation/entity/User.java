@@ -40,8 +40,9 @@ public class User {
     public User() {
     }
 
-    public User(String uAccount, String uPassword) {
+    public User(String uAccount, String uPassword, String uName) {
         this.uAccount = uAccount;
         this.uPassword = uPassword;
+        this.uName = uName;
     }
 }

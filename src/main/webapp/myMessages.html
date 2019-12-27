@@ -11,7 +11,12 @@
     <!-- 引用本地 css 样式 -->
     <link href="asserts/css/myMessages.css" rel="stylesheet">
     <!-- 图标 -->
-    <link href="https://at.alicdn.com/t/font_1546900_y8hdaf5oyp.css" rel="stylesheet">
+    <link href="https://at.alicdn.com/t/font_1546900_myaxantkupi.css" rel="stylesheet">
+    <style type="text/css">
+        body{
+            background-color: #ebebeb;
+        }
+    </style>
     <script type="text/javascript">
         $(function () {
             //加载当前用户
@@ -168,12 +173,54 @@
                     data:{
                         userID:user.uId
                     },
+                    async:false,
                     success:function (data) {
-                        console.log(data);
+                        //获取出文章对象
+                        var articleObject = JSON.parse(data);
+
+                        for (var i in articleObject){
+                            var articleId = articleObject[i].aId;
+                            var articleTitle = articleObject[i].title;
+                            console.log("aId" + articleId);
+                            console.log("aTitle" + articleTitle);
+                            $.ajax({
+                                url:"/acgInformation/comment/getCommentDESC/0/10",
+                                data:{
+                                    articleId:articleId
+                                },
+                                async:false,
+                                success:function (data) {
+                                    var commentObject = eval('(' + JSON.parse(data) + ')');
+                                    console.log(commentObject);
+                                    if (commentObject != null){
+                                        for (var j in commentObject){
+                                            var temp = "<div class='comment col-lg-12'>" +
+                                                "           <a href='#'>" + commentObject[j].user.uName + " </a> : " + commentObject[j].cText.replace(/<[^>]+>/g, "") +
+                                                "       </div>" +
+                                                "       <div class='fromArticle col-lg-12'>" +
+                                                "           回复我的文章 : “<a href='#' onclick='location.href = \"/acgInformation/ArticleComment.html?aId=" + articleId + "\"' >" + articleTitle + "</a>” <a href='#' style='float: right'>回复</a>" +
+                                                "       </div>" +
+                                                "       <hr style='border: #dddddd solid 0.5px;margin: 0'>\n";
+                                            $(".commentMyArticle").append(temp);
+                                        }
+                                    }
+                                }
+                            })
+
+                        }
                     }
                 })
             }
             getArticleCommentForMe();
+
+            $(".close").click(function () {
+                var url = sessionStorage.getItem("url");
+                if (url != null){
+                    location.href = url;
+                } else {
+                    location.href = "index.html"
+                }
+            })
         })
 
     </script>
@@ -182,7 +229,13 @@
     <div class="top container-fluid">
 
     </div>
-    <div class="container" >
+
+
+
+    <div class="this container" >
+        <div class="col-lg-12" style="text-align: right">
+            <span class="close iconfont icon-htmal5icon21"></span>
+        </div>
         <div class="new col-lg-12">
             新消息
         </div>
@@ -198,7 +251,16 @@
         <div class="article col-lg-12">
             回复我的
         </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="commentMyArticle">
+
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="foot container-fluid"></div>
+    <div class="foot container-fluid" style="margin-top: 60px">
+
+    </div>
 </body>
 </html>
