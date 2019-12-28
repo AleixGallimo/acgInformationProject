@@ -28,7 +28,7 @@ var userRight = function () {
 //返回个人信息页面
 var userPage = function () {
 	if (data==2) {
-		location.href="../../views/old__finduser.html";
+		location.href="../../../acgInformation/userAccount.html";
 	}
 };
 //支付功能
@@ -47,7 +47,7 @@ var pay=function (password1) {
             }
             if (data==1){
                 alert("充值成功！，您已经是超级会员啦！");
-                location.href = "../../views/old__finduser.html";
+                location.href = "../../../acgInformation/userAccount.html";
 
             }
             if (data == 2) {

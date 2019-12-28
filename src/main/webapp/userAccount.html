@@ -27,6 +27,19 @@
 
     <script type="text/javascript">
         $(function () {
+            //检查用户登录状态
+            $.ajax({
+                url:"/acgInformation/UserController/check",
+                async:false,
+                data:{},
+                success:function (data) {
+                    console.log(data)
+                    if (data == 0){
+                        location.href = "login.html?flag=false";
+                        return;
+                    }
+                }
+            })
             //表单校验
             $("form").bootstrapValidator({
                 fields: {
