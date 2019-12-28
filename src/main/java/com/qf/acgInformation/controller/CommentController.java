@@ -19,16 +19,6 @@ public class CommentController {
     @Resource
     private ICommentService commentService;
 
-    @RequestMapping(value = "/check")
-    private Integer checkLogin(HttpServletRequest request){
-        Integer uid = (Integer) request.getSession().getAttribute("uid");
-        Integer adminId = (Integer)request.getSession().getAttribute("adminId");
-        if(adminId != null || uid != null){
-            return 1;
-        }
-        return 0;
-    }
-
     /**
      * 获取文章中的评论
      * @param offset        偏移量，起始页为0
@@ -42,6 +32,8 @@ public class CommentController {
         //确保集合中的 user 对象不被循环引用
         return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
     }
+
+    //管理员 -- 倒序
     @RequestMapping(value = "/getCommentDESC/{offset}/{pageSize}")
     private String getCommentByArticleIdDESC(@PathVariable Integer offset, @PathVariable Integer pageSize, Integer articleId){
         List<Comment> list = commentService.getCommentByArticleIdDESC(articleId, offset, pageSize);
@@ -49,32 +41,21 @@ public class CommentController {
         return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
     }
 
-    /**
-     * 根据用户id获取所有评论
-     * @param userId        用户id
-     * @return
-     */
+
+    //根据用户id获取所有评论
     @RequestMapping(value = "/getCommentByUid")
     private String getCommentByUserId(Integer userId){
         List<Comment> list = commentService.getCommentByUserId(userId);
         return JSON.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
     }
 
-    /**
-     * 根据文章id获取文章标题
-     * @param articleId
-     * @return
-     */
+    //根据文章id获取文章标题
     @RequestMapping(value = "/getArticleTitle")
     private String getArticleTitleByAid(Integer articleId){
         return commentService.getArticleTitleById(articleId);
     }
 
-    /**
-     * 评论的添加(发送评论)
-     * @param comment       评论对象
-     * @return              影响行数
-     */
+    //评论的添加(发送评论)
     @RequestMapping(value = "/addComment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     private Integer addComment(@RequestBody Comment comment) {
         Integer integer = commentService.addComment(comment);

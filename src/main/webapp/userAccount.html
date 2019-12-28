@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户中心</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <!-- 编辑器 -->
+    <script src="asserts/plugins/wangEditor/wangEditor.js"></script>
+    <!-- 本地 css 样式 -->
+    <link href="asserts/css/userAccountStyle.css" rel="stylesheet">
+    <!-- 图标 -->
+    <link href="https://at.alicdn.com/t/font_1546900_y8hdaf5oyp.css" rel="stylesheet">
+
+    <!--日期插件-->
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <script src="asserts/js/moment-with-locales.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+    <!--检验-->
+    <link href="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/language/zh_CN.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            //表单校验
+            $("form").bootstrapValidator({
+                fields: {
+                    name: {
+                        validators: {
+                            notEmpty: {
+                                message: '昵称不能为空'
+                            }
+                        }
+                    }
+                }
+            })
+            //生日插件
+            $('#birthDate').datetimepicker({
+                format: 'YYYY-MM-DD',
+                locale: moment.locale('zh-cn')
+            });
+
+            //获取用户新未读消息
+            var getRead = function () {
+                $.ajax({
+                    url:"/acgInformation/UserController/findUserById",
+                    type:"GET",
+                    async:false,
+                    data:{},
+                    success:function (data) {
+                        user = JSON.parse(data);
+                    }
+                })
+                $.ajax({
+                    url:"/acgInformation/message/getNoReadCount",
+                    data:{
+                        userId:user.uId
+                    },
+                    async:false,
+                    success:function (count) {
+                        $(".badge").text(count);
+                    }
+                })
+            }
+            getRead();
+
+
+            //数据回显
+            function show(){
+                $.ajax({
+                    url:"/acgInformation/UserController/findUserById",
+                    async:false,
+                    dataType:"JSON",
+                    success:function (data) {
+                        $("#pic").attr("src", "asserts/images/headPicture/" + data.uPic);
+                        $(".money").text(data.uMoney);
+                        $("#name").val(data.uName);
+                        $("#email").val(data.uEmail);
+                        $("#brief").val(data.uBrief);
+                        $("#myBrith").val(data.uBirth);
+
+                        if(data.uAuthority == 1){
+                            $(".system").html("<div class='iconfont icon-yonghu' style='text-align: center;color: #898989;font-size: small;margin-top: 5px;'> 普通用户 <a href='views/member.html'>升级为超级会员</a></div>");
+                        } else if (data.uAuthority == 2){
+                            $(".system").html("<div class='iconfont icon-huiyuanjulebu' style='text-align: center;color: #f6c214;font-size: small;margin-top: 5px;'> 超级会员</div>");
+                        } else {
+                            $(".system").html("<div class='iconfont icon-guanliyuan' style='text-align: center;color: #005dac;font-size: small;margin-top: 5px;'> 管理员</div>");
+                        }
+                        if(data.uSex == "女"){
+                            $(".man").attr("class","man btn btn-default");
+                            $(".woman").attr("class","woman btn btn-primary");
+                            $("#sex").val("女");
+                        } else {
+                            $(".man").attr("class","man btn btn-primary");
+                            $(".woman").attr("class","woman btn btn-default");
+                            $("#sex").val("男");
+                        }
+                    }
+                })
+            }
+            show();
+            //选择头像图片
+            $("#pic").click(function () {
+                $("#upload").click()
+            });
+            // 头像预览
+            var file;
+            $("#upload").change(function () {
+                //avatar_file  input[file]的ID
+                // 获取上传文件对象
+                file = $(this)[0].files[0];
+                // 读取文件URL
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                // 阅读文件完成后触发的事件
+                reader.onload = function () {
+                    // 读取的URL结果：this.result
+                    $("#pic").attr("src", this.result);//avatar_img  img标签的ID
+                }
+            });
+
+            //修改资料
+            $(".modified").click(function () {
+                var fileName = "null";
+                if (file != undefined){
+                    var formData = new FormData();
+                    formData.append("file",file);
+                    //上传头像文件
+                    $.ajax({
+                        url:"/acgInformation/UserController/modifiedPic",
+                        type:"POST",
+                        data:formData,
+                        async:false,
+                        cache: false, //上传文件不需要缓存
+                        processData: false, // 告诉jQuery不要去处理发送的数据
+                        contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+                        success:function (data) {
+                            fileName = JSON.parse(data);
+                        }
+                    });
+                }
+                if (fileName == "null"){
+                    fileName = $("#pic").attr("src").substring(27);
+                }
+                //更改用户资料
+                $.ajax({
+                    url:"/acgInformation/UserController/updateUser",
+                    type:"POST",
+                    data:"{'uName':'" + $("#name").val() + "','uEmail':'" + $("#email").val() + "','uBrief':'" + $("#brief").val() + "','uBirth':'" + $("#myBrith").val() + "','uSex':'" + $("#sex").val() + "','uPic':'" + fileName + "'}",
+                    async:false,
+                    contentType:"application/json;charset=utf-8",
+                    dataType:"JSON",
+                    success:function (data) {
+                        if (data != 0){
+                            alert("修改成功");
+                            show();
+                        }
+                    }
+                })
+            });
+
+            //性别选择
+            $(".man").click(function () {
+                $(this).attr("class","man btn btn-primary");
+                $(".woman").attr("class","woman btn btn-default");
+                $("#sex").val("男");
+            })
+            $(".woman").click(function () {
+                $(this).attr("class","woman btn btn-primary");
+                $(".man").attr("class","man btn btn-default");
+                $("#sex").val("女");
+            })
+        })
+    </script>
+</head>
+<body>
+    <div class="top container-fluid">
+    <div class="container">
+        <div class="titleLogo col-lg-3">
+            <img src="https://wx3.sinaimg.cn/mw690/a8a5aaf4gy1ga6hmhw0y9j209203udfu.jpg" height="78" width="197" onclick="location.href = 'index.html'">
+        </div>
+        <div class="menu-fix-box col-lg-6">
+        </div>
+        <div class="menu-message col-lg-3" style="text-align: right;float: right">
+            <span>余额:</span><span class="money"></span><a href="views/recharge.html" id="go">充值 </a>
+            <a class="myMessages" href="myMessages.html" style="line-height: 80px;padding-right: 15px">消息 <span class="badge">42</span></a>
+            <a href="/acgInformation/UserController/logout">注销</a>
+        </div>
+    </div>
+</div>
+    <div class="content container">
+        <div class="left col-lg-5">
+            <div class="head col-lg-12">
+                <img id="pic" src="asserts/images/headPicture/default.jpg" width="250" height="250">
+                <p>更改头像</p>
+                <form id="uploadForm"  enctype="multipart/form-data">
+                    <input type="file" id="upload">
+                </form>
+            </div>
+            <div class="system col-lg-12">
+            </div>
+        </div>
+        <div class="right col-lg-7">
+            <div class="user col-lg-12">
+                <form id="userForm">
+                    <div class="form-group">
+                        <label for="name">用户昵称</label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="请输入内容..">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">电子邮箱</label>
+                        <input type="email" class="form-control" id="email" placeholder="请输入内容..">
+                    </div>
+                    <div class="form-group">
+                        <label for="brief">个性签名</label>
+                        <input type="text" class="form-control" id="brief" placeholder="请输入内容..">
+                    </div>
+                    <div class="form-group">
+                        <label>选择日期：</label>
+                        <!--指定 date标记-->
+                        <div class='input-group date' id='birthDate'>
+                            <input type='text' class="form-control" id="myBrith" placeholder="请选择日期.."/>
+                            <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>性别:</label><br />
+                        <input type="hidden" value="男" id="sex">
+                        <button type="button" class="man btn btn-primary">男</button>
+                        <button type="button" class="woman btn btn-default">女</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="myBtn col-lg-12">
+            <button type="button" class="modified btn btn-default">修改</button>
+            <button type="button" class="black btn btn-default" onclick="self.location=document.referrer;">返回</button>
+        </div>
+    </div>
+</body>
+</html>

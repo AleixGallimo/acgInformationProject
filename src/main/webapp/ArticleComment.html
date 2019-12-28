@@ -44,7 +44,7 @@
                 </ul>
             </div>
             <div class="menu-message col-lg-3" style="text-align: right;float: right">
-                <a class="myUserName" style="margin-right: 15px" href="views/finduser.html"> </a>
+                <a class="myUserName" style="margin-right: 15px" href="userAccount.html"> </a>
                 <a class="myMessages" href="myMessages.html" style="line-height: 80px;padding-right: 15px">消息 <span class="badge">42</span></a>
                 <a href="/acgInformation/UserController/logout">注销</a>
             </div>
@@ -198,13 +198,13 @@
             var editor;
             //检查用户登录状态
             $.ajax({
-                url:"/acgInformation/comment/check",
+                url:"/acgInformation/UserController/check",
                 async:false,
                 data:{},
                 success:function (data) {
                     console.log(data)
                     if (data == 0){
-                        location.href = "login.html";
+                        location.href = "login.html?flag=false";
                         return;
                     }
                 }
@@ -219,8 +219,6 @@
                     async:false,
                     data:{},
                     success:function (data) {
-
-                        console.log(data);
                         user = JSON.parse(data);
                     }
                 })
@@ -309,14 +307,13 @@
                     async:false,
                     success:function (data) {
                         authorObj = JSON.parse(data);
-                        console.log("a" + authorObj)
                     }
                 })
             }
             //设置文章作者
             var setAuthor = function () {
                 console.log(authorObj)
-                $(".rHeadPic img").attr("src",authorObj.uPic);
+                $(".rHeadPic img").attr("src","asserts/images/headPicture/" + authorObj.uPic);
                 $(".rUserName span:first").text(authorObj.uName + " ");
                 /*判定用户权限*/
                 var uAuthority = authorObj.uAuthority;
@@ -391,7 +388,7 @@
                                     "<div class='comment container-fluid'>\n" +
                                     "    <div class='user col-lg-3'>\n" +
                                     "        <div class='userHead'>\n" +
-                                    "            <img src='" + user.uPic + "' width='100' height='100' class='imgHead img-thumbnail'>\n" +
+                                    "            <img src='asserts/images/headPicture/" + user.uPic + "' width='100' height='100' class='imgHead img-thumbnail'>\n" +
                                     "        </div>\n" +
                                     "        <div class='userName'>\n" +
                                     "            <div><a class='userNameHref'>" + user.uName +  "</a></div>\n" +

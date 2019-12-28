@@ -4,14 +4,17 @@ import com.qf.acgInformation.entity.User;
 import com.qf.acgInformation.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -19,6 +22,18 @@ import java.util.Random;
 public class UserController {
     @Resource
     private IUserService userService;
+
+    //检查用户登录状态
+    @RequestMapping(value = "/check")
+    private Integer checkLogin(HttpServletRequest request){
+        Integer uid = (Integer) request.getSession().getAttribute("uid");
+        Integer adminId = (Integer)request.getSession().getAttribute("adminId");
+        if(adminId != null || uid != null){
+            return 1;
+        }
+        return 0;
+    }
+
     //修改资料前的回显
     @RequestMapping(value = "/findUserById",method = RequestMethod.GET)
     public User findUserById(HttpServletRequest request){
@@ -26,23 +41,36 @@ public class UserController {
         User user = userService.findUserById((Integer) uid);
         return user;
     }
-    //更新数据
-    @RequestMapping(value = "/updateUser",method = RequestMethod.GET)
-    public String updateUser(User user, HttpServletRequest request){
-        Object uid = request.getSession().getAttribute("uid");
-        log.debug("uid:"+uid);
-        user.setUId((Integer) uid);
-        User user1 = userService.findUserById((Integer) uid);
-        log.debug("user1:"+user1);
-        log.debug("user:"+user);
-//        String uAccount = user1.getUAccount();
-        user1 = user;
-        log.debug("user1:"+user1);
-        Integer updateUser = userService.updateUser(user1);
-        if (updateUser>0){
-            return "1";
+
+    //修改用户资料
+    @RequestMapping(value = "/modified", method = RequestMethod.POST)
+    private Integer modified(@RequestBody User user){
+        return userService.updateUser(user);
+    }
+    //修改用户头像
+    @RequestMapping(value = "/modifiedPic", method = RequestMethod.POST)
+    private String modifiedPic(@RequestParam(value = "file", required = false) MultipartFile upload, HttpServletRequest request) throws IOException {
+        String path = request.getSession().getServletContext().getRealPath("/asserts/images/headPicture");
+        File file = new File(path);
+        if(!file.exists()){
+            file.mkdir();
         }
-        return "0";
+        //解决重名问题
+        //获取文件名
+        String filename = upload.getOriginalFilename();
+        //拼接UUID
+        filename = UUID.randomUUID().toString()+"_"+filename;
+        //调用 MultipartFile 的 transferTo() 完成文件上传
+        upload.transferTo(new File(file,filename));
+        return filename;
+    }
+
+    //更新数据
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    public Integer updateUser(@RequestBody User user, HttpServletRequest request){
+        Object uid = request.getSession().getAttribute("uid");
+        user.setUId((Integer) uid);
+        return userService.updateUser(user);
 
     }
 

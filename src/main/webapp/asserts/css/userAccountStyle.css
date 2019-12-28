@@ -1,0 +1,43 @@
+body{
+    background-color: #ebebeb;
+}
+.top{
+    background-color: white;
+    margin-bottom: 30px;
+    border: #d7d7d7 solid 1px;
+}
+.content{
+    background-color: white;
+    padding: 50px;
+    border: #d7d7d7 solid 1px;
+}
+.left{
+    text-align: center;
+
+}
+.right{
+    margin-bottom: 50px;
+}
+.myBtn{
+    text-align: center;
+}
+.black{
+    width: 150px;
+}
+.modified{
+    width: 150px;
+    margin-right: 10px;
+}
+
+.form-group{
+    width: 490px;
+}
+#upload{
+    display: none;
+}
+.money{
+    margin-right: 5px;
+}
+#go{
+    margin-right: 10px;
+}

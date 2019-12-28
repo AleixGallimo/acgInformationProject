@@ -26,13 +26,12 @@
 		$(function() {
 			//检查用户登录状态
 			$.ajax({
-				url:"/acgInformation/comment/check",
+				url:"/acgInformation/UserController/check",
 				async:false,
 				data:{},
 				success:function (data) {
 					console.log(data)
 					if (data == 0){
-						alert("尊敬的用户，请先登录");
 						location.href = "login.html";
 						return;
 					}

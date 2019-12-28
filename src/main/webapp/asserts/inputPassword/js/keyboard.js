@@ -181,7 +181,7 @@ function checkPassword(money1) {
             console.log(data);
             if (data==1){
                 alert("充值成功！！");
-                location.href = "/acgInformation/views/finduser.html";
+                location.href = "../../../views/old__finduser.html";
             }else if (data==0){
                 alert("充值失败，请重新充值！");
             }else {
